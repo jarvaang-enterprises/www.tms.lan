@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(83, 95, 63)!important;
+}
+.wel-text {
+    border: 2px solid grey;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    font-size: 22px;
+    background-color: rgb(38, 62, 77);
+    color: rgb(135, 185, 135);
+}
+.linear-nav {
+    background-color: grey;
+    width: max-content;
+    margin-left: 40%;
+    margin-bottom: 20px;
+}
+.linear-nav li {
+    list-style: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0px 35px 0px 35px;
+    color: #000;
+}

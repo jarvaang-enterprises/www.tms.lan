@@ -25,7 +25,7 @@
 							</div>
 						</li>
 						<li class="nav-item">
-							<a onclick="LTL()" href="#tenants" class="nav-link">Tenants</a>
+							<a onclick="ten()" href="#tenants" class="nav-link">Tenants</a>
 						</li>
 					<?php
 				} else if ($_SESSION['client_logged_in'] == true) {

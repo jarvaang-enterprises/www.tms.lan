@@ -1,0 +1,9 @@
+.credits {
+    float: right;
+    text-align: right;
+    background-color: rgb(109, 150, 67);
+    padding: 5px;
+    border: 2px wavy rgb(38, 0, 255);
+    border-bottom-left-radius: 15px;
+    font-size: 12px;
+}

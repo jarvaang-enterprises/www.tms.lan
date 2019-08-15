@@ -18,6 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 setcookie('user',base64_encode($email),time()+60*60*24*7,'/','tms.lan',true,true);
                 setcookie('passwd',base64_encode($password),time()+60*60*24*7,'/','tms.lan',true,true);
             }
+            setcookie('msg','',time()-60*60*24*2,'/','tms.lan',true,true);
             $sqls = 'select NIN from accounts where username = "'.$email.'"';
             $sqls = mysqli_query($con,$sqls);
             $results = mysqli_fetch_assoc($sqls);
