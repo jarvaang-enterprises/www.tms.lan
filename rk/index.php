@@ -15,7 +15,8 @@
         <li class="navs hotels">Test Content</li><hr style="margin:0px 0px;">
         <li class="navs hotels">Test Content</li><hr style="margin:0px 0px;">
     </div>
-    <div id="hotels" style="display:none">Hotels</div>
+    <div id="hotels" style="display:none">
+        <span></span>Hostels</div>
     <div id="hostels" style="display:none">Hostels</div>
 </div>
 <?php
