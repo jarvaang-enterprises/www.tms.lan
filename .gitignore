@@ -1,4 +1,5 @@
 # Logs
+.htaccess
 logs
 *.log
 npm-debug.log*
