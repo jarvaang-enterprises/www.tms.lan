@@ -9,11 +9,18 @@ body {
     background-color: rgb(38, 62, 77);
     color: rgb(135, 185, 135);
 }
+.bdy {
+    background-color: rgb(38, 62, 77);
+    padding: 5px;
+    padding-top: 63px;
+    height: auto;
+}
 .linear-nav {
     background-color: grey;
-    width: max-content;
-    margin-left: 40%;
-    margin-bottom: 20px;
+    width: 35%;
+    margin-left: 35%;
+    margin-bottom: 10px;
+    text-align: center;
 }
 .linear-nav li {
     list-style: none;
@@ -21,4 +28,47 @@ body {
     cursor: pointer;
     padding: 0px 35px 0px 35px;
     color: #000;
+}
+.top-left-corner {
+    font-size: 20px;
+    color: white;
+    display: none;
+}
+#hostels {
+    color: rgb(243, 233, 214);
+}
+
+.hostel-list{
+    background-color: rgb(86, 143, 124);
+    color: #000000;
+    text-align: left!important;
+}
+.content{
+    width: 60%;
+    margin-left: 30px;
+    transition: all 1s;
+    padding: 10px;
+    border-left: 2px double floralwhite;
+}
+.txt {
+    display: block;
+}
+.sm-scr {
+    display: none;
+}
+@media screen and (max-width: 640px) {
+    .linear-nav {
+        margin-left: 25%;
+        margin-left:30%;
+        padding: 0 -100px 0 -10px;
+    }
+    .txt {
+        display: none;
+    }
+    .sm-scr {
+        display: block;
+    }
+    .linear-nav li {
+        padding: 0px 10px 0px 10px
+    }
 }

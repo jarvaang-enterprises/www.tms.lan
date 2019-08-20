@@ -10,7 +10,14 @@ h1.header {
     background-color: black;
     margin-bottom: 0px;
 }
-
+.naver{
+    position: fixed;
+    width: 100%;
+}
+.naver + .linear-nav{
+    position: fixed;
+    width: 100%;
+}
 .nav li {
     list-style: none;
     float: right;
