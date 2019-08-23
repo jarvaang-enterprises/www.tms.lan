@@ -1,31 +1,31 @@
-$('.back').on('click', ()=>{
-    $('.content').css({
-        display:'none'
-    })
-    $('.back').css({
-        display: 'none'
-    });
-    $('.navs.hotels').css({
-        'background-color': 'grey',
-        color: 'black'
-    });
-    $('.navs.hostels').css({
-        color: 'black',
-        'background-color': 'grey'
-    });
-    $('.navs.accs').css({
-        color: 'black',
-        'background-color': 'grey'
-    });
-    $('.linear-nav').css({
-        transition: 'all 1s',
-        'margin-left': '40%'
-    });
-    $('#hostels').css({
-        display:'none'
-    });
-})
-$('.navs.hotels').on('click', ()=>{
+// $('.back').on('click', () => {
+//     $('.content').css({
+//         display: 'none'
+//     })
+//     $('.back').css({
+//         display: 'none'
+//     });
+//     $('.navs.hotels').css({
+//         'background-color': 'grey',
+//         color: 'black'
+//     });
+//     $('.navs.hostels').css({
+//         color: 'black',
+//         'background-color': 'grey'
+//     });
+//     $('.navs.accs').css({
+//         color: 'black',
+//         'background-color': 'grey'
+//     });
+//     $('.linear-nav').css({
+//         transition: 'all 1s',
+//         'margin-left': '40%'
+//     });
+//     $('#hostels').css({
+//         display: 'none'
+//     });
+// })
+$('.navs.hotels').on('click', () => {
     $('.back').css({
         display: 'block'
     });
@@ -42,7 +42,7 @@ $('.navs.hotels').on('click', ()=>{
         'background-color': 'grey'
     })
 });
-$('.navs.hostels').on('click', ()=>{
+$('.navs.hostels').on('click', () => {
     $('.back').css({
         display: 'block'
     });
@@ -62,7 +62,8 @@ $('.navs.hostels').on('click', ()=>{
         transition: 'all 2s',
         'margin-left': '0%',
         width: '35%',
-        position: 'fixed',
+        position: 'absolute',
+        overflow: 'none'
     });
     $('.linear-nav li').css({
         padding: '0px 10px 0px 10px',
@@ -72,10 +73,10 @@ $('.navs.hostels').on('click', ()=>{
         'margin-left': '36%'
     });
     $('#hostels').css({
-        display:'block'
+        display: 'block'
     });
 });
-$('.navs.accs').on('click', ()=>{
+$('.navs.accs').on('click', () => {
     $('.back').css({
         display: 'block'
     });
@@ -92,9 +93,9 @@ $('.navs.accs').on('click', ()=>{
         'background-color': 'grey'
     });
 })
-$('.login').on('click', ()=>{
+$('.login').on('click', () => {
     window.location = '/login.php';
 });
-$('.signup').on('click', ()=>{
+$('.signup').on('click', () => {
     window.location = '/signup.php';
 });
