@@ -1,4 +1,7 @@
 # Logs
+ghls/.idea
+ghls/h
+ghls/webscraper-env/
 .htaccess
 logs
 *.log
