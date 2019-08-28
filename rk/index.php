@@ -188,6 +188,7 @@ $acc = 'Accomodation';
                     <li>Nana Hostel</li>
                 </ul>
             </div>
+            <div id="hotels" style="display: none"></div>
         </div>
     </div>
 

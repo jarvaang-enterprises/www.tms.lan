@@ -2,22 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42e4531b-4a4d-4367-9a1f-05e6ffbac65a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/../.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0860.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0861.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0862.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0863.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0864.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0865.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0866.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0896.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0897.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0899.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0900.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0901.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../includes/tbi/IMG_0902.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/signup.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/signup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/styles/dialogs.inc.css" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/dialogs.inc.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ghls.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ghls.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel0.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/hotel7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rKData.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/webscraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/inc/footer.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/footer.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/inc/header.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/header.inc.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,14 +24,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/webscraper.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="97" column="65" selection-start-line="97" selection-start-column="65" selection-end-line="97" selection-end-column="65" />
+            <state relative-caret-position="195">
+              <caret line="85" column="19" selection-start-line="83" selection-end-line="87" selection-end-column="20" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -48,6 +58,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/webscraper.py" />
+        <option value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
       </list>
     </option>
   </component>
@@ -57,14 +68,15 @@
         <option value="$PROJECT_DIR$/.idea/ghls.iml" />
         <option value="$PROJECT_DIR$/.idea/vcs.xml" />
         <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="341" />
+    <option name="x" value="70" />
     <option name="y" value="27" />
     <option name="width" value="648" />
-    <option name="height" value="555" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -72,22 +84,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ghls" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ghls" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -101,6 +103,26 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="scraper" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="ghls" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper-env/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -117,15 +139,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="27" width="1296" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12254517" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05970149" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -133,23 +150,43 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.5157025" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rKData.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rKData.json" />
     <entry file="file://$PROJECT_DIR$/webscraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="97" column="65" selection-start-line="97" selection-start-column="65" selection-end-line="97" selection-end-column="65" />
+        <state relative-caret-position="420">
+          <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="85" column="19" selection-start-line="83" selection-end-line="87" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

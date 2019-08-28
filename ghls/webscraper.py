@@ -21,6 +21,9 @@ def getHtml(html, fls, c_file):
     c_file[fls] = 'written'
 
 
+locnum = []
+
+
 def getJson(fil, hotels):
     file_url = "https://www.tms.lan/ghls/"+fil
     response = requests.get(file_url, timeout=10, verify=False)
@@ -29,7 +32,8 @@ def getJson(fil, hotels):
     num = content.find('h2', attrs={"class": "LxbR2d EaA2sf"}).text
     hotels.append(location)
     hotels.append(num)
-    for hotel in content.findAll('c-wiz', attrs={"class": "nzwZbc", "jsrenderer": "kY4wqf", "jsshadow": "", "jsmodel": "hc6Ubd"}):
+    for hotel in content.findAll('c-wiz',
+                                 attrs={"class": "nzwZbc", "jsrenderer": "kY4wqf", "jsshadow": "", "jsmodel": "hc6Ubd"}):
         try:
             thumbnail = hotel.find('img', attrs={"class": "wOQnuc U106ic q5P4L"})['src']
         except AttributeError:
