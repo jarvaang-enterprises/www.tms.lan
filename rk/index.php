@@ -3,6 +3,7 @@
 require('inc/header.inc.php');
 $acc = 'Accomodation';
 ?>
+<div class="loader"></div>
 <div class="bdy">
     <div class="wel-text">
         <div class="wel">Welcome to Rent Kampala</div>
