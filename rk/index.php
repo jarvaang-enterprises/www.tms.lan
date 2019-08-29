@@ -2,11 +2,13 @@
 // Header file template
 require('inc/header.inc.php');
 $acc = 'Accomodation';
+$browser = browser_name();
+print_r($browser);
 ?>
 <div class="loader"></div>
 <div class="bdy">
-    <div class="wel-text">
-        <div class="wel">Welcome to Rent Kampala</div>
+    <div class="wel-text"><div id="top"></div>
+        <div class="wel" id="wel">Welcome to Rent Kampala</div>
         
         <hr style="margin-top: 5px;margin-bottom:0px">
         <div class="linear-nav" style="display:block;margin-top:15px">
@@ -192,8 +194,141 @@ $acc = 'Accomodation';
             <div id="hotels" style="display: none"></div>
         </div>
     </div>
-
+<script>
+    $('li.hotels').on('click touchstart', () => {
+    $('.back').css({
+        display: 'block'
+    });
+    $('.navs.hotels').css({
+        'background-color': 'black',
+        color: 'white'
+    });
+    $('.navs.hostels').css({
+        color: 'black',
+        'background-color': 'grey'
+    });
+    $('.navs.accs').css({
+        color: 'black',
+        'background-color': 'grey'
+    })
+    $('.linear-nav').css({
+        transition: 'all 2s',
+        'margin-left': '0%',
+        width: '35%',
+        position: 'absolute',
+        overflow: 'none'
+    });
+    $('.linear-nav li').css({
+        padding: '0px 10px 0px 10px',
+    });
+    $('.content').css({
+        display: 'block',
+        'margin-left': '36%'
+    });
+    $('#hotels').css({
+        display: 'block'
+    });
+    $('#hostels').css({
+        display: 'none'
+    });
+});
+$('li.hostels').on('click touchstart', () => {
+    $('.back').css({
+        display: 'block'
+    });
+    $('.navs.hotels').css({
+        'background-color': 'grey',
+        color: 'black'
+    });
+    $('.navs.hostels').css({
+        color: 'white',
+        'background-color': 'black'
+    });
+    $('.navs.accs').css({
+        color: 'black',
+        'background-color': 'grey'
+    });
+    $('.linear-nav').css({
+        transition: 'all 2s',
+        'margin-left': '0%',
+        width: '35%',
+        position: 'absolute',
+        overflow: 'none'
+    });
+    $('.linear-nav li').css({
+        padding: '0px 10px 0px 10px',
+    });
+    $('.content').css({
+        display: 'block',
+        'margin-left': '36%'
+    });
+    $('#hotels').load('/hotels.php');
+    $('#hostels').css({
+        display: 'block'
+    });
+    $('#hotels').css({
+        display: 'none'
+    });
+});
+$('li.accs').on('click touchstart', () => {
+    $('.back').css({
+        display: 'block'
+    });
+    $('.navs.accs').css({
+        color: 'white',
+        'background-color': 'black'
+    });
+    $('.navs.hotels').css({
+        'background-color': 'grey',
+        color: 'black'
+    });
+    $('.navs.hostels').css({
+        color: 'black',
+        'background-color': 'grey'
+    });
+});
+</script>
     <?php
     // Footer file template
     require('inc/footer.inc.php');
+    function browser_name()
+{
+
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+
+    if (
+        strpos(strtolower($ua), 'safari/') &&
+        strpos(strtolower($ua), 'opr/')
+    ) {
+        // Opera
+        $res = 'Opera';
+    } elseif (
+        strpos(strtolower($ua), 'safari/') &&
+        strpos(strtolower($ua), 'chrome/')
+    ) {
+        // Chrome
+        $res = 'Chrome';
+    } elseif (
+        strpos(strtolower($ua), 'msie') ||
+        strpos(strtolower($ua), 'trident/')
+    ) {
+        // Internet Explorer
+        $res = 'Internet Explorer';
+    } elseif (strpos(strtolower($ua), 'firefox/')) {
+        // Firefox
+        $res = 'Firefox';
+    } elseif (
+        strpos(strtolower($ua), 'safari/') &&
+        (strpos(strtolower($ua), 'opr/') === false) &&
+        (strpos(strtolower($ua), 'chrome/') === false)
+    ) {
+        // Safari
+        $res = 'Safari';
+    } else {
+        // Out of data
+        $res = false;
+    }
+
+    return $res;
+}
     ?>

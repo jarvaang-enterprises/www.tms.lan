@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42e4531b-4a4d-4367-9a1f-05e6ffbac65a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ghls.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ghls.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel0.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel3.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel4.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel5.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel6.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/hotel7.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rKData.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/webscraper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/footer.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/footer.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/header.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/header.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../includes/cli/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/../includes/cli/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/hotels.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/hotels.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/styles/index.inc.css" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/index.inc.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/styles/js/automation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/js/automation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/styles/js/gethotels.js" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/js/gethotels.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/styles/js/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/js/serviceWorker.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +21,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="1065">
               <caret line="85" column="19" selection-start-line="83" selection-end-line="87" selection-end-column="20" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -41,7 +34,7 @@
         <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="155">
-              <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+              <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -72,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="70" />
     <option name="y" value="27" />
     <option name="width" value="648" />
@@ -109,6 +102,9 @@
       <module name="ghls" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper-env/bin/python" />
       <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -138,9 +134,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="27" width="1296" height="741" extended-state="6" />
+    <frame x="70" y="27" width="648" height="741" extended-state="4" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05970149" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0864" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -153,7 +149,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.5157025" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.5173554" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -173,7 +169,7 @@
     </entry>
     <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="1065">
           <caret line="85" column="19" selection-start-line="83" selection-end-line="87" selection-end-column="20" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -184,7 +180,7 @@
     <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

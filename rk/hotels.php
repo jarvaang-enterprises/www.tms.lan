@@ -14,51 +14,85 @@
     $data = file_get_contents('./inc/rKData.json');
     $jData = json_decode($data, true);
     $hot = 1;
-    for ($i = 0; $i < count($jData); $i++) {
+    $pages = 1;
+    $num = 1;
+    $st = NULL;
+    for ($i = 1; $i < count($jData); $i++) {
         if (strpos($jData[$i], ' hotels') != false || strpos($jData[$i], ' places') != false) {
-            
+            continue;
         } else {
             $loaded[$i] = $jData[$i]['hotelName'];
+            if ($hot == 1) {
+                $st = $i - 2;
+                echo '<div class="hotelList' . $pages . '" style="display: none">';
+            }
             echo '
-            <div id="hotel'.$hot.'" class="thumbnail hotels">
+            <div id="hotel' . $num . '" class="thumbnail hotels">
                 <div class="hotelimg">
                     <div class="img"></div>
-                    <img class="thumbnail image" src="'.$jData[$i]['thumbnail'].'" alt="'.$jData[$i]['hotelName'].' thumbnail"/>
+                    <img class="thumbnail image" src="' . $jData[$i]['thumbnail'] . '" alt="' . $jData[$i]['hotelName'] . ' thumbnail"/>
                 </div>
                 <div class="hotel_choreography">
                     <div class="hotelName">
-                        '.$jData[$i]['hotelName'].'
+                        ' . $jData[$i]['hotelName'] . '
                     </div>
                     <div class="info">
                         <div class="rating">
-                            Rating: '.$jData[$i]['rating'].'
+                            Rating: ' . $jData[$i]['rating'] . '
                         </div>
                         <div class="price">
-                            Price: '.$jData[$i]['price'].' per room
+                            Price: ' . $jData[$i]['price'] . ' per room
                         </div>
-                        <div class="deal" ';$style = 'crimson';if(strpos($jData[$i]['offer'], "o offer ") != false){echo 'style="color:'.$style.'"';};echo '>
-                            <span class="deal">Deal:</span> '.$jData[$i]['offer'].'
+                        <div class="deal" ';
+            $style = 'crimson';
+            if (strpos($jData[$i]['offer'], "o offer ") != false) {
+                echo 'style="color:' . $style . '"';
+            };
+            echo '>
+                            <span class="deal">Deal:</span> ' . $jData[$i]['offer'] . '
                         </div>
                     </div>
                 </div>
                 <div class="h_info">
-                    '.$jData[$i]['info'].'
+                    ' . $jData[$i]['info'] . '
                 </div>
             </div>
             ';
-            // echo '<tr id="hotel'.$hot.'">';
-            // echo '<td style="background-color:grey">
-            //         <img src="'.$jData[$i]["thumbnail"].'" alt="Hotel image">
-            //       </td>
-            //     <td>'.$jData[$i]["hotelName"].'</td>
-            //     <td>'.$jData[$i]["info"].'</td>
-            //     <td>'.$jData[$i]["price"].'</td>
-            //     <td>'.$jData[$i]["offer"].'</td>
-            //     <td>'.$jData[$i]["rating"].'</td></tr>';
+            if ($hot == 12) {
+                if ($i - 12 == 1) {
+                    echo '<div class="list1-button hl' . $pages . '">
+                        <button class="next hl' . $pages . '" onclick=next(' . $pages . ') target="#top">Next&nbsp;&gt;</button>
+                    </div>';
+                } else if ($i - 12 != 1 && $i != count($jData) - 1) {
+                    echo '
+                        <div class="int-list-button hl' . $pages . '">
+                            <div class="prev-button">
+                                <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ') target="#top">&lt;&nbsp;Prev</button>
+                            </div>
+                            <div class="next-button">
+                                <button class="next hl' . $pages . '" onclick=next(' . $pages . ') target="_top">Next&nbsp;&gt;</button>
+                            </div>
+                        </div>
+                    ';
+                } else if ($i == count($jData) - 1) {
+                    echo '
+                    <div class="end-list-button hl' . $pages . '">
+                        <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ') target="#top">&lt;&nbsp;Prev</button>
+                    </div>
+                    ';
+                }
+                echo '</div>';
+                $hot = 0;
+                echo '<div class="code numbering hotelList' . $pages . '" style="display: none">Showing ' . $st . ' - ' . ($i), ' of ' . (count($jData) - 1) . '</div>';
+                $pages++;
+            }
+            $num++;
             $hot++;
         }
     }
+    echo '<script src="/styles/js/gethotels.js"/>';
     ?>
+    <a href="#top">Top</a>
 </body>
 
 </html>

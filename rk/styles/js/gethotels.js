@@ -1,20 +1,23 @@
-var fileContents = '/inc/rKData.json'
-data = jQuery.getJSON(fileContents)
-console.log(data)
-let obj = JSON.parse(data)
-
-function printValues(obj) {
-    for(var k in obj) {
-        if(obj[k] instanceof Object) {
-            printValues(obj[k])
-        } else {
-            document.write(obj[k] + "<br>")
-        }
-    }
+$(window).on("load", 
+    $(".hotelList1").css({
+        display: 'block',
+    })
+);
+prev = (target) => {
+    p = target - 1
+    $('.hotelList'+target).css({
+        display: 'none',
+    });
+    $('.hotelList'+p).css({
+        display: 'block',
+    });
 }
-
-printValues(obj)
-
-document.write("<hr>")
-
-document.write(obj["book"]["author"] + "<br>")
+next = (target) => {
+    n = target + 1
+    $('.hotelList'+target).css({
+        display: 'none',
+    });
+    $('.hotelList'+n).css({
+        display: 'block',
+    });
+}

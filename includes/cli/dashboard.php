@@ -65,5 +65,27 @@ $rpm = $housenum['amt_per_mth'];
                 <td class="rnt-per-month value"><?php echo $rpm;?></td>
             </tr>
         </table>
+        <div class="house_details_small_scr">
+            <div class="location l">
+                <div class="location labelt">House Location</div>
+            </div>
+            <div class="location v">
+                <div class="location value"><?php echo $house_loc;?></div>
+            </div>
+            <div class="sep">&nbsp;</div>
+            <div class="number l">
+                <div class="number labelt">House Number</div>
+            </div>
+            <div class="number v">
+                <div class="number value"><?php echo $house_num;?></div>
+            </div>
+            <div class="sep">&nbsp;</div>
+            <div class="rnt-per-month l">
+                <div class="rnt-per-month labelt">Rent per month</div>
+            </div>
+            <div class="rnt-per-month v">
+                <div class="rnt-per-month value"><?php echo $rpm;?></div>
+            </div>
+        </div>
     </div>
 </div>

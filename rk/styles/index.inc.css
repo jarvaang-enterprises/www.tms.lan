@@ -200,7 +200,7 @@ img.image{
 span.deal {
     color: black;
 }
-.hotels{
+div.hotels{
     background-color: dimgrey!important;
 }.loader {
 	position: fixed;
@@ -210,4 +210,26 @@ span.deal {
 	height: 100%;
 	z-index: 9999;
 	background: url('/inc/loader.gif') 30% 30% no-repeat rgb(249,249,249);
+}
+[class*="hotelList"]{
+    background-color: pink;
+    margin: 10px;
+    padding: 10px;
+}
+.int-list-button{
+    display: inline;
+    vertical-align: middle;
+}
+.prev-button{
+    float: left;
+    margin-left: 25%;
+}
+.next-button{
+    margin-left: 280px;
+}
+.prev-button, .next-button{
+    padding: 0px 15px 0px 15px;
+}
+.numbering {
+    background: transparent!important;
 }
