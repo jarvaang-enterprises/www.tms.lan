@@ -61,23 +61,23 @@
             if ($hot == 12) {
                 if ($i - 12 == 1) {
                     echo '<div class="list1-button hl' . $pages . '">
-                        <button class="next hl' . $pages . '" onclick=next(' . $pages . ') target="#top">Next&nbsp;&gt;</button>
+                        <button class="next hl' . $pages . '" onclick=next(' . $pages . ')>Next&nbsp;&gt;</button>
                     </div>';
                 } else if ($i - 12 != 1 && $i != count($jData) - 1) {
                     echo '
                         <div class="int-list-button hl' . $pages . '">
                             <div class="prev-button">
-                                <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ') target="#top">&lt;&nbsp;Prev</button>
+                                <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ')>&lt;&nbsp;Prev</button>
                             </div>
                             <div class="next-button">
-                                <button class="next hl' . $pages . '" onclick=next(' . $pages . ') target="_top">Next&nbsp;&gt;</button>
+                                <button class="next hl' . $pages . '" onclick=next(' . $pages . ')>Next&nbsp;&gt;</button>
                             </div>
                         </div>
                     ';
                 } else if ($i == count($jData) - 1) {
                     echo '
                     <div class="end-list-button hl' . $pages . '">
-                        <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ') target="#top">&lt;&nbsp;Prev</button>
+                        <button class="prev hl' . $pages . '" onclick=prev(' . $pages . ')>&lt;&nbsp;Prev</button>
                     </div>
                     ';
                 }
@@ -92,7 +92,7 @@
     }
     echo '<script src="/styles/js/gethotels.js"/>';
     ?>
-    <a href="#top">Top</a>
+     <button onclick="topFunction()" ontouchstart="topFunction()" id="top" title="Go to top">Top&nbsp;&tcy;</button> 
 </body>
 
 </html>

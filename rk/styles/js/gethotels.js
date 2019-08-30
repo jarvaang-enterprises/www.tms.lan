@@ -8,6 +8,7 @@ prev = (target) => {
     $('.hotelList'+target).css({
         display: 'none',
     });
+    topFunction()
     $('.hotelList'+p).css({
         display: 'block',
     });
@@ -17,6 +18,7 @@ next = (target) => {
     $('.hotelList'+target).css({
         display: 'none',
     });
+    topFunction()
     $('.hotelList'+n).css({
         display: 'block',
     });
