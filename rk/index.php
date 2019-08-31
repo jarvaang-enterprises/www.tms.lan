@@ -3,21 +3,28 @@
 require('inc/header.inc.php');
 $acc = 'Accomodation';
 $browser = browser_name();
-print_r($browser);
+$o = $browser[1];
+if(strpos(strtolower($o), 'iphone') == false){
+} else if(strpos(strtolower($o), 'android') == false){
+} else if(strpos(strtolower($o), 'windows phone') == false) {
+    echo '<script>console.log("'.strtolower($browser[1]).'");</script>';
 ?>
 <div class="loader"></div>
+<?php
+}
+?>
 <div class="bdy">
     <div class="wel-text">
         <div class="wel" id="wel">Welcome to Rent Kampala</div>
 
         <hr style="margin-top: 5px;margin-bottom:0px">
         <div class="linear-nav" style="display:block;margin-top:15px">
-            <li class="navs hotels" onclick="hotels()">
+            <li class="navs hotels">
                 <span class="txt">Hotel</span>
                 <span class="sm-scr">Hot</span>
             </li>
             <hr style="margin:0px 0px;background-color:black">
-            <li class="navs hostels" onclick="hostels()"
+            <li class="navs hostels">
                 <span class="txt">Hostels</span>
                 <span class="sm-scr">Host</span>
             </li>
@@ -192,7 +199,7 @@ print_r($browser);
                 </ul>
             </div>
             <div id="hotels" style="display: none">
-                <div class="hotel_loader" style="display:none" </div>
+                <div class="hotelloader" style="display:none;background-color:black"></div>
             </div>
         </div>
     </div>
@@ -234,7 +241,19 @@ print_r($browser);
             // Out of data
             $res = false;
         }
-
-        return $res;
+        if(strpos(strtolower($ua), 'linux') && (strpos(strtolower($ua), 'android')) === false) {
+            $os = 'Device: Linux';
+        } else if (strpos(strtolower($ua), 'iphone')) {
+            $os = 'Device: iPhone';
+        } else if (strpos(strtolower($ua), 'mac os x') && (strpos(strtolower($ua), 'iphone')) === false) {
+            $os = 'Device: Mac';
+        } else if(strpos(strtolower($ua), 'linux') && strpos(strtolower($ua), 'android')) {
+            $os = 'Device: Android';
+        } else if(strpos(strtolower($ua), 'windows phone') && strpos(strtolower($ua), 'android')){
+            $os = 'Device: Windows Phone';
+        } 
+        else $os = 'Device: Windows';
+        // echo '<script>console.log("'.$ua.'");</script>';
+        return [$res, $os];
     }
     ?>

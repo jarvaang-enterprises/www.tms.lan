@@ -1,5 +1,5 @@
 $('#hotels').load('/hotels.php');
-hotels = () => {
+$('li.navs.hotels').on('touchstart click touch',  () => {
     $('.back').css({
         display: 'block'
     });
@@ -35,8 +35,8 @@ hotels = () => {
     $('#hostels').css({
         display: 'none'
     });
-}
-hostels = () => {
+})
+$('li.navs.hostels').on('touchstart click touch', function () {
     $('.back').css({
         display: 'block'
     });
@@ -73,8 +73,8 @@ hostels = () => {
     $('#hotels').css({
         display: 'none'
     });
-}
-$('li.navs.accs').on('click touchstart', () => {
+});
+$('li.navs.accs').on('touchstart click touch', function () {
     $('.back').css({
         display: 'block'
     });

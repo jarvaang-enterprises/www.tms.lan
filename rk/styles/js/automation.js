@@ -2,9 +2,9 @@ $(window).on('load', function(){
     $('.loader').fadeOut();
 });
 loader = () => {
-    $('.hotel_loader').fadeIn();
-    setInterval(()=>{
-        $('.hotel_loader').fadeOut();
+    $('.hotel-loader').fadeIn();
+    setInterval(_ => {
+        $('.hotel-loader').fadeOut()
     }, 2000);
 }
 window.onscroll = function() {scrollFunction()};
@@ -16,9 +16,3 @@ function scrollFunction() {
     document.getElementById("top").style.display = "none";
   }
 }
-
-
-function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-} 
