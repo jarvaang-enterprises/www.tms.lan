@@ -1,10 +1,10 @@
 <script src="/styles/js/gethotels.js"></script>
+<script src="/styles/js/automation.js"></script>
 <?php
 $loaded = array();
 $rk = 'rKData';
 $data = file_get_contents('./inc/'.$rk.'.json');
 $jData = json_decode($data, true);
-echo $data.'<script>console.log("'.$extra_images.'");</script>';
 $hot = 1;
 $pages = 1;
 $num = 1;
@@ -19,7 +19,7 @@ for ($i = 1; $i < count($jData); $i++) {
             echo '<div class="hotelList' . $pages . '" style="display: none">';
         }
         echo '
-            <a href="/hotels/viewer.php?h=' . urlencode(base64_encode($jData[$i]['hotelName'])) . '&p=' . urlencode(base64_encode($jData[$i]['price'])) . '&th=' . urlencode(base64_encode($jData[$i]['thumbnail'])) . '&in=' . urlencode(base64_encode($jData[$i]['info'])) . '&r=' . urlencode(base64_encode($jData[$i]['rating'])) . '&o=' . urlencode(base64_encode($jData[$i]['offer'])) . '" target=_self>
+            <a class="no-style" href="/hotels/viewer.php?h=' . urlencode(base64_encode($jData[$i]['hotelName'])) . '&p=' . urlencode(base64_encode($jData[$i]['price'])) . '&th=' . urlencode(base64_encode($jData[$i]['thumbnail'])) . '&in=' . urlencode(base64_encode($jData[$i]['info'])) . '&r=' . urlencode(base64_encode($jData[$i]['rating'])) . '&o=' . urlencode(base64_encode($jData[$i]['offer'])) . '&_rdr=1" target=_blank>
             <div id="hotel' . $num . '" class="thumbnail hotels">
                 <div class="hotelimg">
                     <div class="img"></div>

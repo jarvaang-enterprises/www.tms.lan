@@ -1,0 +1,48 @@
+"use strict";this.default_TravelFrontendHotelsSearchUi=this.default_TravelFrontendHotelsSearchUi||{};(function(_){var window=this;
+try{
+_.t("FCpbqb");
+_.l().Ij(function(a){_.gk(_.Yka,a)});
+
+_.l().H();
+
+}catch(e){_._DumpException(e)}
+try{
+_.t("OJUrvb");
+var aF=function(a){_.w(this,a,"f.bo",-1,null,null)};_.r(aF,_.u);aF.prototype.Da=function(){var a=new _.I;var b=_.z(this,1);null!=b&&_.Gh(a,1,b);return _.K(a)};aF.Di="f.bo";aF.prototype.yb=function(){return _.Lf(this,1)};
+var bF=function(){_.qg.call(this)};_.r(bF,_.qg);_.h=bF.prototype;_.h.Sc=null;_.h.YJ=0;_.h.SI=0;_.h.QJ=null;_.h.$M=!1;_.h.fY=!1;_.h.xZ="/_/idv/";_.h.hS="";_.h.EU=!1;_.h.SD=!1;_.h.uc=function(){this.EU=!1;this.SI&&(window.clearTimeout(this.SI),this.SI=0);bF.Xb.uc.call(this)};_.h.hba=function(){this.SI=0;aXa(this);if(this.SD)return bXa(this),!1;if(!this.fY)return cF(this),!0;this.dispatchEvent("p");if(!this.hS)return cF(this),!0;this.$M?(this.dispatchEvent("r"),cF(this)):bXa(this);return!1};
+var bXa=function(a){a.SD=!0;var b=new _.Gp(a.xZ);_.Zi(b,(0,_.ab)(a.H,a),"POST","rt=r&f_uid="+_.Xc(a.hS))};
+bF.prototype.H=function(a){a=a.target;aXa(this);if(_.bj(a)){this.YJ=0;if(this.$M)this.SD=!1,this.dispatchEvent("r");else if(this.fY)this.dispatchEvent("s");else{try{var b=_.cj(a),c=JSON.parse(b.substring(b.indexOf("\n")));var d=(new aF(c[0])).yb()}catch(e){_.Ci(null,e);this.dispatchEvent("t");cXa(this);return}this.SD=!1;d?this.dispatchEvent("q"):this.dispatchEvent("r")}cF(this)}else{if(0!=a.getStatus()){d="";try{d=_.cj(a)}catch(e){}a=Error("Gb`"+a.getStatus()+"``"+this.xZ+"`"+String(a.ka)+"`"+d);
+_.Ci(null,a);this.dispatchEvent("t")}cXa(this)}};var aXa=function(a){var b=_.bC.get("https:"==window.location.protocol?"SAPISID":"APISID","");a.$M=""!==a.QJ&&""===b;a.fY=a.QJ!=b;a.QJ=b},cXa=function(a){a.$M||(a.SD=!0,a.YJ=Math.min(2*(a.YJ||3),60),cF(a))},cF=function(a){if(a.EU||a.SD)a.SI=window.setTimeout((0,_.ab)(a.hba,a),1E3*Math.max(3,a.YJ))};
+_.l().Ij(function(a){var b=new bF;_.zi(a,_.Pfa,b);if(_.z(_.Oh,1)){a=_.z(_.Oh,1);var c=_.qh("WZsZ1e").Wa(null);b.hS=a;_.Ka(c)&&(b.QJ=c);a=_.Fp();_.lc(a,"/")||(a="/"+a);b.xZ=a+"/idv/";b.EU=!0;b.hba()}});
+
+_.l().H();
+
+}catch(e){_._DumpException(e)}
+try{
+_.t("WhJNk");
+var yXa=new Date(1262304E6),zXa=new Date(12779424E5),AXa=new Date(129384E7),DXa=function(){var a=[],b=new Date;BXa(a,b.getTime());a.push(b.getTimezoneOffset()/15+56);a.push(yXa.getTimezoneOffset()/15+56);BXa(a,CXa(yXa,zXa));a.push(zXa.getTimezoneOffset()/15+56);BXa(a,CXa(zXa,AXa));return a.join("_")},BXa=function(a,b){b?a.push(Math.round((b-yXa.getTime())/6E4)):a.push(null)},CXa=function(a,b){var c=a.getTimezoneOffset(),d=b.getTimezoneOffset();if(c==d)return null;a=a.getTime()/6E4;for(b=b.getTime()/
+6E4;a<=b;){var e=(a>>1)+(b>>1),f=6E4*e,g=(new Date(f+3E4)).getTimezoneOffset();if((new Date(f-3E4)).getTimezoneOffset()!=g)return f;if(g==c)a=e+1;else if(g==d)b=e-1;else break}return null};
+var EXa=function(a){_.M.call(this,a.Fa);this.H=a.Ea.window;var b=void 0===b?!1:b;_.bC.isEnabled()&&(!_.Ka(_.bC.get("OTZ"))||b)&&_.bC.set("OTZ",DXa(),2592E3,"/",void 0,"https:"===this.H.get().location.protocol)};_.p(EXa,_.M);EXa.va=function(){return{Ea:{window:_.Lk}}};_.hr(_.Yka,EXa);
+
+_.l().H();
+
+}catch(e){_._DumpException(e)}
+try{
+var lF=function(a,b,c,d,e){0>=c||0>=d||_.oPa(a,b,d-c)&&(e||FXa(a,c))(b,d)},GXa=function(){var a=_.vPa("NjxExb",_.Yha);_.gPa(a.Sc.H);_.APa(a);_.Ja._F_getAverageFps&&_.nPa(a,"animFps",_.Ja._F_getAverageFps());var b=[];if(!_.Kj.ka&&null!=_.Kj.W){var c={};c.firstInputDelay=_.Kj.W;b.push(c);_.Kj.ka=!0}null!=_.Kj.H&&(c={},c.averageInputDelay=_.Kj.H,b.push(c));_.Kj.ha||null==_.Kj.R||(c={},c.firstInputCodeLoadingDelay=_.Kj.R,b.push(c),_.Kj.ha=!0);_.Kj.V=0;_.Kj.H=null;_.iC(a,b);_.rPa(a);(_.Ja.performance&&
+_.Ja.performance.memory||_.Ja._F_getAverageFps)&&setTimeout(GXa,18E5)},HXa=function(){var a=_.Ja.cc_latency.find(function(b){return"ol"in b});return a?a.ol:Infinity},IXa=[1,2,3,4],JXa=function(a){_.w(this,a,0,-1,IXa,null)};_.r(JXa,_.u);JXa.prototype.Da=function(){var a=new _.I;var b=_.z(this,1);0<b.length&&_.Jh(a,1,b);b=_.z(this,2);0<b.length&&_.Jh(a,2,b);b=_.z(this,3);0<b.length&&_.Jh(a,3,b);b=_.z(this,4);0<b.length&&_.Jh(a,4,b);return _.K(a)};
+var FXa=function(a,b){var c=[{"":b}];a.W.push(c);return function(d,e){var f={};f[d]=e||_.hC();c.push(f)}},KXa=function(a,b){var c=new JXa;b=_.D(c,3,b||[]);a=a.R;b?(a.ha||(a.ha=new _.Vh),b=b.Lc(),_.D(a.ha,4,b)):a.ha&&_.D(a.ha,4,void 0)},LXa=function(){var a=_.uPa;if(!a.H){var b=window.cc_latency,c=window.prt;0<c&&b.push({prt:c});a.H=new _.mPa(a.R,b,window.cc_aid,_.Xha,a.V,a.W)}return a.H.V?null:a.H},MXa=function(a){if(window.performance&&window.performance.timing){var b=window.performance.timing;a.ra.push({label:"addNavigationTimings",
+timing:b});lF(a,"dns",b.domainLookupStart,b.domainLookupEnd);lF(a,"con",b.connectStart,b.connectEnd);lF(a,"req",b.requestStart,b.responseStart);lF(a,"rcv",b.responseStart,b.responseEnd);if(0<b.navigationStart){var c=b.navigationStart,d=FXa(a,c);lF(a,"ntsrt",c,b.responseStart,d);lF(a,"nsfs",c,b.fetchStart,d);lF(a,"ntplt0",c,b.loadEventStart,d);lF(a,"ntplt1",c,b.loadEventEnd,d)}}},NXa=function(a){if(_.Ja.performance&&_.Ja.performance.getEntriesByType&&0!=_.Ja.performance.getEntriesByType("paint").length){a=
+FXa(a,0);var b=_.Ja.performance.getEntriesByType("paint");b=_.va(b);for(var c=b.next();!c.done;c=b.next())switch(c=c.value,c.name){case "first-paint":a("fp",c.startTime+c.duration);break;case "first-contentful-paint":a("fcp",c.startTime+c.duration)}}};_.t("syar");
+_.yPa();_.l().Ij(function(){var a=_.qh("fPDxwd");a.Be()&&KXa(_.uPa,a.W().map(function(b){return b.Db()}));(0,_.Uga)();a=LXa();_.gPa(a.Sc.H);a&&(_.IPa(a,HXa()),MXa(a),NXa(a),_.APa(a),_.BPa(a),_.rPa(a));setTimeout(GXa,3E5)});
+
+_.l().H();
+
+}catch(e){_._DumpException(e)}
+try{
+_.t("_latency");
+
+_.l().H();
+
+}catch(e){_._DumpException(e)}
+}).call(this,this.default_TravelFrontendHotelsSearchUi);
+// Google Inc.

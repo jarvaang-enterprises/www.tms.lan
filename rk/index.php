@@ -7,6 +7,7 @@ $o = $browser[1];
 if(strpos(strtolower($o), 'iphone') == false){
 } else if(strpos(strtolower($o), 'android') == false){
 } else if(strpos(strtolower($o), 'windows phone') == false) {
+} else {
     echo '<script>console.log("'.strtolower($browser[1]).'");</script>';
 ?>
 <div class="loader"></div>

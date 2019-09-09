@@ -13,6 +13,7 @@ h1.header {
 .naver{
     position: fixed;
     width: 100%;
+    z-index: 9999;
 }
 .naver + .linear-nav{
     position: fixed;

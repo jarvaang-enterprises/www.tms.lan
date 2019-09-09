@@ -8,6 +8,7 @@ import selenium.common.exceptions as exc
 from bs4 import BeautifulSoup
 import requests
 import filenameGen as fg
+import hoteldata as ghd
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -25,15 +26,22 @@ locnum = []
 
 
 def getJson(fil, hotels):
-    file_url = "https://www.tms.lan/ghls/"+fil
+    file_url = "https://www.tms.lan/ghls/" + fil
     response = requests.get(file_url, timeout=10, verify=False)
     content = BeautifulSoup(response.content, "html.parser")
-    location = content.find('h2', attrs={"class": "QjOEYc doHftd"}).text
-    num = content.find('h2', attrs={"class": "LxbR2d EaA2sf"}).text
-    hotels.append(location)
-    hotels.append(num)
-    for hotel in content.findAll('c-wiz',
-                                 attrs={"class": "nzwZbc", "jsrenderer": "kY4wqf", "jsshadow": "", "jsmodel": "hc6Ubd"}):
+    try:
+        location = content.find('h2', attrs={"class": "QjOEYc doHftd"}).text
+        hotels.append(location)
+    except AttributeError:
+        print('Location not found...')
+    try:
+        num = content.find('h2', attrs={"class": "LxbR2d EaA2sf"}).text
+        hotels.append(num)
+    except AttributeError:
+        print('Number of Hotels not found...')
+
+    for hotel in content.findAll('c-wiz', attrs={"class": "nzwZbc", "jsrenderer": "kY4wqf", "jsshadow": "",
+                                                 "jsmodel": "hc6Ubd"}):
         try:
             thumbnail = hotel.find('img', attrs={"class": "wOQnuc U106ic q5P4L"})['src']
         except AttributeError:
@@ -99,7 +107,7 @@ cap = DesiredCapabilities.FIREFOX
 cap['pageLoadStrategy'] = "none"
 opt = Options()
 opt.add_argument('--headless')
-browser = webdriver.Firefox(desired_capabilities=cap, options=opt)
+browser = webdriver.Firefox(desired_capabilities=cap)
 wait = WebDriverWait(browser, 60)
 url = 'https://www.google.com/travel/hotels?hrf=CgYIoMIeEAAiA1VHWCoWCgcI4w8QCRgDEgcI4w8QCRgEGAEgAbABAFgBaAhyAggCmgEw' \
       'EgdLYW1wYWxhGiUweDE3N2RiYzBmOWQ3NGIzOWI6MHg0NTM4OTAzZGQ5NmI2ZmVjogETCggvbS8wZm5neRIHS2FtcGFsYaoBCgoCCBwSAghHG' \
@@ -109,36 +117,38 @@ url = 'https://www.google.com/travel/hotels?hrf=CgYIoMIeEAAiA1VHWCoWCgcI4w8QCRgD
       'KCgIIHBICCEcYAaoBDwoCCC4SAwiCARICCAwYAZIBAiABaAA&destination=Kampala'
 print('Initializing...')
 browser.get(url)
-print('Scrapping')
 try:
     wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.kK2YDd')))
 except exc.TimeoutException:
-    print('Please check your Internet Connection,\nPage load is slow')
+    print('Please check your Internet Connection,\nPage has failed to load.')
     browser.quit()
     exit(1)
-time.sleep(10)
+time.sleep(30)
+print('Scrapping')
 t = 1
 uf = 0
 while t == 1:
     h = browser.page_source
-    print('Page ' + str(uf+1) + ' done')
+    print('Page ' + str(uf + 1) + ' done')
     getHtml(h, files[uf], c_files)
     if uf is 0:
         snext = browser.find_element_by_xpath(
             "/html/body/c-wiz[2]/div/c-wiz/div/div[1]/div/div[4]/div/div[2]/c-wiz/div[6]/div/div/div[2]")
         browser.execute_script("arguments[0].click();", snext)
         wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.kK2YDd')))
-        time.sleep(5)
+        time.sleep(10)
     else:
         try:
             snext = browser.find_element_by_xpath(
                 "/html/body/c-wiz[2]/div/c-wiz/div/div[1]/div/div[4]/div/div[2]/c-wiz/div[6]/div[2]/div")
-            browser.execute_script("arguments[0].click();", snext)
+            # browser.execute_script("arguments[0].click();", snext)
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.kK2YDd')))
-            time.sleep(5)
+            time.sleep(10)
         except TimeoutError:
             t = 0
             os.remove(files[uf])
+            ghd.gethoteldata(url, browser, wait, EC, By)
+            browser.quit()
             print('Error: Hotel List not Found...')
             print('Shutting Down Scraper ...')
             time.sleep(2)
@@ -146,20 +156,22 @@ while t == 1:
             for file in files:
                 if file_created(file):
                     getJson(file, hotelList)
-                    os.remove(file)
+                    # os.remove(file)
             write_out(hotelList)
             os.rename('hotelData.json', 'rKData.json')
         except exc.NoSuchElementException:
             print('Error: Next Button not Found.')
             t = 0
             os.remove(files[uf])
+            ghd.gethoteldata(url, browser, wait)
+            browser.quit()
             print('Shutting Down Scraper ...')
             time.sleep(2)
             print('Creating organised tables and listings from the collected raw data')
             for file in files:
                 if file_created(file):
                     getJson(file, hotelList)
-                    os.remove(file)
+                    # os.remove(file)
             write_out(hotelList)
             os.rename('hotelData.json', 'rKData.json')
 
@@ -168,11 +180,12 @@ while t == 1:
         t = 0
         print('Success: All Hotels received.')
         print('Shutting Down Scraper ...')
+        browser.quit()
         time.sleep(2)
         print('Creating organised tables and listings from the collected raw data')
         for file in files:
             if file_created(file):
                 getJson(file, hotelList)
-                os.remove(file)
+                # os.remove(file)
         write_out(hotelList)
         os.rename('hotelData.json', 'rKData.json')

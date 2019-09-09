@@ -35,5 +35,9 @@
             </a>
         </div>
     </div>
-
+    <?php
+    if(strpos($_SERVER['HTTP_HOST'], 'tms.lan') == true){
+        $env = 'development';
+    } else $env = 'production';
+    ?>
     <div class="site-content">

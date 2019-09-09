@@ -272,6 +272,7 @@ div.hotels{
   #top:hover {
     background-color: #555; /* Add a dark-grey background on hover */
   }
-  a.navs.hotels:hover{
-      text-decoration-line: none!important;
-  }
+  a.navs.hotels:hover, .no-style:hover, a.no-style:any-link {
+    text-decoration-line: none!important;
+}
+  
