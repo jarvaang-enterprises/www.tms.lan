@@ -8,7 +8,6 @@ import selenium.common.exceptions as exc
 from bs4 import BeautifulSoup
 import requests
 import filenameGen as fg
-import hoteldata as ghd
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,6 +22,65 @@ def getHtml(html, fls, c_file):
 
 
 locnum = []
+
+
+def switch_to_last_tab():
+    browser.switch_to.window(browser.window_handles[-1])
+
+
+def switch_to_main_tab():
+    browser.switch_to.window(browser.window_handles[0])
+
+
+def close_current_tab():
+    browser.close()
+
+
+def gethoteldata(link, fils):
+    browser.execute_script('''window.open("''' + link + '''", "_blank");''')
+    time.sleep(2)
+    switch_to_main_tab()
+    close_current_tab()
+    switch_to_last_tab()
+    time.sleep(20)
+    ty = 1
+    hotel = 0
+    ud = 0
+    while ty == 1:
+        while hotel < 12:
+            try:
+                wait.until(EC.element_to_be_clickable((
+                    By.XPATH, '//c-wiz[@data-node-index="1;' + str(hotel) + '"]')))
+                # driver.find_element_by_xpath(
+                #     "//elementType[@firstAttributeTypte = 'firstAttributeValue'][@secondAttributeType='second
+                #     AttributeValue'][@thirdAttributeType='thirdAttributeValue']....");
+                for ht in range(12):
+                    hot_data = browser.find_element_by_xpath(
+                        '//c-wiz[@data-node-index="1;' + str(ht) + '"]')
+                    browser.execute_script("arguments[0].click();", hot_data)
+                    time.sleep(5)
+                    hl = browser.page_source
+                    print('Page ' + str(ud + 1) + ' done')
+                    getHtml(hl, 'h_v/' + fils[ud], c_files)
+                    ud += 1
+                    ht += 1
+                    hotel += 1
+                    close_current_tab()
+            except AttributeError:
+                ty = 0
+                break
+            except exc.NoSuchElementException:
+                ty = 0
+                break
+            except TimeoutError:
+                ty = 0
+                break
+        try:
+            nexts = browser.find_element_by_xpath(
+                "/html/body/c-wiz[2]/div/c-wiz/div/div[1]/div/div[4]/div/div[2]/c-wiz/div[6]/div/div")
+            browser.execute_script("arguments[0].click();", nexts)
+        except exc.NoSuchElementException:
+            ty = 0
 
 
 def getJson(fil, hotels):
@@ -140,14 +198,14 @@ while t == 1:
     else:
         try:
             snext = browser.find_element_by_xpath(
-                "/html/body/c-wiz[2]/div/c-wiz/div/div[1]/div/div[4]/div/div[2]/c-wiz/div[6]/div[2]/div")
+                "/html/body/c-wiz[2]/div/c-wiz/div/div[1]/div/div[4]/div/div[2]/c-wiz/div[6]/div[2]/div/div[2]")
             # browser.execute_script("arguments[0].click();", snext)
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.kK2YDd')))
             time.sleep(10)
         except TimeoutError:
             t = 0
             os.remove(files[uf])
-            ghd.gethoteldata(url, browser, wait, EC, By)
+            gethoteldata(url, files)
             browser.quit()
             print('Error: Hotel List not Found...')
             print('Shutting Down Scraper ...')
@@ -163,7 +221,7 @@ while t == 1:
             print('Error: Next Button not Found.')
             t = 0
             os.remove(files[uf])
-            ghd.gethoteldata(url, browser, wait)
+            gethoteldata(url, files)
             browser.quit()
             print('Shutting Down Scraper ...')
             time.sleep(2)
@@ -180,6 +238,7 @@ while t == 1:
         t = 0
         print('Success: All Hotels received.')
         print('Shutting Down Scraper ...')
+        gethoteldata(url, c_files)
         browser.quit()
         time.sleep(2)
         print('Creating organised tables and listings from the collected raw data')

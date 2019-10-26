@@ -18,7 +18,7 @@
 
 <body>
     <div class="naver">
-        <a href="https://rentKampala.mipropia.com/">
+<a <?php if(strpos($_SERVER['HTTP_HOST'], 'tms.lan') == true){ ?>href="https://rk.tms.lan:423/"<?php } else echo 'href="https://rentKampala.mipropia.com/"';?>>
             <h1 class="header">Rent Kampala</h1>
         </a>
         <div class="nav">

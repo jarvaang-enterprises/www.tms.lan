@@ -1,8 +1,23 @@
-
+[data-info='hotel-info']{
+    background-color: bisque;
+    margin-right: 210px!important;
+    border-radius: 5px;
+}
+[data-info="hotel-data"]{
+    width: 100%;
+}
+[data-info='hotel-name'] {
+    color: rgb(102, 62, 17);
+    font-size: xx-large;
+    padding: 10px;
+    padding-top: 0px !important;
+    width: max-content;
+}
 [data-view='hotel-view']{
     padding-top: 63px!important;
     background-color: darkslategray;
     padding: 10px;
+    width: min-content;
 }
 [data-button*='pull']{
     position: relative;

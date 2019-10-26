@@ -1,207 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.71177506" />
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="42e4531b-4a4d-4367-9a1f-05e6ffbac65a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hoteldata.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filenameGen.py" beforeDir="false" afterPath="$PROJECT_DIR$/filenameGen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel0.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelData.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotelData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoteldata.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoteldata.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webscraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/webscraper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/hotels.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/hotels.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../rk/hotels/viewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/hotels/viewer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/footer.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/footer.inc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../rk/inc/header.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/header.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Acactus Hotel Kampala,Uganda.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Acactus Hotel Kampala,Uganda.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Agenda 2000 Hotels.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Agenda 2000 Hotels.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Angels' Castle.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Angels' Castle.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Arcadia Suites Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Arcadia Suites Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Arch Apartments Limited.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Arch Apartments Limited.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Arirang Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Arirang Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Biyem Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Biyem Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Bromelia Guesthouse.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Bromelia Guesthouse.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Bukoto Heights Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Bukoto Heights Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Bulondo's Apartrments Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Bulondo's Apartrments Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Bushpig Backpackers Hostel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Bushpig Backpackers Hostel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Buziga Country Resort.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Buziga Country Resort.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Buziga Shelter Lodge.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Buziga Shelter Lodge.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Casa Miltu Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Casa Miltu Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Cassia Lodge.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Cassia Lodge.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Central View Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Central View Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Chez Johnson Hotel ltd.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Chez Johnson Hotel ltd.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Chocolate Luxury Hotel - Konge, Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Chocolate Luxury Hotel - Konge, Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Cosmil Executive Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Cosmil Executive Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Crystal Suites Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Crystal Suites Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/DANA HOTEL.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/DANA HOTEL.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Dolphin Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Dolphin Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/EGRET PILGRIMS INN.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/EGRET PILGRIMS INN.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Eastern Route Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Eastern Route Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Emin Pasha Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Emin Pasha Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Esella Country Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Esella Country Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Etana Motel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Etana Motel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ewaka Guesthouse &amp; Backpackers.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ewaka Guesthouse &amp; Backpackers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Explorers Hub.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Explorers Hub.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Faso Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Faso Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Florida Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Florida Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Flower Home.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Flower Home.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Foxwoods Hotel Uganda.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Foxwoods Hotel Uganda.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/G- ONE HOTEL.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/G- ONE HOTEL.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Galaxy Guest House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Galaxy Guest House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Georgina Gardens Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Georgina Gardens Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Glenville Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Glenville Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Golf Course Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Golf Course Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Grand Global Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Grand Global Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hilton Garden Inn Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hilton Garden Inn Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Acacia City.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Acacia City.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Acacia.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Acacia.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Africana.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Africana.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Barbados.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Barbados.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Diplomate.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Diplomate.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Eliana Kiwatule.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Eliana Kiwatule.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Kenrock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Kenrock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Sojovalo.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Sojovalo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Top Five.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Top Five.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel Triangle.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel Triangle.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Hotel city square.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Hotel city square.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Humura Resort.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Humura Resort.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/ICU Guesthouse.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/ICU Guesthouse.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Interservice Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Interservice Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ivory Castle Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ivory Castle Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/J-FRIGH Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/J-FRIGH Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Jaguar Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Jaguar Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Jicca Hotel Ntinda.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Jicca Hotel Ntinda.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Jicca Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Jicca Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Jokas Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Jokas Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Jolly Court Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Jolly Court Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kabira Country Club.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kabira Country Club.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kahondo Buffalo Hotel and Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kahondo Buffalo Hotel and Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kampala Forest Resort.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kampala Forest Resort.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kampala Kolping Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kampala Kolping Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kampala Serena Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kampala Serena Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Keelan Ace Villas.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Keelan Ace Villas.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kenendia Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kenendia Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Khalifa Executive Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Khalifa Executive Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kilimanjaro Inn.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kilimanjaro Inn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Kololo Courts Hotel and Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Kololo Courts Hotel and Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Land Star Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Land Star Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Las Vegas Garden Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Las Vegas Garden Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Le Petit Village Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Le Petit Village Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Mahali Guesthouse.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Mahali Guesthouse.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Mamba Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Mamba Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Mamerito Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Mamerito Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Manhattan Guest House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Manhattan Guest House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Marble Arch.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Marble Arch.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Marie Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Marie Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Mat Hotel &amp; Leisure Center.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Mat Hotel &amp; Leisure Center.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Materwood Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Materwood Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Mayflower Apartments - Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Mayflower Apartments - Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Meley Impala Hotel - Munyonyo.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Meley Impala Hotel - Munyonyo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Metropole Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Metropole Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Minister's Village Hotel Ntinda.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Minister's Village Hotel Ntinda.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Moj Checkers Holiday Inn.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Moj Checkers Holiday Inn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Munyonyo Commonwealth Resort.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Munyonyo Commonwealth Resort.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Muyenga Garden House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Muyenga Garden House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Méstil Hotel &amp; Residences.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Méstil Hotel &amp; Residences.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/NEW KASE GUEST HOUSE.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/NEW KASE GUEST HOUSE.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Namirembe Guest House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Namirembe Guest House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Nanjing Hotel ( Lugogo Branch ).json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Nanjing Hotel ( Lugogo Branch ).json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ntinda Complex Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ntinda Complex Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/OK Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/OK Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Olina Hotel and Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Olina Hotel and Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Olive Gardens.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Olive Gardens.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/PLATINUM ROYALE HOTEL.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/PLATINUM ROYALE HOTEL.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Palm Gardens and Guest House Kanyanya.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Palm Gardens and Guest House Kanyanya.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Papaya Holiday Home.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Papaya Holiday Home.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Pearl Highway Motel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Pearl Highway Motel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Pearl of Africa Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Pearl of Africa Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Precise Motel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Precise Motel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Protea Hotel By Marriott Kampala Skyz.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Protea Hotel By Marriott Kampala Skyz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Protea Hotel by Marriott Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Protea Hotel by Marriott Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/RUGIRA Scenic House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/RUGIRA Scenic House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ravens Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ravens Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ray Apartments.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ray Apartments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Red Sox Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Red Sox Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Rivonia Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Rivonia Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Royal Lake View Gardens, Rubaga.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Royal Lake View Gardens, Rubaga.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Royal Suites.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Royal Suites.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Royal Victoria House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Royal Victoria House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Royal View Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Royal View Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Russel Hotel kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Russel Hotel kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/SS HOTEL KAMPALA.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/SS HOTEL KAMPALA.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sadrina Comfort Cottages.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sadrina Comfort Cottages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sal's Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sal's Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Samppro Hotels Ltd.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Samppro Hotels Ltd.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Satellite Hotel, Kisaasi.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Satellite Hotel, Kisaasi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Scroll In Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Scroll In Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sheraton Kampala Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sheraton Kampala Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Silver Springs Hotel, Bugolobi.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Silver Springs Hotel, Bugolobi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sir Jose Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sir Jose Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sky Hotel International.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sky Hotel International.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Space Hotel Apartments &amp; Spa.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Space Hotel Apartments &amp; Spa.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Speke Resort and Conference Centre.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Speke Resort and Conference Centre.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Ssebo Green Joy Park &amp; Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Ssebo Green Joy Park &amp; Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Star Casino and Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Star Casino and Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Star Royal Motel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Star Royal Motel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sunrise Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sunrise Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Sydney Guest House.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Sydney Guest House.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/TGS homestay.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/TGS homestay.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/TICK HOTEL.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/TICK HOTEL.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Tandem Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Tandem Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Teo Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Teo Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Tesh Hotel Limited.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Tesh Hotel Limited.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/The Five Horsemen (U) Ltd. (Backpackers).json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/The Five Horsemen (U) Ltd. (Backpackers).json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/The Mackinnon Suites Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/The Mackinnon Suites Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/The Seventeen Apartment - Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/The Seventeen Apartment - Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/The White Castle Budget Hotel Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/The White Castle Budget Hotel Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/The college inn.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/The college inn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Tourists' Nest Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Tourists' Nest Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Tristar Hotel Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Tristar Hotel Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Troos Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Troos Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Urban by CityBlue.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Urban by CityBlue.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/VENUS GUEST HOUSE.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/VENUS GUEST HOUSE.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Verona Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Verona Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Vision Hotel Kampala.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Vision Hotel Kampala.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/XANADU Collection, All Suite Hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/XANADU Collection, All Suite Hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/Yellow Haven Lodge.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/Yellow Haven Lodge.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/lavanda hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/lavanda hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/img/serena hotel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/img/serena hotel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/inc/rKData.json" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/inc/rKData.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/styles/header.inc.css" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/header.inc.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../rk/styles/index.inc.css" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/index.inc.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rk/styles/viewer.inc.css" beforeDir="false" afterPath="$PROJECT_DIR$/../rk/styles/viewer.inc.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webscraper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="103" column="5" selection-start-line="102" selection-start-column="25" selection-end-line="103" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hoteldata.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -213,48 +31,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/filenameGen.py" />
-        <option value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py" />
-        <option value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
-        <option value="$PROJECT_DIR$/hotel_Data.py" />
-        <option value="$PROJECT_DIR$/webscraper.py" />
-        <option value="$PROJECT_DIR$/hoteldata.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="70" />
-    <option name="y" value="27" />
-    <option name="width" value="648" />
-    <option name="height" value="741" />
-  </component>
+  <component name="ProjectId" id="1QhAyy8JuhZB306XJzjHMWJuQJU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ghls" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ghls" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
@@ -269,7 +52,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.scraper">
+  <component name="RunManager" selected="Python.webscraper">
     <configuration name="filenameGen" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ghls" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -291,7 +74,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scraper" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="webscraper" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ghls" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -303,7 +86,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -313,7 +96,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.scraper" />
+      <item itemvalue="Python.webscraper" />
       <item itemvalue="Python.filenameGen" />
     </list>
     <recent_temporary>
@@ -335,83 +118,17 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="70" y="27" width="648" height="741" extended-state="4" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.296" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3289256" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3289256" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3338843" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rKData.json" />
-    <entry file="file://$PROJECT_DIR$/filenameGen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/scraper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/Google_Hotel_Listings_Scraper/webscraper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="112" column="43" selection-start-line="112" selection-start-column="43" selection-end-line="112" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hotel_Data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webscraper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="103" column="5" selection-start-line="102" selection-start-column="25" selection-end-line="103" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hoteldata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
