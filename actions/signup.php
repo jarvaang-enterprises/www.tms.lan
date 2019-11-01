@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $nin = mysqli_real_escape_string($con, $_POST['NIN']);
     $level = 1;
-    $authkey = md5($_POST['user']);
+    $authkey = md5($_POST['user'].Date(U));
     if($_POST['acc_man'] == 'on'){
         $level = 1;
         $nin = 'insert into NINS(NIN,fName, lName) values("'.$nin.'","'.$fName.'","'.$lName.'")';

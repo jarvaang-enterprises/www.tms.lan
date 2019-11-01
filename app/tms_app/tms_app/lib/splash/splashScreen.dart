@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:tms_app/main.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,7 +10,19 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   @override
-  void initState() => super.initState();
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<Timer> loadData() async {
+    return new Timer(Duration(seconds: 5), onDoneLoading);
+  }
+
+  onDoneLoading() async {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => MyHomePage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +30,33 @@ class SplashScreenState extends State<SplashScreen> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/favicon.png'),
-          fit: BoxFit.cover
+          fit: BoxFit.scaleDown,
         ),
       ),
       child: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
-        ),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: new Text(
+              "Loading Data ...",
+              style: TextStyle(
+                fontFamily: "Roboto",
+                color: Colors.cyanAccent,
+              ),
+            ),
+          ),
+          Padding(
+              padding: const EdgeInsets.only(bottom: 18.0),
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: new CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
+                ),
+              )),
+        ],
+      )),
     );
   }
 }
