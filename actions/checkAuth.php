@@ -12,6 +12,8 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
             }
             $result = mysqli_fetch_assoc($query);
             $action = "SHOW_SUCCESS";
+	    $online = 'update accounts set status = 1 where NIN = "'.$result['NIN'].'"';
+	    $online = mysqli_query($con, $online);
             $sql = "select fName, lName from NINS where NIN = '" . $result['NIN'] . "'";
             $sql = mysqli_query($con, $sql);
             if (!$sql) echo '<br>Error: ' . mysqli_error($con);

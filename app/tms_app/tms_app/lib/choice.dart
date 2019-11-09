@@ -9,6 +9,7 @@ class Choice {
 List<Choice> choices = <Choice> [
   Choice(title: 'Profile', icon: Icons.portrait),
   Choice(title: 'Logout', icon: Icons.exit_to_app),
+  Choice(title: 'NOtifications', icon: Icons.notifications)
 ];
 
 class ChoiceCard extends StatelessWidget {

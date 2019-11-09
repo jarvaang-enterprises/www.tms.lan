@@ -1,30 +1,71 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tms_app/FCM/receive_fcm_notifications.dart';
+import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/User/user.dart';
 import 'package:tms_app/login/login.dart';
 import 'package:recase/recase.dart';
 import 'package:tms_app/main.dart';
+import 'package:http/http.dart' as http;
 
 import '../choice.dart';
 
 class Dashboard extends StatefulWidget {
   final js;
-  Dashboard({Key key, this.js}) : super(key: key);
+  final NetworkStateSingleton ns;
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
+  Dashboard({Key key, this.js, this.ns, this.auth, this.googleSignIn}) : super(key: key);
   @override
   DashBoardState createState() => new DashBoardState();
 }
 
 class DashBoardState extends State<Dashboard> {
   Choice _value = choices[0];
+  var source;
+  var nin;
   void _select(Choice choice, {s}) {
     setState(() {
       _value = choice;
     });
-    if(choice.title == 'Logout') {
-      Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyHomePage())
+    if (choice.title == 'Logout') {
+      if(source == 'SQL'){
+	http.get('http://192.168.43.8/actions/app/logout.php?nin='+nin);
+	 Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MyHomePage(
+                        ns: widget.ns,
+                      )));
+       } else if( source == 'Google' ){ 
+	 _googleSignOut() ;
+       }else print(widget.ns.hasConnection);
+    } else if(choice.title == 'NOtifications') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PushMessagingExample())
       );
     }
   }
+
+  void _googleSignOut() {
+    signOutUsingGoogle();
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MyHomePage(
+                  ns: widget.ns,
+                )));
+  }
+  
+  void signOutUsingGoogle() async{
+    await widget.auth.signOut().then((_){
+      widget.googleSignIn.signOut();
+      print("Signed out successfully");
+    });
+  }
+
   DashBoardState();
 
   @override
@@ -58,6 +99,8 @@ class DashBoardState extends State<Dashboard> {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
               }
+	      nin = snapshot.data.userId;
+              source = snapshot.data.source;
               String fN =
                   ReCase(snapshot.data.username.split(' ')[0]).pascalCase;
               String lN =
@@ -83,7 +126,9 @@ class DashBoardState extends State<Dashboard> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 8.0),
                       child: Text(
-                        fN + ' ' + lN + ' (Client)',
+                        snapshot.data.source == 'SQL'
+                            ? fN + ' ' + lN
+                            : snapshot.data.username,
                         style: TextStyle(fontSize: 18.0),
                       ),
                     ),
@@ -117,18 +162,18 @@ class DashBoardState extends State<Dashboard> {
         itemBuilder: (context) {
           return choices.map((Choice f) {
             return PopupMenuItem<Choice>(
-              value: f,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Icon(f.icon, color: Colors.blueGrey,),
-                  Text(f.title)
-                ],
-              )
-            );
+                value: f,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(
+                      f.icon,
+                      color: Colors.blueGrey,
+                    ),
+                    Text(f.title)
+                  ],
+                ));
           }).toList();
         },
-
       );
-      
-  }
+}

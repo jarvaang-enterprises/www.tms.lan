@@ -37,7 +37,7 @@ class Page extends State<GoogleLogin> {
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    user = await _auth.signInWithCredential(credential);
+    user = (await _auth.signInWithCredential(credential)).user;
     if(user != null) {
       print("Signed into GoogleAccount " + user.displayName);
     }
@@ -54,7 +54,7 @@ class Page extends State<GoogleLogin> {
   //   FirebaseUser _user;
   //   try
   //   {
-  //     _user = await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+  //     _user = (await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text)).user;
   //   } catch (e) {
   //     print(e.toString());
   //   } finally {

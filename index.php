@@ -1,6 +1,6 @@
 <?php
 $ret;
-if (isset($_COOKIE['login']) && $_COOKIE['login'] == "login") {
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == "login" && isset($_COOKIE['user']) && isset($_COOKIE['passwd'])) {
 	echo '<script>
 		window.location = "https://www.tms.lan/actions/login.php?user='.base64_decode($_COOKIE['user']).'&passwd='.base64_decode($_COOKIE['passwd']).'";
 	</script>';

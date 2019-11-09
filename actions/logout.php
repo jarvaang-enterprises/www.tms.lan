@@ -8,6 +8,11 @@ if($_SESSION['manager_logged_in'] == true){
 } else if($_SESSION['client_logged_in'] == true){
     $_SESSION['client_logged_in'] = false;
 }
+$sqls = 'select NIN from accounts where username = "'.$email.'"';
+$sqls = mysqli_query($con,$sqls);
+$resultn = mysqli_fetch_assoc($sqls);
+$online = 'update accounts set status = 0 where NIN = "'.$resultn['NIN'].'"';
+$sql = mysqli_query($con, $online);
 $_SESSION['logged_in'] = false;
 setcookie("login","login",time()-60*60*2,'/','tms.lan',true,true);
 setcookie('user','',time()-60*60*24*2,'/','tms.lan',true,true);

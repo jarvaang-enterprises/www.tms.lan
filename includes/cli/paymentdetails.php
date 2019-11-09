@@ -4,6 +4,9 @@ include_once('../db.inc.php');
 $det = 'select * from tenant_details where ten_id = "' . $_SESSION['id'] . '"';
 $det = mysqli_query($con, $det);
 $details = mysqli_fetch_assoc($det);
+$name = 'select fName, lName from NINS where NIN = "' .$details['ten_nin'] . '"';
+$name = mysqli_query($con, $name);
+$names = mysqli_fetch_assoc($name);
 ?>
 <div class="payment_details">
     <table width="100%" style="border:1px solid green" class="heading">
@@ -32,9 +35,9 @@ $details = mysqli_fetch_assoc($det);
             <b>
                 <td colspan="2">First Name:</td>
             </b>
-            <td colspan="2" style="text-align:left;padding-left:10px"><?php echo $details['ten_f_name']; ?></td>
+            <td colspan="2" style="text-align:left;padding-left:10px"><?php echo $names['fName']; ?></td>
             <td colspan="2">Last Name:</td>
-            <td colspan="3" style="text-align:left;padding-left:10px"><?php echo $details['ten_l_name']; ?></td>
+            <td colspan="3" style="text-align:left;padding-left:10px"><?php echo $names['lName']; ?></td>
         </tr>
         <tr>
             <td colspan="2">Contact:</td>

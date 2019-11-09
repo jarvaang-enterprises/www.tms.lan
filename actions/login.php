@@ -21,15 +21,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             setcookie('msg','',time()-60*60*24*2,'/','tms.lan',true,true);
             $sqls = 'select NIN from accounts where username = "'.$email.'"';
             $sqls = mysqli_query($con,$sqls);
-            $results = mysqli_fetch_assoc($sqls);
-            $sql = 'select fName, lName from NINS where NIN = "'.$results['NIN'].'"';
+            $resultn = mysqli_fetch_assoc($sqls);
+            $sql = 'select fName, lName from NINS where NIN = "'.$resultn['NIN'].'"';
             $sql = mysqli_query($con,$sql);
             if(!$sql) die('Error: '.mysqli_error($sql));
-            $id = 'select ten_id from tenant_details where ten_nin = "'.$results['NIN'].'"';
+            $id = 'select ten_id from tenant_details where ten_nin = "'.$resultn['NIN'].'"';
             $id = mysqli_query($con,$id);
             if(!$id) die('Error: '.mysqli_error($con));
             $ten_id = mysqli_fetch_assoc($id);
             $results = mysqli_fetch_assoc($sql);
+	    $online = 'update accounts set status = 1 where NIN = "'.$resultn['NIN'].'"';
+    	    $sql = mysqli_query($con, $online);
             if($result['level'] == 1){
                 $_SESSION['manager_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
@@ -93,15 +95,17 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if(md5($password) == $result['pass']){
             $sqls = 'select NIN from accounts where username = "'.$email.'"';
             $sqls = mysqli_query($con,$sqls);
-            $results = mysqli_fetch_assoc($sqls);
-            $sql = 'select fName, lName from NINS where NIN = "'.$results['NIN'].'"';
+            $resultn = mysqli_fetch_assoc($sqls);
+            $sql = 'select fName, lName from NINS where NIN = "'.$resultn['NIN'].'"';
             $sql = mysqli_query($con,$sql);
             if(!$sql) die('Error: '.mysqli_error($sql));
-            $id = 'select ten_id from tenant_details where ten_nin = "'.$results['NIN'].'"';
+            $id = 'select ten_id from tenant_details where ten_nin = "'.$resultn['NIN'].'"';
             $id = mysqli_query($con,$id);
             if(!$id) die('Error: '.mysqli_error($con));
             $ten_id = mysqli_fetch_assoc($id);
             $results = mysqli_fetch_assoc($sql);
+	    $online = 'update accounts set status = 1 where authkey = "'.$resultn['NIN'].'"';
+    	    $sql = mysqli_query($con, $online);
             if($result['level'] == 1){
                 $_SESSION['manager_logged_in'] = true;
                 $_SESSION['logged_in'] = true;

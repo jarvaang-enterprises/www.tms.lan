@@ -27,8 +27,11 @@ dependencies:
   recase: ^2.0.1
   # firebase_core: "^0.2.4"
   # firebase_database: "^1.0.1"
-  # firebase_auth: any
-  # google_sign_in: "^3.2.2"
+  firebase_auth:
+  google_sign_in: 
+  connectivity:
+  firebase_messaging:
+  # flutter_facebook_login:
 
 dev_dependencies:
   flutter_test:

@@ -40,7 +40,7 @@ class Page extends State<EmailLogin> {
     FirebaseUser _user;
     try
     {
-      _user = await _auth.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      _user = (await _auth.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text)).user;
     } catch (e) {
       print(e.toString());
     }
@@ -50,7 +50,7 @@ class Page extends State<EmailLogin> {
     FirebaseUser _user;
     try
     {
-      _user = await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      _user = (await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text)).user;
     } catch (e) {
       print(e.toString());
     } finally {

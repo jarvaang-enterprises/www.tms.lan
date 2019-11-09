@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/adminPage/adminPage.dart';
 import '../User/user.dart';
 import 'package:tms_app/Icons/StackedIcons.dart';
@@ -14,6 +15,9 @@ import 'package:tms_app/dashboard/dashboard.dart';
 // import 'google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
+  final NetworkStateSingleton ns;
+
+  const LoginScreen({Key key, this.ns}) : super(key: key);
   @override
   State<StatefulWidget> createState() => LoginScreenState();
 }
@@ -68,7 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 ]),
-            new TmsLoginForm(),
+            new TmsLoginForm(ns: widget.ns),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -96,6 +100,9 @@ class LoginScreenState extends State<LoginScreen> {
 }
 
 class TmsLoginForm extends StatefulWidget {
+  final NetworkStateSingleton ns;
+
+  const TmsLoginForm({Key key, this.ns}) : super(key: key);
   @override
   _TmsLoginFormState createState() => _TmsLoginFormState();
 }
@@ -103,60 +110,52 @@ class TmsLoginForm extends StatefulWidget {
 // final FirebaseAuth _auth = FirebaseAuth.instance;
 // final GoogleSignIn googleSignIn = new GoogleSignIn();
 class _TmsLoginFormState extends State<TmsLoginForm> {
+  String lang = 'en';
   final tPass = TextEditingController();
   final tUser = TextEditingController();
   String msg = '';
   bool _exists = true;
   bool isLoading = false;
-
-  // void signUpWithGoogle() async {
-  //   FirebaseUser user;
-  //   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  //   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-  //   final AuthCredential credential = GoogleAuthProvider.getCredential(
-  //     accessToken: googleSignInAuthentication.accessToken,
-  //     idToken: googleSignInAuthentication.idToken,
-  //   );
-  //   user = await _auth.signInWithCredential(credential);
-  //   if(user != null) {
-  //     print("Signed into GoogleAccount " + user.displayName);
-  //   }
-  // }
-  void signUpWithGoogle() {}
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
 
-  Widget googleSignInBtn() {
-      return OutlineButton(
-        splashColor: Colors.grey,
-        onPressed: () => signUpWithGoogle,            
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        highlightElevation: 0,
-        borderSide: BorderSide(color: Colors.grey),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(5.0, 10, 5.0, 10),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image(image: AssetImage("assets/google_logo.png"), height: 25.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'Sign in with Google',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      );
+  Future<FirebaseUser> signUpWithEmail(email, password) async {
+    try {
+      FirebaseUser user = (await auth.createUserWithEmailAndPassword(email: email, password: password)).user;
+      assert(user != null);
+      assert(await user.getIdToken() != null);
+      return user;
+    } catch (e) {
+      // print(e.toString());
+      if (e is PlatformException) {
+        if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+          print("A user with that email already exists");
+        } else if(e.code == 'ERROR_API_NOT_AVAILABLE') {
+          print("Google Play Sevices missing from Device");
+        }
+      }
+      return null;
     }
+  }
+
+  Future<FirebaseUser> signInWithEmail(String email, String password) async {
+    try {
+      FirebaseUser user = (await auth.signInWithEmailAndPassword(email: email, password: password)).user;
+      assert(user != null);
+      assert(await user.getIdToken() != null);
+      final FirebaseUser currentUser = await auth.currentUser();
+      assert(user.uid == currentUser.uid);
+      return user;
+    } catch (e){
+      print(e.toString());
+      return null;
+    }
+  }
+  FocusNode email;
 
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).requestFocus(email);
     return new Container(
       width: double.infinity,
       child: isLoading
@@ -186,6 +185,8 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
                     decoration: new InputDecoration(
                         labelText: 'Email', hintText: "Email or Username"),
                     controller: tUser,
+                    focusNode: email,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                 ),
                 new SizedBox(
@@ -282,19 +283,19 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
     } else {
       if (datauser['status'] == 3) {
         setState(() {
-          msg = datauser['msg-en'];
+          msg = datauser['msg-' + lang];
           _exists = false;
           isLoading = false;
         });
       } else if (datauser['status'] == 2) {
         setState(() {
-          msg = datauser['msg-en'];
+          msg = datauser['msg-' + lang];
           _exists = false;
           isLoading = false;
         });
       } else if (datauser['status'] == 1) {
         setState(() {
-          msg = datauser['msg-en'];
+          msg = datauser['msg-' + lang];
           _exists = false;
           isLoading = false;
         });
@@ -306,27 +307,37 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   _authData(String passwd, String user) {
-    var url = 'http://192.168.61.1/actions/app/login.php';
+    // var url = 'http://192.168.61.1/actions/app/login.php';
+    var url = 'http://10.10.3.164/actions/app/login.php';
     setState(() {
       isLoading = true;
     });
     var res = fetchData(url, user, passwd);
     res.whenComplete(() {
-      if(det == null) {
+print(det);
+      if (det == null) {
+        res.catchError((e) {
+          print(e.toString());
+        });
         setState(() {
           isLoading = false;
           msg = "Check your internet connection!";
         });
-      } else
-      _exists
-          ? Navigator.pushReplacement(context,
-          det['rights'] == '4'
-          ? MaterialPageRoute(builder: (context) => Dashboard(js: res))
-          : MaterialPageRoute(builder: (context) => AdminDashboard(js: res))
-              )
-          : _exists = false;
+      } else {
+        if (_exists) {
+          Navigator.pushReplacement(
+              context,
+              det['rights'] == '4'
+                  ? MaterialPageRoute(builder: (context) => Dashboard(js: res, ns: widget.ns))
+                  : MaterialPageRoute(
+                      builder: (context) => AdminDashboard(js: res, ns: widget.ns)));
+        } else {
+          _exists = false;
+        }
+      }
     });
   }
+
   Column bodyProgress() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

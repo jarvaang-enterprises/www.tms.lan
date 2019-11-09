@@ -4,7 +4,7 @@ require_once('../../includes/db.inc.php');
     $response = array();
     $email = mysqli_real_escape_string($con, $_POST['user']);
     $password = mysqli_real_escape_string($con, $_POST['passwd']);
-    $sql = 'select pass, level from accounts where username = "'.$email.'"';
+    $sql = 'select NIN, pass, level from accounts where username = "'.$email.'"';
     $sql = mysqli_query($con,$sql);
     $result = mysqli_fetch_assoc($sql);
     if(mysqli_num_rows($sql) == 0){
@@ -14,19 +14,28 @@ require_once('../../includes/db.inc.php');
     } else {
         if(md5($password) == $result['pass']){
             $response['status'] = 0;
+	    $response['source'] = "SQL";
             $response['rights'] = $result['level'];
-            $sqls = 'select NIN from accounts where username = "'.$email.'"';
-            $sqls = mysqli_query($con,$sqls);
-            $results = mysqli_fetch_assoc($sqls);
-	        $response['id'] = $results['NIN'];
-            $sql = 'select fName, lName from NINS where NIN = "'.$results['NIN'].'"';
+	    $response['id'] = $result['NIN'];
+	    $online = 'update accounts set status = 1 where NIN = "'.$result['NIN'].'"';
+	    $sql = mysqli_query($con, $online);
+            $sql = 'select fName, lName from NINS where NIN = "'.$result['NIN'].'"';
             $sql = mysqli_query($con,$sql);
-            $id = 'select ten_img_id from tenant_details where ten_nin = "'.$results['NIN'].'"';
-            $id = mysqli_query($con,$id);
-            $results = mysqli_fetch_assoc($sql);
-            $ten_img = mysqli_fetch_assoc($id);
-            $img = 'select ten_img_location, ten_img_name from tenant_images where ten_img_id = "'.$ten_img['ten_img_id'].'"';
-            $imgs = mysqli_query($con,$img);
+	    if(result['level'] == 0){
+		$id = 'select image from Manager where NIN = "'.$result['NIN'].'"';
+		    $id = mysqli_query($con,$id);
+		    $results = mysqli_fetch_assoc($sql);
+		    $ten_img = mysqli_fetch_assoc($id);
+		    $img = 'select ten_img_location, ten_img_name from tenant_images where ten_img_id = "'.$ten_img['ten_img_id'].'"';
+		    $imgs = mysqli_query($con,$img);
+	    } else {
+		    $id = 'select ten_img_id from tenant_details where ten_nin = "'.$result['NIN'].'"';
+		    $id = mysqli_query($con,$id);
+		    $results = mysqli_fetch_assoc($sql);
+		    $ten_img = mysqli_fetch_assoc($id);
+		    $img = 'select ten_img_location, ten_img_name from tenant_images where ten_img_id = "'.$ten_img['ten_img_id'].'"';
+		    $imgs = mysqli_query($con,$img);
+	    }
             if(mysqli_num_rows($imgs) != 0){
                 $data = mysqli_fetch_assoc($imgs);
                 $response['photoUrl'] = "http://".$_SERVER['SERVER_ADDR']."/".$data['ten_img_location'].$data['ten_img_name'];
