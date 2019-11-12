@@ -72,6 +72,9 @@ verifier.addEventListener("click",function(){
 	$("#LTContent").css({
 		display:"none"
 	});
+	$("#ten_list").css({
+		display:"none"
+	});
     $("#verify").load("/includes/ver.php"); 
 });
 </script>

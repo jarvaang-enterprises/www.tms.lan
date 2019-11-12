@@ -4,7 +4,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     ?>
     <div class="col-md-12 col-xs-12 alert alert-info tms-center" style="margin-left:10px">
     <?php
-    $check = 'select confirm from accounts where authkey = "'.$_GET['id'].'"';
+    $check = 'select confirm from accounts where id = "'.$_GET['id'].'"';
     $check = mysqli_query($con, $check);
     $conf = mysqli_fetch_assoc($check);
     if($conf['confirm'] == 1) {
@@ -13,7 +13,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 User already activated.
 </div>');
     }
-    $verify = 'update accounts set confirm = 1 where authkey = "'.$_GET['id'].'"';
+    $verify = 'update accounts set confirm = 1 where id = "'.$_GET['id'].'"';
     $sql = mysqli_query($con, $verify);
     if(!$sql){
         die('Error:'.mysqli_error($con));

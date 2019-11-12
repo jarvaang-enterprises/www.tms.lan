@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tms_app/FCM/receive_fcm_notifications.dart';
 import 'package:tms_app/User/user.dart';
 import 'package:tms_app/login/login.dart';
 import 'package:recase/recase.dart';
@@ -18,6 +19,7 @@ class AdminDashboard extends StatefulWidget {
   final det;
   final FirebaseAuth auth;
   final GoogleSignIn googleSignIn;
+
   AdminDashboard(
       {Key key, this.js, this.det, this.ns, this.auth, this.googleSignIn})
       : super(key: key);
@@ -28,6 +30,7 @@ class AdminDashboard extends StatefulWidget {
 class DashBoardState extends State<AdminDashboard> {
   final Future<User> js;
   bool cMade = false;
+  var jsonTen;
   DashBoardState(this.js);
 
   @override
@@ -36,11 +39,9 @@ class DashBoardState extends State<AdminDashboard> {
       cMade = buttons.changesMade;
     });
     widget.ns.checkConnection();
+    print(jsonTen);
+    if (jsonTen != null) {}
     super.initState();
-  }
-
-  void _facebookSignOut() {
-    
   }
 
   void _googleSignOut() {
@@ -64,20 +65,18 @@ class DashBoardState extends State<AdminDashboard> {
     return buttons.changesMade;
   }
 
+  void getTenantDetail() async {
+    final response = await http
+        .get('http://192.168.61.1/actions/app/get_tenants.php?app_secret');
+    setState(() {
+      jsonTen = json.decode(response.body);
+    });
+    // return json.decode(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () => Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context)=> PushMessagingExample())
-            ),
-          )
-        ],
-      ),
         backgroundColor: Colors.blueGrey,
         body: Center(
             child: FutureBuilder<User>(
@@ -144,13 +143,15 @@ class DashBoardState extends State<AdminDashboard> {
                           padding: EdgeInsets.all(8.0),
                           child: OutlineButton(
                             onPressed: () {
-                              print("Navigate to Administration Page");
+                              getTenantDetail();
+                              print(jsonTen);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Administration(
                                             ns: widget.ns,
                                             js: js,
+                                            jk: jsonTen,
                                           )));
                             },
                             shape: RoundedRectangleBorder(
@@ -240,8 +241,9 @@ class DashBoardState extends State<AdminDashboard> {
                                                 )));
                                   } else if (snapshot.data.source == 'Google') {
                                     _googleSignOut();
-                                  } else if(snapshot.data.source == 'Facebook'){
-                                    _facebookSignOut();
+                                  } else if (snapshot.data.source ==
+                                      'Facebook') {
+                                    // _facebookSignOut();
                                   }
                                 },
                                 color: Colors.redAccent,

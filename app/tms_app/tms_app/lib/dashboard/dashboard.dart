@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tms_app/FCM/receive_fcm_notifications.dart';
 import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/User/user.dart';
 import 'package:tms_app/login/login.dart';
@@ -31,7 +30,7 @@ class DashBoardState extends State<Dashboard> {
     });
     if (choice.title == 'Logout') {
       if(source == 'SQL'){
-	http.get('http://192.168.43.8/actions/app/logout.php?nin='+nin);
+	http.get('http://192.168.61.1/actions/app/logout.php?nin='+nin);
 	 Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -41,11 +40,6 @@ class DashBoardState extends State<Dashboard> {
        } else if( source == 'Google' ){ 
 	 _googleSignOut() ;
        }else print(widget.ns.hasConnection);
-    } else if(choice.title == 'NOtifications') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PushMessagingExample())
-      );
     }
   }
 

@@ -14,19 +14,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  // bool isLoggedIn
   @override
   void initState() {
     super.initState();
     loadData();
   }
 
+  
+
   Future<Timer> loadData() async {
     return new Timer(Duration(seconds: 5), onDoneLoading);
   }
 
-  onDoneLoading() async {
+  onDoneLoading() async{
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MyHomePage(ns: widget.ns)));
+      MaterialPageRoute(builder: (context) => MyHomePage(ns: widget.ns))
+    );
   }
 
   @override
@@ -45,7 +49,7 @@ class SplashScreenState extends State<SplashScreen> {
           Padding(
             padding: EdgeInsets.only(bottom: 8.0),
             child: new Text(
-              "Loading Data ...",
+              'Loading resources ...',
               style: TextStyle(
                 fontFamily: "Roboto",
                 color: Colors.cyanAccent,

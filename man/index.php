@@ -20,17 +20,24 @@
 
 <body>
 	<?php session_start();
-	if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && $_SESSION['manager_logged_in'] == true) { ?>
+	if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false){
+		$url = 
+		(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? "https":"http")
+		."://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+		$loc = "Location: /redirectlogin.php?_rdr&cont=".$url;
+		header($loc);
+	}else if(!isset($_SESSION['logged_in'])){
+		$url = 
+		(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? "https":"http")
+		."://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+		$loc = "Location: /redirectlogin.php?_rdr&cont=".$url;
+		header($loc);
+	} else { ?>
 		<div id="header"></div>
 		<div id="dialog"></div>
 		<div class="container">
 			<div id="verify"></div>
-		<?php
-	} else if ($_SESSION['manager_logged_in'] == false) {
-		header('Location: /error/forbidden.html');
-	} else {
-		echo 'Your not logged in';
-	}
+	<?php }
 	?>
 	<div id="LTContent"></div>
 	<div id="ten_list"></div>

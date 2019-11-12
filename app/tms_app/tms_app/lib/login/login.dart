@@ -269,6 +269,7 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   var det;
+  var dat;
   Future<User> fetchData(url, user, passwd) async {
     final response = await http.post(url, body: {
       "user": user,
@@ -307,14 +308,13 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   _authData(String passwd, String user) {
-    // var url = 'http://192.168.61.1/actions/app/login.php';
-    var url = 'http://10.10.3.164/actions/app/login.php';
+    var url = 'http://192.168.61.1/actions/app/login.php';
+    // var url = 'http://10.10.3.164/actions/app/login.php';
     setState(() {
       isLoading = true;
     });
     var res = fetchData(url, user, passwd);
     res.whenComplete(() {
-print(det);
       if (det == null) {
         res.catchError((e) {
           print(e.toString());
