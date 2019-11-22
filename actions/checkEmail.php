@@ -37,9 +37,13 @@ if (isset($_POST['user'])) {
                         $email = $img_id['ten_email'];
                         $img = 'select * from tenant_images where ten_img_id = "' . $img_id['ten_img_id'] . '"';
                         $img = mysqli_query($con, $img);
-                        $imgs = mysqli_fetch_assoc($img);
-                        $imagepath = $imgs['ten_img_location'] . $imgs['ten_img_name'];
-                        $image = "<img src='" . $imagepath . "' alt='" . $fName . "`s_profile_picture' class='image-container avatar' height='100'>";
+                        if(mysqli_num_rows($img) == 0){
+                            $image = "<img src='/images/img_avatar2.png' alt='" . $fName . "`s_profile_picture' class='image-container avatar' height='100'>";   
+                        } else {
+                            $imgs = mysqli_fetch_assoc($img);
+                            $imagepath = $imgs['ten_img_location'] . $imgs['ten_img_name'];
+                            $image = "<img src='" . $imagepath . "' alt='" . $fName . "`s_profile_picture' class='image-container avatar' height='100'>";   
+                        }
                     }
                 }
                 echo json_encode(

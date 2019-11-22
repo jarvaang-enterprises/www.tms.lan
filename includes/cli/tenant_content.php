@@ -1,10 +1,10 @@
 <?php
-    session_start();
-    //require_once('/includes/db.inc.php');
-    if($_COOKIE['return']){
-        echo '<script>notifyMe("' . $_SESSION['fName'] . '");</script>';
-        setcookie("return",'',time()-60*60*24*30,'/','tms.lan',true,true);
-    }
+session_start();
+//require_once('/includes/db.inc.php');
+if (isset($_COOKIE['return'])) {
+    echo '<script>notifyMe("' . $_SESSION['fName'] . '");</script>';
+    setcookie("return", '', time() - 60 * 60 * 24 * 30, '/', 'tms.lan', true, true);
+}
 ?>
 <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/tenant.min.css">
 <div class="tcontainer">
@@ -17,14 +17,11 @@
                 <div id="text" style="float:left;position:relative;">Dashboard</div>
             </a>
             <div class="tractor retract">
-                <
-            </div>
-            <div class="tractor expand" style="display:none;">
-                >
+                < </div> <div class="tractor expand" style="display:none;">
+                    >
             </div>
         </div>
         <div class="sidebar-separator"></div>
-        <div class="ed" style="display:none"></div>
         <div class="sidebar-content">
             <ul style="list-style:none;">
                 <li class="s-content pay">
@@ -64,7 +61,7 @@
                 <li class="s-content">
                     <a class="s-text" href="#">
                         <span id="icon">
-                              TC
+                            TC
                         </span>
                         <span id="text">Test Content</span>
                     </a>
@@ -86,6 +83,7 @@
         <div class="rentarrears" style="display:none">Rent Arrears</div>
         <div class="pay_rnt" style="display:none">Payment Processing page</div>
         <div class="complnts" style="display:none">Complaints Page</div>
+        <div class="ed" style="display:none"></div>
     </div>
 </div>
 <script>
@@ -114,6 +112,7 @@
         pay_rent = document.getElementById("pay_rent"),
         complaints = document.getElementById("complaints");
     dash.addEventListener("click", _ => {
+        $(".dash").addClass("lactive");
         $(".pay").removeClass("lactive");
         $(".arr").removeClass("lactive");
         $('.pay_rent').removeClass("lactive");
@@ -225,7 +224,8 @@
             "display": "block"
         });
     });
-    function Dashboard(){
+
+    function Dashboard() {
 
     }
 </script>

@@ -2,7 +2,7 @@
 include('../includes/db.inc.php');
 if (isset($_POST['user']) && (isset($_POST['passwd']))) {
     if (!empty($_POST['passwd'])) {
-        $query = "select * from accounts where pass ='" . md5($_POST['passwd']) . "' and username = '" . $_POST['user'] . "' limit 1";
+        $query = "select * from accounts where username = '" . $_POST['user'] . "' and pass = '" . md5($_POST['passwd']) . "'";
         $query = mysqli_query($con, $query);
         $num = mysqli_num_rows($query);
         if ($num == 1) {
@@ -12,8 +12,8 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
             }
             $result = mysqli_fetch_assoc($query);
             $action = "SHOW_SUCCESS";
-	    $online = 'update accounts set status = 1 where NIN = "'.$result['NIN'].'"';
-	    $online = mysqli_query($con, $online);
+            $online = 'update accounts set status = 1 where NIN = "'.$result['NIN'].'"';
+            $online = mysqli_query($con, $online);
             $sql = "select fName, lName from NINS where NIN = '" . $result['NIN'] . "'";
             $sql = mysqli_query($con, $sql);
             if (!$sql) echo '<br>Error: ' . mysqli_error($con);
@@ -31,7 +31,7 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['fName'] = $results['fName'];
                     $_SESSION['lName'] = $results['lName'];
-                    $_SESSION['id'] = $ten_id['ten_id'];
+                    $_SESSION['id'] = $nin;
                     setcookie("return", 1, time() + 60 * 60 * 10, '/', 'tms.lan', true, true);
                     setcookie("login", "login", time() + 60 * 60 * 24 * 7, '/', 'tms.lan', true, true);
                 } else if ($result['level'] == 2) {
@@ -39,7 +39,7 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['fName'] = $results['fName'];
                     $_SESSION['lName'] = $results['lName'];
-                    $_SESSION['id'] = $ten_id['ten_id'];
+                    $_SESSION['id'] = $nin;
                     setcookie("return", 1, time() + 60 * 60 * 10, '/', 'tms.lan', true, true);
                     setcookie("login", "login", time() + 60 * 60 * 24 * 7, '/', 'tms.lan', true, true);
                 } else if ($result['level'] == 3) {
@@ -47,7 +47,7 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['fName'] = $results['fName'];
                     $_SESSION['lName'] = $results['lName'];
-                    $_SESSION['id'] = $ten_id['ten_id'];
+                    $_SESSION['id'] = $nin;
                     setcookie("return", 1, time() + 60 * 60 * 10, '/', 'tms.lan', true, true);
                     setcookie("login", "login", time() + 60 * 60 * 24 * 7, '/', 'tms.lan', true, true);
                 } else if ($result['level'] == 4) {
@@ -55,7 +55,7 @@ if (isset($_POST['user']) && (isset($_POST['passwd']))) {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['fName'] = $results['fName'];
                     $_SESSION['lName'] = $results['lName'];
-                    $_SESSION['id'] = $ten_id['ten_id'];
+                    $_SESSION['id'] = $nin;
                     setcookie("return", 1, time() + 60 * 60 * 10, '/', 'tms.lan', true, true);
                     setcookie("login", "login", time() + 60 * 60 * 24 * 7, '/', 'tms.lan', true, true);
                 }

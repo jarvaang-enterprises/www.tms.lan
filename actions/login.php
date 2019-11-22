@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($result['level'] == 1){
                 $_SESSION['manager_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
                 setcookie("login","login",time()+60*60*24*7,'/','tms.lan',true,true);
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             } else if($result['level'] == 2){
                 $_SESSION['cashier_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
                 setcookie("login","login",time()+60*60*24*7,'/','tms.lan',true,true);
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             } else if($result['level'] == 4){
                 $_SESSION['client_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
                 setcookie("login","login",time()+60*60*24*7,'/','tms.lan',true,true);
@@ -104,33 +104,30 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
             if(!$id) die('Error: '.mysqli_error($con));
             $ten_id = mysqli_fetch_assoc($id);
             $results = mysqli_fetch_assoc($sql);
-	    $online = 'update accounts set status = 1 where authkey = "'.$resultn['NIN'].'"';
+	    $online = 'update accounts set status = 1 where NIN = "'.$resultn['NIN'].'"';
     	    $sql = mysqli_query($con, $online);
             if($result['level'] == 1){
                 $_SESSION['manager_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
-                echo "OK";
                 setcookie("return", 1,time()+60*60*10,'/','tms.lan',true,true);
                 header('Location: /man/');
             } else if($result['level'] == 2){
                 $_SESSION['cashier_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
-                echo "OK";
                 setcookie("return", 1,time()+60*60*10,'/','tms.lan',true,true);
                 header('Location: /csh/');
             } else if($result['level'] == 4){
                 $_SESSION['client_logged_in'] = true;
                 $_SESSION['logged_in'] = true;
-                $_SESSION['id'] = $ten_id['ten_id'];
+                $_SESSION['id'] = $resultn['NIN'];
                 $_SESSION['fName'] = $results['fName'];
                 $_SESSION['lName'] = $results['lName'];
-                echo "OK";
                 setcookie("return", 1,time()+60*60*10,'/','tms.lan',true,true);
                 header('Location: /cli/');
             }

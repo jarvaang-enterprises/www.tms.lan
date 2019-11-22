@@ -29,6 +29,7 @@ class LoginScreenState extends State<LoginScreen> {
       statusBarColor: Colors.orange,
     ));
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
         title: Text("TM System"),
         backgroundColor: Colors.black,

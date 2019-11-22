@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/custom.css" type="text/css" />
 <script>
     var div = document.getElementById('ver');
-    div.addEventListener("click", () => {
-        $("#status").css(
+    div.addEventListener("click", function() {
+        $("#status").css({
             'display': 'block'
-        )
-    })
+        });
+    });
 </script>
 <?php session_start();
 include('db.inc.php');
