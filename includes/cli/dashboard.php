@@ -23,33 +23,58 @@ $house_loc = $housenum['house_location'];
 $rpm = $housenum['amt_per_mth'];
 $p_info = 'select * from pay_info where ten_nin = "' . $_SESSION['id'] . '"';
 $p_info = mysqli_query($con, $p_info);
-$pay_info = mysqli_fetch_assoc($p_info);
-$mpl = $pay_info['month_last_paid'];
-$cur_mth = mysqli_fetch_assoc(mysqli_query($con, 'select MONTH(NOW()) limit 1'))['MONTH(NOW())'];
-if (intval($mpl) < intval($cur_mth)) {
-    $d =  intval($cur_mth) - intval($mpl);
-    $df = mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"');
-    if (mysqli_num_rows($df) != 0) {
-        $de = mysqli_fetch_assoc($df);
-        if (intval($de['for_mth']) != intval($cur_mth)) {
-            $amt_def = $de['amt_defaulted'] + intval($rpm * $d);
-            mysqli_query($con, 'update defaulters_rent set amt_defaulted ="' . intval($amt_def) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+$pay_info = mysqli_fetch_assoc($p_info); 
+if(mysqli_num_rows($p_info) != 0){
+    $mpl = $pay_info['month_last_paid'];
+    $cur_mth = mysqli_fetch_assoc(mysqli_query($con, 'select MONTH(NOW()) limit 1'))['MONTH(NOW())'];
+    if (intval($mpl) < intval($cur_mth)) {
+        $d =  intval($cur_mth) - intval($mpl);
+        $df = mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"');
+        if (mysqli_num_rows($df) != 0) {
+            $de = mysqli_fetch_assoc($df);
+            if (intval($de['for_mth']) != intval($cur_mth)) {
+                $amt_def = $de['amt_defaulted'] + intval($rpm * $d);
+                mysqli_query($con, 'update defaulters_rent set amt_defaulted ="' . intval($amt_def) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+                mysqli_query($con, 'update defaulters_rent set for_mth ="' . intval($cur_mth) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+            }
+        } else {
+            $def = mysqli_query($con, 'insert into defaulters_rent (ten_nin, amt_defaulted, for_mth) values("' . $_SESSION['id'] . '","' . $d * $rpm . '", "' . $cur_mth . '")');
+            echo mysqli_error($con);
         }
+        $mths_pd = 'You have rent arrears!';
+        $days_left = 'You have rent arrears!';
+        $def_amt = mysqli_fetch_assoc(mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"'))['amt_defaulted'];
     } else {
-        $def = mysqli_query($con, 'insert into defaulters_rent (ten_nin, amt_defaulted, for_mth) values("' . $_SESSION['id'] . '","' . $d * $rpm . '", "'.$cur_mth.'")');
-        echo mysqli_error($con);
+        $num_days = monthdays($cur_mth);
+        $mthspd = array();
+        $cur_day = (mysqli_fetch_assoc(mysqli_query($con, 'select DAY(NOW()) limit 1')))['DAY(NOW())'];
+        $days_left = $num_days - intval($cur_day);
+        $mths_pd_left = $pay_info["mths_paid_left"] + 1;
+        $count = 1;
+        $mth = $cur_mth;
+        while ($mths_pd_left > 0) {
+            if ($mth > 12) {
+                $mth = 1;
+                $mthspd[$count] = monthname($mth);
+                if ($mth != $cur_mth) $days_left += monthdays($mth);
+                $mth += 1;
+            } else {
+                $mthspd[$count] = monthname($mth);
+                if ($mth != $cur_mth) $days_left += monthdays($mth);
+                $mth += 1;
+            }
+            $count++;
+            $mths_pd_left--;
+        }
+        $mths_pd = implode(", ", $mthspd);
+        mysqli_query($con, 'update pay_info set mths_paid_left = "' . intval($cur_mth) - intval($mpl) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+        mysqli_query($con, 'update pay_info set days_left = ' . $days_left . ' where ten_nin = "' . $_SESSION['id'] . '"');
     }
-    $mths_pd = 'You have rent arrears!';
-    $days_left = 'You have rent arrears!';
-    $def_amt = mysqli_fetch_assoc(mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"'))['amt_defaulted'];
+    mysqli_query($con, 'update pay_info set current_month = "' . $cur_mth . '"');
 } else {
-    $num_days = monthdays($cur_mth);
-    $cur_day = (mysqli_fetch_assoc(mysqli_query($con, 'select DAY(NOW()) limit 1')))['DAY(NOW())'];
-    $days_left = $num_days - intval($cur_day);
-    mysqli_query($con, 'update pay_info set mths_paid_left = "' . intval($cur_mth) - intval($mpl) . '" where ten_nin = "' . $_SESSION['id'] . '"');
-    mysqli_query($con, 'update pay_info set days_left = ' . $days_left . ' where ten_nin = "' . $_SESSION['id'] . '"');
-    mysqli_query($con, 'update pay_info set current_month = ' . $cur_mth . ' where ten_nin = "' . $_SESSION['id'] . '"');
-    $mths_pd = monthname($pay_info["current_month"]);
+    $mths_pd = "No data";
+    $days_left = "No data";
+    $def_amt = "No data";
 }
 ?>
 <style>
@@ -112,11 +137,11 @@ if (intval($mpl) < intval($cur_mth)) {
     <div class="left">
         <div class="mths-pd">
             <label for="mths-pd" style="color:green">Months Paid for currently:</label><br>
-            <input type="text" name="mths-pd" id="mths-pd" style="text-align:center;border:1px solid green;padding:5px;border-radius:5px;background-color:transparent" readonly="yes" value="<?php echo $mths_pd; ?>">
+            <textarea type="text" word-break="" name="mths-pd" id="mths-pd" style="text-align:center;border:1px solid green;padding:5px;border-radius:5px;background-color:transparent;" readonly="yes" cols="19" rows="2"><?php echo $mths_pd; ?></textarea>
         </div>
         <div class="outstanding-bal">
             <label for="outstanding-bal">Outstanding total balance:</label><br>
-            <input type="text" name="outstanding-bal" id="outstanding-bal" style="text-align:center;border:1px solid crimson;padding:5px;border-radius:5px;background-color:transparent" readonly value="<?php echo $def_amt;?>/=">
+            <input type="text" name="outstanding-bal" id="outstanding-bal" style="text-align:center;border:1px solid crimson;padding:5px;border-radius:5px;background-color:transparent" readonly value="<?php echo $def_amt.is_nan($def_amt) ? $def_amt : $def_amt.'/=';?>">
         </div>
         <div class="days_left">
             <label for="days_left">Days left to end of paid period:</label><br>
@@ -163,3 +188,8 @@ if (intval($mpl) < intval($cur_mth)) {
         </div>
     </div>
 </div>
+<style>
+    #mths-pd {
+        resize: none;
+    }
+</style>

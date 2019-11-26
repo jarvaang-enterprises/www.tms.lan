@@ -3,7 +3,7 @@
 	<nav class="navbar navbar-inverse navbar-sticky navbar-expand-md bg-light">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" onclick="checknav()" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -28,6 +28,9 @@
 						<li class="nav-item">
 							<a onclick="ten()" href="#tenants" class="nav-link">Tenants</a>
 						</li>
+						<li class="nav-item">
+							<a href="#processpayments" class="nav-link" onclick="process()">Process Rent Payments</a>
+						</li>
 					<?php
 					} else if ($_SESSION['client_logged_in'] == true) {
 						?>
@@ -35,19 +38,7 @@
 							<a href="javascript:void(0)">No content to navigate to.</a>
 						</li>
 					<?php
-					} else {
-						?>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="services" href="#">Services</a>
-							<div class="dropdown-menu" style="background-color:#222;border-color:#080808;" aria-labelledby="services" style="background-color:#f0f0fff0;">
-								<a class="dropdown-item" href="/svcs/accd.html">
-									<div>Accomodation</div>
-								</a>
-							</div>
-						</li>
-					<?php
-					}
-					?>
+					} ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" style="float:right;">
 					<?php if ($_SESSION['logged_in'] == false) { ?>
@@ -77,16 +68,20 @@
 			$("#ten_list").css({
 				display: "none"
 			});
+			$('#processrent').css({
+				display: 'none'
+			});
 			$("#verify").load("/includes/ver.php");
 		});
 	}
-	checknav = () => {
-		if($('#navbar').hasClass('collapse') ){
-			$('#navbar').removeClass('collapse')
-			$('#navbar').addClass('collapsed')
-		} else {
-			$('#navbar').removeClass('collapsed')
-			$('#navbar').addClass('collapse')
-		}
-	}
+	$('li.nav-item').on('click', () => {
+		$('.navbar-collapse').removeClass('collapse')
+		$('.navbar-collapse').addClass('collapsing')
+		$('.navbar-collapse').animate({
+			height: '0px',
+		})
+		$('.navbar-collapse').removeClass('collapsing')
+		$('.navbar-collapse').removeClass('show')
+		$('.navbar-collapse').addClass('collapse')
+	})
 </script>

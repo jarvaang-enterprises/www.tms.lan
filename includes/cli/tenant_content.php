@@ -42,14 +42,6 @@ if (isset($_COOKIE['return'])) {
                         </span>
                     </a>
                 </li>
-                <li class="s-content pay_rent">
-                    <a class="s-text" href="javascript:void(0)" id="pay_rent">
-                        <span id="icon">
-                            PR
-                        </span>
-                        <span id="text">Pay Rent</span>
-                    </a>
-                </li>
                 <li class="s-content complaints">
                     <a class="s-text" href="javascript:void(0)" id="complaints">
                         <span id="icon">
@@ -81,7 +73,6 @@ if (isset($_COOKIE['return'])) {
         <div class="dashboard" style="display:block">Dashboard data</div>
         <div class="paydet" style="display:none">Payment Details</div>
         <div class="rentarrears" style="display:none">Rent Arrears</div>
-        <div class="pay_rnt" style="display:none">Payment Processing page</div>
         <div class="complnts" style="display:none">Complaints Page</div>
         <div class="ed" style="display:none"></div>
     </div>
@@ -109,13 +100,11 @@ if (isset($_COOKIE['return'])) {
     var dash = document.getElementById("dash"),
         pay_det = document.getElementById("pay"),
         arrears = document.getElementById("arrears"),
-        pay_rent = document.getElementById("pay_rent"),
         complaints = document.getElementById("complaints");
     dash.addEventListener("click", _ => {
         $(".dash").addClass("lactive");
         $(".pay").removeClass("lactive");
         $(".arr").removeClass("lactive");
-        $('.pay_rent').removeClass("lactive");
         $('.complaints').removeClass('lactive');
         $(".dashboard").css({
             "display": "block"
@@ -124,9 +113,6 @@ if (isset($_COOKIE['return'])) {
             "display": "none"
         });
         $(".rentarrears").css({
-            "display": "none"
-        });
-        $(".pay_rnt").css({
             "display": "none"
         });
         $('.complnts').css({
@@ -138,7 +124,6 @@ if (isset($_COOKIE['return'])) {
         $(".pay").addClass("lactive");
         $(".arr").removeClass("lactive");
         $('.sidebar-header').removeClass('lactive');
-        $('.pay_rent').removeClass("lactive");
         $('.complaints').removeClass('lactive');
         $(".paydet").css({
             "display": "block"
@@ -147,9 +132,6 @@ if (isset($_COOKIE['return'])) {
             "display": "none"
         });
         $(".rentarrears").css({
-            "display": "none"
-        });
-        $(".pay_rnt").css({
             "display": "none"
         });
         $('.complnts').css({
@@ -161,7 +143,6 @@ if (isset($_COOKIE['return'])) {
         $(".pay").removeClass("lactive");
         $(".arr").addClass("lactive");
         $('.sidebar-header').removeClass('lactive');
-        $('.pay_rent').removeClass("lactive");
         $('.complaints').removeClass('lactive');
         $(".rentarrears").css({
             "display": "block"
@@ -172,41 +153,14 @@ if (isset($_COOKIE['return'])) {
         $(".paydet").css({
             "display": "none"
         });
-        $(".pay_rnt").css({
-            "display": "none"
-        });
         $('.complnts').css({
             "display": "none"
         });
-    });
-    pay_rent.addEventListener("click", _ => {
-        $(".pay").removeClass("lactive");
-        $(".arr").removeClass("lactive");
-        $('.sidebar-header').removeClass('lactive');
-        $('.pay_rent').addClass("lactive");
-        $('.complaints').removeClass('lactive');
-        $(".rentarrears").css({
-            "display": "none"
-        });
-        $(".dashboard").css({
-            "display": "none"
-        });
-        $(".paydet").css({
-            "display": "none"
-        });
-        $(".pay_rnt").css({
-            "display": "block"
-        });
-        $('.complnts').css({
-            "display": "none"
-        });
-        PR();
     });
     complaints.addEventListener("click", _ => {
         $(".pay").removeClass("lactive");
         $(".arr").removeClass("lactive");
         $('.sidebar-header').removeClass('lactive');
-        $('.pay_rent').removeClass("lactive");
         $('.complaints').addClass('lactive');
         $(".rentarrears").css({
             "display": "none"
@@ -217,15 +171,8 @@ if (isset($_COOKIE['return'])) {
         $(".paydet").css({
             "display": "none"
         });
-        $(".pay_rnt").css({
-            "display": "none"
-        });
         $('.complnts').css({
             "display": "block"
         });
     });
-
-    function Dashboard() {
-
-    }
 </script>

@@ -1,4 +1,5 @@
 <?php session_start();
+require_once('../includes/db.inc.php');
 if($_SESSION['manager_logged_in'] == true){
     $_SESSION['manager_logged_in'] = false;
 } else if($_SESSION['cashier_logged_in'] == true){

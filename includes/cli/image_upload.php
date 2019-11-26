@@ -16,12 +16,11 @@ $date = implode('', explode('-', $date->format('Y-m-d-H-i-s')));
 // echo $date.':'.$datef[0].'<br>';
 // echo sprintf('%d:%.5f',explode(' ', $date)[1],explode(' ', $date)[0]*100);
 if (!empty($_FILES['files']) && !empty($_POST['user_id'])) {
-    echo 'Files';
     $files = $_FILES['files'];
     $user_id = mysqli_real_escape_string($con, $_POST['user_id']);
     $target_dir = "images/";
     $img_dir = "/includes/cli/images/";
-    $target_file_name = $date.'_'.basename($files['name']);
+    $target_file_name = $date . '_' . basename($files['name']);
     $target_file = $target_dir . $target_file_name;
     $upOk = 1;
     $file_size = $files['size'];
@@ -30,17 +29,23 @@ if (!empty($_FILES['files']) && !empty($_POST['user_id'])) {
         $response['error'] = "The image size is too big to upload as profile image!";
     } else {
         if (move_uploaded_file($files['tmp_name'], $target_file)) {
-            $check = 'select ten_img_id, ten_img_location, ten_img_name from tenant_images where ten_img_id = (select ten_img_id from tenant_details where ten_nin = "' . $user_id . '")';
+            $try = "select ten_img_id from tenant_details where ten_nin = '" . $user_id . "'";
+            $try = mysqli_query($con, $try);
+            $tii = mysqli_fetch_assoc($try)['ten_img_id'];
+            $check = 'select ten_img_id, ten_img_location, ten_img_name from tenant_images where ten_img_id = "' . $tii . '"';
             $check = mysqli_query($con, $check);
             if (mysqli_num_rows($check) == 0) {
-                $upload = 'insert into tenant_images values("' . $datename . '","' . $img_dir . '","' . $target_file_name . '")';
-                $upload = mysqli_query($con, $upload);
-                if ($upload) {
-                    $update = 'update tenant_details set ten_img_id = "' . $datename . '" where ten_nin = "' . $user_id . '"';
-                    $update = mysqli_query($con, $update);
-                    if ($update) {
+                $update = 'update tenant_details set ten_img_id = "' . $datename . '" where ten_nin = "' . $user_id . '"';
+                $update = mysqli_query($con, $update);
+                if ($update) {
+                    $upload = 'insert into tenant_images values("' . $datename . '","' . $img_dir . '","' . $target_file_name . '")';
+                    $upload = mysqli_query($con, $upload);
+                    if ($upload) {
                         $response['success'] = true;
                         $response['error'] = "";
+                    } else {
+                        $response['success'] = false;
+                        $response['error'] = mysqli_error($con);
                     }
                 } else {
                     $response['success'] = false;

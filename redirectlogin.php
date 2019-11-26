@@ -41,7 +41,7 @@
                                 <div class="field-wrapper">
                                     <input type="email" name="user" id="email" class="form-control input-lg">
                                     <div class="field-placeholder">
-                                        <span>Enter your Email</span>
+                                        <span>Enter your Email or Username</span>
                                     </div>
                                 </div>
                                 <span class="error_msg" id="error_msg"></span>

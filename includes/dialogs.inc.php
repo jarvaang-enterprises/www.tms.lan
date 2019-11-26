@@ -273,6 +273,7 @@
 					$('.before').addClass('enabled')
 					$('.uploading').removeClass('enabled')
 					$('.uploading').addClass('disabled')
+					log(e.responseText)
 					alert("Oops something has gone wrong!")
 				}
 			});
