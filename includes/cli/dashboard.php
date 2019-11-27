@@ -20,62 +20,99 @@ $rentinfo = mysqli_query($con, $rentinfo);
 $housenum = mysqli_fetch_assoc($rentinfo);
 $house_num = $housenum['house_number'];
 $house_loc = $housenum['house_location'];
-$rpm = $housenum['amt_per_mth'];
+$rpm = intval($housenum['amt_per_mth']);
 $p_info = 'select * from pay_info where ten_nin = "' . $_SESSION['id'] . '"';
 $p_info = mysqli_query($con, $p_info);
-$pay_info = mysqli_fetch_assoc($p_info); 
-if(mysqli_num_rows($p_info) != 0){
-    $mpl = $pay_info['month_last_paid'];
-    $cur_mth = mysqli_fetch_assoc(mysqli_query($con, 'select MONTH(NOW()) limit 1'))['MONTH(NOW())'];
-    if (intval($mpl) < intval($cur_mth)) {
-        $d =  intval($cur_mth) - intval($mpl);
-        $df = mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"');
-        if (mysqli_num_rows($df) != 0) {
-            $de = mysqli_fetch_assoc($df);
-            if (intval($de['for_mth']) != intval($cur_mth)) {
-                $amt_def = $de['amt_defaulted'] + intval($rpm * $d);
-                mysqli_query($con, 'update defaulters_rent set amt_defaulted ="' . intval($amt_def) . '" where ten_nin = "' . $_SESSION['id'] . '"');
-                mysqli_query($con, 'update defaulters_rent set for_mth ="' . intval($cur_mth) . '" where ten_nin = "' . $_SESSION['id'] . '"');
-            }
-        } else {
-            $def = mysqli_query($con, 'insert into defaulters_rent (ten_nin, amt_defaulted, for_mth) values("' . $_SESSION['id'] . '","' . $d * $rpm . '", "' . $cur_mth . '")');
-            echo mysqli_error($con);
-        }
-        $mths_pd = 'You have rent arrears!';
-        $days_left = 'You have rent arrears!';
-        $def_amt = mysqli_fetch_assoc(mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"'))['amt_defaulted'];
-    } else {
-        $num_days = monthdays($cur_mth);
-        $mthspd = array();
-        $cur_day = (mysqli_fetch_assoc(mysqli_query($con, 'select DAY(NOW()) limit 1')))['DAY(NOW())'];
-        $days_left = $num_days - intval($cur_day);
-        $mths_pd_left = $pay_info["mths_paid_left"] + 1;
-        $count = 1;
-        $mth = $cur_mth;
-        while ($mths_pd_left > 0) {
-            if ($mth > 12) {
-                $mth = 1;
-                $mthspd[$count] = monthname($mth);
-                if ($mth != $cur_mth) $days_left += monthdays($mth);
-                $mth += 1;
-            } else {
-                $mthspd[$count] = monthname($mth);
-                if ($mth != $cur_mth) $days_left += monthdays($mth);
-                $mth += 1;
-            }
-            $count++;
-            $mths_pd_left--;
-        }
-        $mths_pd = implode(", ", $mthspd);
-        mysqli_query($con, 'update pay_info set mths_paid_left = "' . intval($cur_mth) - intval($mpl) . '" where ten_nin = "' . $_SESSION['id'] . '"');
-        mysqli_query($con, 'update pay_info set days_left = ' . $days_left . ' where ten_nin = "' . $_SESSION['id'] . '"');
-    }
-    mysqli_query($con, 'update pay_info set current_month = "' . $cur_mth . '"');
-} else {
-    $mths_pd = "No data";
-    $days_left = "No data";
-    $def_amt = "No data";
-}
+// $cur_mth = intval(mysqli_fetch_assoc(mysqli_query($con, 'select MONTHNAME(NOW()) limit 1')))['MONTHNAME(NOW())'];
+// if (mysqli_num_rows($p_info) != 0) {
+//     $pay_info = mysqli_fetch_assoc($p_info);
+//     $mpl = intval($pay_info['month_last_paid']);
+//     $mlp = intval($pay_info['mths_paid_left']);
+//     $num_days = monthdays($cur_mth);
+//     $mthspd = array();
+//     $cur_day = (mysqli_fetch_assoc(mysqli_query($con, 'select DAY(NOW()) limit 1')))['DAY(NOW())'];
+//     $days_left = $num_days - intval($cur_day);
+//     $count = 1;
+//     $mth = $cur_mth;
+//     if (intval($mpl) < intval($cur_mth)) {
+//         echo '<br>'.$mlp;
+//         $mths_pd_left = -($mlp - (intval($cur_mth) - intval($mpl))) + 1;
+//         $mdata = -($mlp - (intval($cur_mth) - intval($mpl)));
+//         if ($mlp > 0) {
+//             // echo '<br>cm'.$cur_mth;
+//             // echo '<br> cd'.$cur_day;
+//             // echo '<br> mpl'.$mpl;
+//             while ($mths_pd_left > 0) {
+//                 if ($mth > 12) {
+//                     $mth = 1;
+//                     $mthspd[$count] = monthname($mth);
+//                     if ($mth != $cur_mth) $days_left += monthdays($mth);
+//                     $mth += 1;
+//                 } else {
+//                     $mthspd[$count] = monthname($mth);
+//                     if ($mth != $cur_mth) $days_left += monthdays($mth);
+//                     $mth += 1;
+//                 }
+//                 $count++;
+//                 $mths_pd_left--;
+//             }
+//             $mths_pd = implode(", ", $mthspd);
+//             // echo '<br>'.$mdata;
+//             mysqli_query($con, 'update pay_info set mths_paid_left = "' . $mdata . '" where ten_nin = "' . $_SESSION['id'] . '"');
+//             mysqli_query($con, 'update pay_info set days_left = ' . $days_left . ' where ten_nin = "' . $_SESSION['id'] . '"');
+//             $days_left = $days_left;
+//         } else {
+//             $d =  intval($cur_mth) - intval($mpl);
+//             $df = mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"');
+//             if (mysqli_num_rows($df) != 0) {
+//                 $de = mysqli_fetch_assoc($df);
+//                 if (intval($de['for_mth']) != intval($cur_mth)) {
+//                     $amt_def = $de['amt_defaulted'] + intval($rpm * $d);
+//                     mysqli_query($con, 'update defaulters_rent set amt_defaulted ="' . intval($amt_def) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+//                     mysqli_query($con, 'update defaulters_rent set for_mth ="' . intval($cur_mth) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+//                 }
+//             } else {
+//                 $def = mysqli_query($con, 'insert into defaulters_rent (ten_nin, amt_defaulted, for_mth) values("' . $_SESSION['id'] . '","' . $d * $rpm . '", "' . $cur_mth . '")');
+//                 echo mysqli_error($con);
+//             }
+//             $mths_pd = 'You have rent arrears!';
+//             $days_left = 'You have rent arrears!';
+//             $def_amt = mysqli_fetch_assoc(mysqli_query($con, 'select * from defaulters_rent where ten_nin = "' . $_SESSION['id'] . '"'))['amt_defaulted'];
+//         }
+//     } else {
+//         $num_days = monthdays($cur_mth);
+//         $mthspd = array();
+//         $cur_day = (mysqli_fetch_assoc(mysqli_query($con, 'select DAY(NOW()) limit 1')))['DAY(NOW())'];
+//         $days_left = $num_days - intval($cur_day);
+//         $mths_pd_left = abs($pay_info["mths_paid_left"] - (intval($cur_mth) - intval($mpl)));
+//         $count = 1;
+//         $mth = intval($cur_mth);
+//         while ($mths_pd_left > 0) {
+//             if ($mth > 12) {
+//                 $mth = 1;
+//                 $mthspd[$count] = monthname($mth);
+//                 if ($mth != $cur_mth) $days_left += monthdays($mth);
+//                 $mth += 1;
+//             } else {
+//                 $mthspd[$count] = monthname($mth);
+//                 if ($mth != $cur_mth) $days_left += monthdays($mth);
+//                 $mth += 1;
+//             }
+//             $count++;
+//             $mths_pd_left--;
+//         }
+//         // $mths_pd = implode(", ", $mthspd);
+//         $mths_pd = $mths_pd_left;
+//         // mysqli_query($con, 'update pay_info set mths_paid_left = "' . abs((intval($cur_mth) - intval($mpl)) - $pay_info["mths_paid_left"]) . '" where ten_nin = "' . $_SESSION['id'] . '"');
+//         mysqli_query($con, 'update pay_info set days_left = ' . $days_left . ' where ten_nin = "' . $_SESSION['id'] . '"');
+//     }
+//     mysqli_query($con, 'update pay_info set current_month = "' . $cur_mth . '"');
+//     mysqli_query($con, 'update pay_info set current_year = "' . (mysqli_fetch_assoc(mysqli_query($con, 'select YEAR(NOW()) limit 1')))['YEAR(NOW())'] . '"');
+// } else {
+//     $mths_pd = "No data";
+//     $days_left = "No data";
+//     $def_amt = "No data";
+// }
 ?>
 <style>
     .upload_btn:hover,
@@ -141,7 +178,7 @@ if(mysqli_num_rows($p_info) != 0){
         </div>
         <div class="outstanding-bal">
             <label for="outstanding-bal">Outstanding total balance:</label><br>
-            <input type="text" name="outstanding-bal" id="outstanding-bal" style="text-align:center;border:1px solid crimson;padding:5px;border-radius:5px;background-color:transparent" readonly value="<?php echo $def_amt.is_nan($def_amt) ? $def_amt : $def_amt.'/=';?>">
+            <input type="text" name="outstanding-bal" id="outstanding-bal" style="text-align:center;border:1px solid crimson;padding:5px;border-radius:5px;background-color:transparent" readonly value="<?php echo $def_amt . is_nan($def_amt) ? $def_amt : $def_amt . '/='; ?>">
         </div>
         <div class="days_left">
             <label for="days_left">Days left to end of paid period:</label><br>
