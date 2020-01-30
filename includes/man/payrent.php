@@ -50,7 +50,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6 col-md-6 col-lg-6">
                                                     <div class="form-group" style="position:relative">
-                                                        <input type="text" name="fName" class="form-control col-xs-6 col-md-6 col-lg-6" onfocus=($('.fa.fName').hide()) placeholder="First Name" required="required">
+                                                        <input type="text" name="fName" class="form-control col-xs-6 col-md-6 col-lg-6" onfocus="($('.fa.fName').hide())" placeholder="First Name" required="required">
                                                         <i class="fa fa-check fName" style="color: #5da454; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
                                                         <i class="fa fa-times fName" style="color: red; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
                                                         <i class="fa fa-spinner fa-pulse fName" style="color: grey; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
@@ -58,7 +58,7 @@
                                                 </div>
                                                 <div class="col-xs-6 col-md-6 col-lg-6">
                                                     <div class="form-group" style="position:relative">
-                                                        <input type="text" name="lName" class="form-control col-xs-6 col-md-6 col-lg-6" onfocus=($('.fa.lName').hide()) placeholder="Last Name" required="required">
+                                                        <input type="text" name="lName" class="form-control col-xs-6 col-md-6 col-lg-6" onfocus="($('.fa.lName').hide())" placeholder="Last Name" required="required">
                                                         <i class="fa fa-check lName" style="color: #5da454; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
                                                         <i class="fa fa-times lName" style="color: red; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
                                                         <i class="fa fa-spinner fa-pulse lName" style="color: grey; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>

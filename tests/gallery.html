@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.tms-dist.lan:433/styles/js/jquery-2.1.3.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.tms-dist.lan:433/styles/js/jquery-2.1.3.min.js"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.tms-dist.lan:433/styles/js/get_gallery.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/sliding_gallery.css" crossorigin="anonymous">
     <title>Gallery</title>
@@ -33,12 +34,20 @@
 
 </head>
 
-    <button id="leftBtn" onclick="moveLeft()">&lt;</button>
-    <button id="rightBtn" onclick="moveRight()">&gt;</button>
-    <div id="galleryCont">
-        <div id="gallery"></div>
-        <div id="caption">Photo Caption</div>
-        <div id="loading">Please wait ...</div>
-    </div>
+<button id="leftBtn" onclick="moveLeft()">&lt;</button>
+<button id="rightBtn" onclick="moveRight()">&gt;</button>
+<div id="galleryCont">
+    <div id="gallery"></div>
+    <div id="caption">Photo Caption</div>
+    <div id="loading">Please wait ...</div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        setTimeout(autoload, 3000)
+        // autoload()
+        log('not')
+    })
+</script>
 
 </html>

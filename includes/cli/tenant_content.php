@@ -1,6 +1,5 @@
 <?php
 session_start();
-//require_once('/includes/db.inc.php');
 if (isset($_COOKIE['return'])) {
     echo '<script>notifyMe("' . $_SESSION['fName'] . '");</script>';
     setcookie("return", '', time() - 60 * 60 * 24 * 30, '/', 'tms.lan', true, true);

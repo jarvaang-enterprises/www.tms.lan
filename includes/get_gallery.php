@@ -23,14 +23,15 @@ if ($total == 0) {
         if ((preg_match('/.JPG/', $img)) || (preg_match('/.jpg/', $img)) || (preg_match('/.gif/', $img)) || (preg_match('/.tiff/', $img)) || (preg_match('/.png/', $img))
         ) {
             $i_s = $img_dir . $img;
-            $i = '/includes/' . $img_dir . $img;
+            $i = 'includes/'.$img_dir . $img;
             list($w, $h) = getimagesize($i_s);
             setcookie($count, $w.' & '. $h);
             if ($h > $w) {
-                $sC = imagecreatefromjpeg($i);
-                $rI = imagerotate($i, -90, 0);
-                echo $rI;
-                imagejpeg($rI, $i);
+                // $sC = imagecreatefromjpeg(file($i));
+                // $rI = imagerotate(file($i), -90, 0);
+                // echo resourcebundle_get($i, true);
+                // var_dump($i);
+                // imagejpeg($rI, file($i));
                 $html .= '
                 <img src="' . $i . '" width="500px" height="400px" alt="' . file_ext($img) . '"/>';
             } else {

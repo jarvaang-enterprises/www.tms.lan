@@ -185,6 +185,7 @@ import 'splash/splashScreen.dart';
 // }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   NetworkStateSingleton networkState = NetworkStateSingleton.getInstance();
   networkState.initialize();
   runApp(MyApp(ns: networkState));

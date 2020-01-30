@@ -15,15 +15,11 @@
 				<ul class="nav navbar-nav" style="float:left;">
 					<?php session_start();
 					if (isset($_SESSION['manager_logged_in']) && $_SESSION['manager_logged_in'] == true) { ?>
-						<li class="nav-item dropdown">
+						<li class="nav-item">
 							<link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/man-custom.css" type="text/css" />
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="actions" href="#">Actions</a>
-							<div class="dropdown-menu" style="background-color:#222;border-color:#080808;" aria-labelledby="actions" style="background-color:#f0f0fff0;">
-								<a class="dropdown-item" id="verifier" href="#verifyusers">
-									<div>Verify Users</div>
-								</a>
-								<div class="dropdown-divider" style="border: 1px solid black"></div>
-							</div>
+							<a class="nav-link" id="verifier" href="#verifyusers">
+								Verify Users
+							</a>
 						</li>
 						<li class="nav-item">
 							<a onclick="ten()" href="#tenants" class="nav-link">Tenants</a>
@@ -31,8 +27,11 @@
 						<li class="nav-item">
 							<a href="#processpayments" class="nav-link" onclick="process()">Process Rent Payments</a>
 						</li>
+						<li class="nav-item">
+							<a href="#tenants" class="nav-link" id="ten_det">Tenants Details</a>
+						</li>
 					<?php
-					} else if ($_SESSION['client_logged_in'] == true) {
+					} else if (isset($_SESSION['client_logged_in']) && $_SESSION['client_logged_in'] == true) {
 						?>
 						<li class="nav-item">
 							<a href="javascript:void(0)">No content to navigate to.</a>
@@ -41,16 +40,23 @@
 					} ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" style="float:right;">
-					<?php if ($_SESSION['logged_in'] == false) { ?>
+					<?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) { ?>
 						<li>
 							<button style="margin-top: 15px;background:transparent;border:none;color:darkgrey" onclick="document.getElementById('id02').style.display='block'; document.getElementById('id01').style.display='none'"><span class="glyphicon glyphicon-user"></span> Sign Up</button>
 						</li>
 						<li>
 							<button style="margin-top: 15px;background:transparent;border:none;color:darkgrey" onclick="document.getElementById('id01').style.display='block'; document.getElementById('id02').style.display='none'"><span class="glyphicon glyphicon-log-in"></span> Login</button>
 						</li>
-					<?php } else if ($_SESSION['logged_in'] == true) { ?>
+					<?php } else if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) { ?>
 						<li>
 							<a class="navbar-item" href="/actions/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout <?php echo $_SESSION['fName']; ?></a>
+						</li>
+					<?php } else { ?>
+						<li>
+							<button style="margin-top: 15px;background:transparent;border:none;color:darkgrey" onclick="document.getElementById('id02').style.display='block'; document.getElementById('id01').style.display='none'"><span class="glyphicon glyphicon-user"></span> Sign Up</button>
+						</li>
+						<li>
+							<button style="margin-top: 15px;background:transparent;border:none;color:darkgrey" onclick="document.getElementById('id01').style.display='block'; document.getElementById('id02').style.display='none'"><span class="glyphicon glyphicon-log-in"></span> Login</button>
 						</li>
 					<?php } ?>
 				</ul>
@@ -71,6 +77,9 @@
 			$('#processrent').css({
 				display: 'none'
 			});
+			$('#tendet').css({
+				display: 'none'
+			});
 			$("#verify").load("/includes/ver.php");
 		});
 	}
@@ -84,4 +93,5 @@
 		$('.navbar-collapse').removeClass('show')
 		$('.navbar-collapse').addClass('collapse')
 	})
+	tendet()
 </script>
