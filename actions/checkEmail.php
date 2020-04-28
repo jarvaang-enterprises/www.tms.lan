@@ -11,7 +11,7 @@ if (isset($_POST['user'])) {
             $action = "SHOW_SUCCESS";
             $sql = "select fName, lName from NINS where NIN = '" . $result['NIN'] . "'";
             $sql = mysqli_query($con, $sql);
-            if (!$sql) echo '<br>Error: ' . mysqli_error($con);
+            if (!$sql) echo '<br>Error: a' . mysqli_error($con);
             else {
                 $results = mysqli_fetch_assoc($sql);
                 $nin = $result['NIN'];
@@ -31,7 +31,7 @@ if (isset($_POST['user'])) {
                 }else {
                     $ten_data = "select ten_img_id,ten_email from tenant_details where ten_nin = '" . $nin . "'";
                     $ten_data = mysqli_query($con, $ten_data);
-                    if (!$sql) echo '<br>Error: ' . mysqli_error($con);
+                    if (!$sql) echo '<br>Error: b' . mysqli_error($con);
                     else {
                         $img_id = mysqli_fetch_assoc($ten_data);
                         $email = $img_id['ten_email'];

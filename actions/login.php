@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $password = mysqli_real_escape_string($con, $_POST['passwd']);
     $sql = 'select pass, level from accounts where username = "'.$email.'"';
     $sql = mysqli_query($con,$sql);
-    if(!$sql) die('Error: '.mysqli_error($con));
+    if(!$sql) die('Error: 1'.mysqli_error($con));
     $result = mysqli_fetch_assoc($sql);
     if(mysqli_num_rows($sql) == 0){
         setcookie('msg','Specified user does not exist, please try creating an account.',time()+10,'/','.tms.lan',true,true);
@@ -24,10 +24,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $resultn = mysqli_fetch_assoc($sqls);
             $sql = 'select fName, lName from NINS where NIN = "'.$resultn['NIN'].'"';
             $sql = mysqli_query($con,$sql);
-            if(!$sql) die('Error: '.mysqli_error($sql));
+	    echo mysqli_error($con);
+            if(!$sql) die('Error: 2'.mysqli_error($sql));
             $id = 'select ten_id from tenant_details where ten_nin = "'.$resultn['NIN'].'"';
             $id = mysqli_query($con,$id);
-            if(!$id) die('Error: '.mysqli_error($con));
+            if(!$id) die('Error: 3'.mysqli_error($con));
             $ten_id = mysqli_fetch_assoc($id);
             $results = mysqli_fetch_assoc($sql);
 	    $online = 'update accounts set status = 1 where NIN = "'.$resultn['NIN'].'"';
@@ -81,8 +82,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 } 
 else if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    $email = mysqli_real_escape_string($con, $_GET['user']);
-    $password = mysqli_real_escape_string($con, $_GET['passwd']);
+    $email = base64_decode(mysqli_real_escape_string($con, $_GET['user']));
+    $password = base64_decode(mysqli_real_escape_string($con, $_GET['passwd']));
     $sql = 'select pass, level from accounts where username = "'.$email.'"';
     $sql = mysqli_query($con,$sql);
     if(!$sql) die('Error: '.mysqli_error($con));

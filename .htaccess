@@ -4,5 +4,5 @@ ErrorDocument 403 /error/forbidden.html
 ErrorDocument 404 /error/404Error.html
 ErrorDocument 500 /error/internal-server-error.html
 
-Options -Indexes +ExecCGI
-AddHandler cgi-script .py
+Options -Indexes
+DirectoryIndex index.php
