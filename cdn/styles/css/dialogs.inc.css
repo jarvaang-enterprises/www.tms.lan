@@ -1,0 +1,36 @@
+@media (min-width:1200px){
+    .check{
+        width:25%!important;
+        float: left;
+    }
+}
+@media (min-width:992px){
+    .check{
+        width:50%!important;
+        float: left;
+    }
+}
+@media (min-width:480px){
+    .check{
+        width:50%!important;
+        float: left;
+    }
+    .tms-modal-content{
+        width: 470px;
+    }
+}
+@media (min-width:768px){
+    .check{
+        width:50%!important;
+        float: left;
+    }
+}
+@media (min-width:360px){
+    .check{
+        width:50%!important;
+        float: left;
+    }
+}
+.check{
+    position: relative;
+}
