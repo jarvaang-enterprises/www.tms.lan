@@ -6,7 +6,7 @@
 		session_start();
 		if (isset($_COOKIE['msg'])) { ?>
 								display:block;<?php
-												} ?>">
+											} ?>">
 	<div class="tms-modal-content animate tms-card-4" style="max-width:600px; cursor:auto;">
 		<form method="post" action="/actions/login.php" autocomplete="off">
 			<div class="tms-center"><br>
@@ -51,7 +51,7 @@
 		<?php
 		if (isset($_COOKIE['info'])) { ?>
 																display:block;<?php
-																				} ?>">
+																			} ?>">
 	<div class="tms-modal-content animate tms-card-4" style="max-width:600px; cursor:auto;">
 		<form method="post" action="/actions/signup.php" autocomplete="off">
 			<div class="tms-center"><br>
@@ -144,7 +144,7 @@
 	<?php
 	if (isset($_COOKIE['info'])) { ?>
 		display:block;<?php
-						} ?>">
+					} ?>">
 		<div class="tms-modal-content animate tms-card-4" style="max-width:600px; cursor:auto;">
 			<form id="#msform" class="img_upload" method="post" autocomplete="off" enctype="multipart/form-data" onsubmit="uploadData(this)">
 				<div class="tms-center"><br>
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 
-						<button class="tms-button tms-block tms-green tms-section tms-padding" type="submit" id="up2server" onclick="clear()" style="fontsize:15px">
+						<button class="tms-button tms-block tms-green tms-section tms-padding" type="submit" id="up2server" onclick="clear()" style="font-size:15px">
 							<span class="before enabled">Upload Image</span>
 							<span class="uploading disabled"><iframe src="../includes/loader.html" frameborder="0" width="18px" height="18px"></iframe> &nbsp;&nbsp; Uploading image</span>
 						</button>
@@ -186,7 +186,7 @@
 	var droppedFiles = false;
 	$(() => {
 		$('html').on("dragover", (e) => {
-			e.preventDefault();
+			e.preventDefault()
 			e.stopPropagation()
 			$('h1').text("Drag here")
 		})
@@ -223,8 +223,8 @@
 			$('h1').text('Upload')
 		})
 		$('#up2server').on('click', (e) => {
-			e.preventDefault();
-			if ($('.img_upload').hasClass('is-uploading')) return false;
+			e.preventDefault()
+			if ($('.img_upload').hasClass('is-uploading')) return false
 			$('.img_upload').removeClass('is-error')
 			$('.error').text('')
 			$('.error').removeClass('enabled')
@@ -234,12 +234,13 @@
 			$('.uploading').removeClass('disabled')
 			$('.uploading').addClass('enabled')
 			$('.img_upload').addClass('is-uploading')
-			var ajaxData = new FormData($('#msform').get(0));
-			var $input = $('#msform').find('input[type="file"]');
+			let ajaxData = new FormData($('.img_upload').get(0));
+			var $input = $('.img_upload').find('input[type="file"]');
 			$.each(droppedFiles, function(i, file) {
-				ajaxData.append('files', file);
+				ajaxData.append('files', file)
 			});
-			ajaxData.append('user_id', window.id)
+			ajaxData.append('user_id', window.id);
+			console.log(droppedFiles)
 			$.ajax({
 				url: "/includes/cli/image_upload.php",
 				type: 'post',
@@ -258,7 +259,7 @@
 				success: (data) => {
 					$('.img_upload').addClass(data.success == true ? 'is-success' : 'is-error');
 					if (!data.success) {
-						log(data.error)
+						log(data)
 						$('.error').text(data.error)
 						$('.error').removeClass('disabled')
 						$('.error').addClass('enabled')
@@ -291,6 +292,7 @@
 
 		showMyImage = (fileInput) => {
 			var files = fileInput.files
+			droppedFiles = files
 			createThumbDiv()
 			for (var i = 0; i < files.length; i++) {
 				filer = files[i];

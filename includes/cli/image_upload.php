@@ -8,18 +8,11 @@ $dates = DateTime::createFromFormat('U.u', microtime(true));
 $datename = $dates->format('Y-m-d H:i:s.u');
 $date = new DateTime();
 $date = implode('', explode('-', $date->format('Y-m-d-H-i-s')));
-// echo 'Date for timestamp:'.$datename.'<br>Date for name:'.$date.'<br>';
-// $date = microtime();
-// $datef = explode(' ', $date);
-// $date = date('Y-m-d H:i:s', $datef[1]);
-// $micro = sprintf('%06d');
-// echo $date.':'.$datef[0].'<br>';
-// echo sprintf('%d:%.5f',explode(' ', $date)[1],explode(' ', $date)[0]*100);
-if (!empty($_FILES['files']) && !empty($_POST['user_id'])) {
-    $files = $_FILES['files'];
+if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
+    $files = $_FILES['file'];
     $user_id = mysqli_real_escape_string($con, $_POST['user_id']);
-    $target_dir = "images/";
-    $img_dir = "/includes/cli/images/";
+    $target_dir = "../img/";
+    $img_dir = "/includes/img/";
     $target_file_name = $date . '_' . basename($files['name']);
     $target_file = $target_dir . $target_file_name;
     $upOk = 1;

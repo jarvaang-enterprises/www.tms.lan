@@ -1,4 +1,7 @@
 <script src="https://cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
+<head>
+<?php include_once("../actions/gtag.php"); ?>
+</head>
 <div class="container">
 	<nav class="navbar navbar-inverse navbar-sticky navbar-expand-md bg-light">
 		<div class="container-fluid">
