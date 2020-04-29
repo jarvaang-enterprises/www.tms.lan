@@ -72,10 +72,10 @@ function getRentDetails($id){
     if (!$init) die('Error: ' . mysqli_error($con));
     $count = 0;
     while(($init_data = mysqli_fetch_assoc($init)) !== null){
-        $details['payment_'.++$count]['rNo'] = $init_data['receiptNo'];
-        $details['payment_'.$count]['amt_pd'] = $init_data['amt_pd'];
-        $details['payment_'.$count]['date_pd'] = $init_data['date_pd'];
-        $details['payment_'.$count]['processedBy'] = $init_data['processedBy'];
+        $details['payments']['payment_'.++$count]['rNo'] = $init_data['receiptNo'];
+        $details['payments']['payment_'.$count]['amt_pd'] = $init_data['amt_pd'];
+        $details['payments']['payment_'.$count]['date_pd'] = $init_data['date_pd'];
+        $details['payments']['payment_'.$count]['processedBy'] = $init_data['processedBy'];
     }
     $init = 'select * from rent_credit where ten_nin = "' . $id . '"';
     $init = mysqli_query($con, $init);
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $response['status'] = 403;
     $response['msg'] = 'Unknown request submitted!';
 } else {
-    http_response_code(302);
+    http_response_code(200);
     $response['status'] = 302;
     $nin = $_POST['tNIN'];
     $init = 'select * from NINS where NIN = "' . $nin . '"';
