@@ -65,6 +65,7 @@ function getRentDetails($id){
     $init = mysqli_query($con, $init);
     if (!$init) die('Error: ' . mysqli_error($con));
     $init_data = mysqli_fetch_assoc($init);
+    $details['d_id'] = $init_data['defaulters_id'] == null ? 0 : $init_data['defaulters_id'];
     $details['defaulted_amt'] = $init_data['amt_defaulted'] == null ? 0 : $init_data['amt_defaulted'];
     $details['month'] = $init_data['for_mth'] == null ? 'OK' : $init_data['for_mth'];
     $init = 'select * from payment_details where ten_nin = "' . $id . '"';

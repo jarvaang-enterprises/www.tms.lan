@@ -22,19 +22,19 @@
                         <div class="panel-body">
                             <form id="payment-form" class="payment-form" role="form" method="post" action="/actions/process_payment.php">
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-3 col-sm-6">
                                         <div class="form-group">
-                                            <label for="receiptNo">Receipt No:</label>
+                                            <label for="receiptNo" style="font-size: 12px">Receipt No:</label>
                                             <div class="input-group">
                                                 <input type="text" name="rNo" class="form-control" placeholder="Receipt No" autocomplete="false" required="required" autofocus="autofocus">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6" style="float:right">
+                                    <div class="col-xs-9 col-sm-6">
                                         <div class="form-group">
                                             <label for="datePd:">Date Paid:</label>
                                             <div class="input-group">
-                                                <input type="datetime-local" name="datePd" class="form-control" autocomplete="date" required="required" placeholder="2001/01/31">
+                                                <input type="datetime-local" name="datePd" class="form-control" autocomplete="date" required="required" placeholder="08/01/2001, 19:02 PM">
                                             </div>
                                         </div>
                                     </div>
