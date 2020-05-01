@@ -58,6 +58,22 @@ function getDetails($id = 0){
     $details['services'] = getServiceInfo($hid);
     return $details;
 }
+function getPayInfo($id){
+    global $con;
+    $details = array();
+    $init = 'select * from pay_info where ten_nin = "' . $id . '"';
+    $init = mysqli_query($con, $init);
+    if (!$init) die('Error: ' . mysqli_error($con));
+    if(mysqli_num_rows($init) > 0){
+        $init_data = mysqli_fetch_assoc($init);
+        $details['cm'] = $init_data['current_month'];
+        $details['mlp'] = $init_data['month_last_paid'];
+        $details['ylp'] = $init_data['year_last_paid'];
+        $details['mpl'] = $init_data['mths_paid_left'];
+        $details['lmpf'] = $init_data['last_mth_pd_for'];
+    }
+    return $details;
+}
 function getRentDetails($id){
     global $con;
     $details = array();
@@ -120,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $response['names']['lName'] = $init_data['lName'];
             $response['dets'] = getDetails($nin);
             $response['rent_info'] = getRentDetails($nin);
+            $response['pay_info'] = getPayInfo($nin);
         }
     }
 }

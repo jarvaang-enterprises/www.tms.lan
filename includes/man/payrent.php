@@ -33,8 +33,11 @@
                                     <div class="col-xs-9 col-sm-6">
                                         <div class="form-group">
                                             <label for="datePd:">Date Paid:</label>
-                                            <div class="input-group">
-                                                <input type="datetime-local" name="datePd" class="form-control" autocomplete="date" required="required" placeholder="08/01/2001, 19:02 PM">
+                                            <div class="input-group date" id="dtp">
+                                                <input type="text" name="datePd" class="form-control" autocomplete="date" required="required">
+                                                <span class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -172,3 +175,22 @@
         min-width: 180px;
     }
 </style>
+<script src="https://cdn.tms-dist.lan:433/styles/js/moment.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.tms-dist.lan:433/styles/js/moment.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.tms-dist.lan:433/styles/js/moment.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.tms-dist.lan:433/styles/js/moment.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/bdtp/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="https://cdn.tms-dist.lan:433/styles/bdtp/js/bootstrap-datetimepicker.min.js">
+</script>
+<script>
+    dtp = () => {
+        if (typeof moment == 'undefined') {
+            setTimeout(dtp, 1000)
+        } else {
+            $('#dtp').datetimepicker({
+                viewMode: 'years',
+            })
+        }
+    }
+    dtp()
+</script>
