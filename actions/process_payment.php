@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response['success'] = false;
     $response['error'] = 'Just for testing issues';
     $receiptNo = $_POST['rNo'];
-    $datePd = strval($_POST['datePd']);
+    $datePd = strval($_POST['date']);
     $ten_nin = $_POST['tNIN'];
     $admin = $_POST['admin'];
     $amtPd = intval($_POST['amtPd']);
@@ -65,40 +65,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else if ($amtPd > $rpm || $amtPd == $rpm) {
             $response['success'] = true;
             unset($response['error']);
-            echo $datePd;
-            curlpost('https://www.tms.lan/actions/updateDefAmount.php', 'POST', ['tNIN' => $ten_nin, 'rNo' => $receiptNo, 'ad' => intval($_POST['amtPd']), 'date' => $datePd, 'pB' => $admin, 'type' => 'pdet']);
+            curlpost('https://www.tms.lan/actions/updateDefAmount.php', 'POST', ['tNIN' => $ten_nin, 'rNo' => $receiptNo, 'ad' => intval($_POST['amtPd']), 'pB' => $admin, 'mlp' => datetime($datePd, 'm'), 'type' => 'pdet']);
             $numMths = intval($amtPd / $rpm);
             $amtPd -= ($numMths * $rpm);
-            if ($tenDet->pay_info->lmpf == $cm)
-                $lmpf = $cm;
-            else
-                $lmpf = $cm;
+            if (isset($tenDet->pay_info->lmpf) && $tenDet->pay_info->lmpf)
+                if ($tenDet->pay_info->lmpf)
+                    $lmpf = $tenDet->pay_info->lmpf;
+                else
+                    $lmpf = $cm;
+            else $lmpf = $cm;
             $nm = $numMths;
             $y = 0;
             while ($nm > 0) {
-                if ($lmpf == 12){
+                if ($lmpf == 12) {
                     $lmpf = 1;
                     $y = +1;
-                }
-                else
+                } else
                     $lmpf += 1;
                 $nm -= 1;
             }
+            if ($tenDet->pay_info->ylpf)
+                $cy = $tenDet->pay_info->ylpf;
+            $cy += $y;
             curlpost('https://www.tms.lan/actions/updateDefAmount.php', 'POST', ['tNIN' => $ten_nin, 'ad' => $amtPd, 'type' => 'credit', 'action' => 'ins']);
             if (count($tenDet->pay_info) == 0)
-                curlpost(
+                print_r(curlpost(
                     'https://www.tms.lan/actions/updateDefAmount.php',
                     'POST',
                     [
                         'tNIN' => $ten_nin,
                         'cm' => $cm,
                         'ylp' => $cy,
+                        'mlp' => datetime($datePd, 'm'),
                         'mpl' => $numMths,
                         'lmpf' => $lmpf,
+                        'ylpf' => $cy,
                         'type' => 'pinfo',
                         'action' => 'ins'
                     ]
-                );
+                ));
             else
                 curlpost(
                     'https://www.tms.lan/actions/updateDefAmount.php',
@@ -107,14 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'tNIN' => $ten_nin,
                         'cm' => $cm,
                         'ylp' => $cy,
+                        'mlp' => datetime($datePd, 'm'),
                         'mpl' => $numMths,
                         'lmpf' => $lmpf,
+                        'ylpf' => $cy,
                         'type' => 'pinfo',
                         'action' => 'upd'
                     ]
                 );
-
-            $response['info'] = 'Rent paid period ends in ' . $month[--$lmpf] . $cy + $y .' !';
+            $response['info'] = 'Rent paid period ends in ' . $month[--$lmpf] . ' ' . $cy . '!';
         }
     }
     echo json_encode($response);
@@ -127,10 +133,9 @@ function datetime($date, $ts)
     if ($ts == "ts")
         return (new DateTime($date))->format('Y-m-d H:i:s.u');
     else if ($ts == "m") {
-        echo intval(explode('-', explode('/', $date)[0])[2]);
-        return intval(explode('-', explode('/', $date)[0])[2]);
+        return intval(explode('/', explode(' ', $date)[0])[0]);
     } else if ($ts == 'y') {
-        return explode('-', explode('/', $date)[0])[0];
+        return intval(explode('/', explode(' ', $date)[0])[2]);
     } else return null;
 }
 

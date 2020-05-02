@@ -24,9 +24,12 @@
                                 <div class="row">
                                     <div class="col-xs-3 col-sm-6">
                                         <div class="form-group">
-                                            <label for="receiptNo" style="font-size: 12px">Receipt No:</label>
-                                            <div class="input-group">
-                                                <input type="text" name="rNo" class="form-control" placeholder="Receipt No" autocomplete="false" required="required" autofocus="autofocus">
+                                            <label for="receiptNo" style="font-size: 12px">Receipt No: <span class="alert-error rNo" style="color:red"></span></label>
+                                            <div class="form-group" style="position: relative">
+                                                <input type="text" name="rNo" class="form-control" placeholder="Receipt No"  onfocus="($('.fa.rNo').hide())" autocomplete="false" required="required" autofocus="autofocus">
+                                                <i class="fa fa-check rNo" style="color: #5da454; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
+                                                <i class="fa fa-times rNo" style="color: red; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
+                                                <i class="fa fa-spinner fa-pulse rNo" style="color: grey; position: absolute; right: 8px; top:10px" aria-hidden="hidden"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +52,7 @@
                                             <input type="text" class="form-control" name="tID" placeholder="Enter Tenant Names Below:" required="required" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tenName">Tenant Name: <span class="alert-error" style="color:red"></span></label>
+                                            <label for="tenName">Tenant Name: <span class="alert-error name" style="color:red"></span></label>
                                             <div class="row">
                                                 <div class="col-xs-6 col-md-6 col-lg-6">
                                                     <div class="form-group" style="position:relative">

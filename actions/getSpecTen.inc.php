@@ -71,6 +71,7 @@ function getPayInfo($id){
         $details['ylp'] = $init_data['year_last_paid'];
         $details['mpl'] = $init_data['mths_paid_left'];
         $details['lmpf'] = $init_data['last_mth_pd_for'];
+        $details['ylpf'] = $init_data['year_last_pd_for'];
     }
     return $details;
 }

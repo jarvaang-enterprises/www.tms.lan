@@ -26,23 +26,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $init = mysqli_query($con, $init);
     } else if($_POST['type'] == 'pdet'){
         $ad = mysqli_real_escape_string($con, $_POST['ad']);
-        $dp = mysqli_real_escape_string($con, $_POST['date']);
         $rn = mysqli_real_escape_string($con, $_POST['rNo']);
         $pb = mysqli_real_escape_string($con, $_POST['pB']);
-        $init = 'insert into payment_details (ten_nin, receiptNo, amt_pd, date_pd, processedBy) values ("' . $nin . '", ' . $rn . ', ' . $ad . ', "'.$dp.'", "'.$pb.'")';
+        $init = 'insert into payment_details (ten_nin, receiptNo, amt_pd, processedBy) values ("' . $nin . '", ' . $rn . ', ' . $ad . ', "'.$pb.'")';
         $init = mysqli_query($con, $init);
     } else if($_POST['type'] == 'pinfo') {
         $mpl = mysqli_real_escape_string($con, $_POST['mpl']);
         $cm = mysqli_real_escape_string($con, $_POST['cm']);
         $ylp = mysqli_real_escape_string($con, $_POST['ylp']);
+        $mlp = mysqli_real_escape_string($con, $_POST['mlp']);
+        $ylpf = mysqli_real_escape_string($con, $_POST['ylpf']);
         $tn = mysqli_real_escape_string($con, $_POST['tNIN']);
         $lmpf = mysqli_real_escape_string($con, $_POST['lmpf']);
         if($_POST['action'] == 'ins'){
-            $init = 'insert into pay_info (ten_nin, current_month, year_last_paid, mths_paid_left, last_mth_pd_for) values("'.$tn.'", '.$cm.', '.$ylp.', '.$mpl.', '.$lmpf.')';
+            $init = 'insert into pay_info (ten_nin, current_month, year_last_paid, month_last_paid, mths_paid_left, last_mth_pd_for, year_last_pd_for) values("'.$tn.'", '.$cm.', '.$ylp.', '.$mlp.', '.$mpl.', '.$lmpf.', '.$ylpf.')';
         } else if($_POST['action'] == 'upd'){
             $init = 'delete from pay_info where ten_nin = "'.$tn.'"';
             $init = mysqli_query($con, $init);
-            $init = 'insert into pay_info (ten_nin, current_month, year_last_paid, mths_paid_left, last_mth_pd_for) values("'.$tn.'", '.$cm.', '.$ylp.', '.$mpl.', '.$lmpf.')';
+            $init = 'insert into pay_info (ten_nin, current_month, year_last_paid, month_last_paid, mths_paid_left, last_mth_pd_for, year_last_pd_for) values("'.$tn.'", '.$cm.', '.$ylp.', '.$mlp.', '.$mpl.', '.$lmpf.', '.$ylpf.')';
         }
         $init = mysqli_query($con, $init);
     }
