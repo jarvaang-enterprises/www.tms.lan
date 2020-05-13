@@ -24,14 +24,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $resultn = mysqli_fetch_assoc($sqls);
             $sql = 'select fName, lName from NINS where NIN = "'.$resultn['NIN'].'"';
             $sql = mysqli_query($con,$sql);
-	    echo mysqli_error($con);
+	        echo mysqli_error($con);
             if(!$sql) die('Error: 2'.mysqli_error($sql));
             $id = 'select ten_id from tenant_details where ten_nin = "'.$resultn['NIN'].'"';
             $id = mysqli_query($con,$id);
             if(!$id) die('Error: 3'.mysqli_error($con));
             $ten_id = mysqli_fetch_assoc($id);
             $results = mysqli_fetch_assoc($sql);
-	    $online = 'update accounts set status = 1 where NIN = "'.$resultn['NIN'].'"';
+	        $online = 'update accounts set status = 1 where NIN = "'.$resultn['NIN'].'"';
     	    $sql = mysqli_query($con, $online);
             if($result['level'] == 1){
                 $_SESSION['manager_logged_in'] = true;
@@ -150,4 +150,3 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 else {
     echo '<head><title>Access Error</title><div class="jumbotron">You don\'t have access rights to this page.</div>';
 }
-?>

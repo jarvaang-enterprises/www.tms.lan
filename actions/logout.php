@@ -20,5 +20,6 @@ setcookie('user','',time()-60*60*24*2,'/','tms.lan',true,true);
 setcookie('passwd','',time()-60*60*24*2,'/','tms.lan',true,true);
 unset($_SESSION['fName']);
 unset($_SESSION['lName']);
+session_destroy();
 header('Location: /');
 ?>

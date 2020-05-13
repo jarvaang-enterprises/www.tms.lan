@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cy += $y;
             curlpost('https://www.tms.lan/actions/updateDefAmount.php', 'POST', ['tNIN' => $ten_nin, 'ad' => $amtPd, 'type' => 'credit', 'action' => 'ins']);
             if (count($tenDet->pay_info) == 0)
-                print_r(curlpost(
+                curlpost(
                     'https://www.tms.lan/actions/updateDefAmount.php',
                     'POST',
                     [
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'type' => 'pinfo',
                         'action' => 'ins'
                     ]
-                ));
+                );
             else
                 curlpost(
                     'https://www.tms.lan/actions/updateDefAmount.php',

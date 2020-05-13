@@ -1,6 +1,7 @@
 <script src="https://cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
+
 <head>
-<?php include_once("../actions/gtag.php"); ?>
+	<?php include_once("../actions/gtag.php"); ?>
 </head>
 <div class="container">
 	<nav class="navbar navbar-inverse navbar-sticky navbar-expand-md bg-light">
@@ -33,9 +34,15 @@
 						<li class="nav-item">
 							<a href="#tenants" class="nav-link" id="ten_det">Tenants Details</a>
 						</li>
+						<li class="nav-item">
+							<a href="#addtenant" onclick="addTen()" class="nav-link" id="add_ten">New Tenant</a>
+						</li>
+						<li class="nav-item">
+							<a href="#remtenant" onclick="remTen()" class="nav-link" id="rem_ten">Remove Tenant</a>
+						</li>
 					<?php
 					} else if (isset($_SESSION['client_logged_in']) && $_SESSION['client_logged_in'] == true) {
-						?>
+					?>
 						<li class="nav-item">
 							<a href="javascript:void(0)">No content to navigate to.</a>
 						</li>
@@ -83,6 +90,10 @@
 			$('#tendet').css({
 				display: 'none'
 			});
+			$('#newten').css({
+				display: 'none'
+			})
+			$('#Tenact').hide()
 			$("#verify").load("/includes/ver.php");
 		});
 	}
@@ -96,5 +107,6 @@
 		$('.navbar-collapse').removeClass('show')
 		$('.navbar-collapse').addClass('collapse')
 	})
-	tendet()
+	if (window.location.pathname == '/man/' || location.pathname == '/man')
+		tendet()
 </script>

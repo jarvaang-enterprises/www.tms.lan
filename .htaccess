@@ -1,3 +1,9 @@
+RewriteEngine on
+RewriteRule ^/?ghint(/.*)?$ /actions/ghint.man.php$1 [L]
+RewriteRule ^/?gtd(/.*)?$ /actions/gtd.php$1 [L]
+RewriteRule ^/?tenspec(/.*)?$ /actions/getSpecTen.inc.php$1 [L]
+RewriteRule ^/?tenact(/.*)?$ /actions/tenaction.man.php$1 [L]
+RewriteRule ^/?act/checkNin(/.*)?$ /actions/checkNin.php$1 [L]
 ErrorDocument 400 /error/bad-request.html
 ErrorDocument 401 /error/unauthorised.html
 ErrorDocument 403 /error/forbidden.html

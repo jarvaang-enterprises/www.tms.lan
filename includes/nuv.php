@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/custom.css" type="text/css" />
 <script>
     var div = document.getElementById('ver');
-    div.addEventListener("click", function() {
-        $("#status").css({
-            'display': 'block'
+    if (div !== null)
+        div.addEventListener("click", function() {
+            $("#status").css({
+                'display': 'block'
+            });
         });
-    });
 </script>
 <?php session_start();
 include('db.inc.php');
@@ -18,9 +19,9 @@ if (!$sql) {
         echo '<div id="no_verify" class="container contain alert alert-info tms-center col-md-12" style="margin-top:50px">
         No users to verify at this moment.</div>';
     } else {
-        ?>
-        <div id="ver_det" class="col-md-12 col-xs-12" style="">
-            <table border="1" class="col-xs-12 col-md-12 col-lg-12" style="">
+?>
+        <div id="ver_det" class="col-md-12 col-xs-12">
+            <table border="1" class="col-xs-12 col-md-12 col-lg-12">
                 <th colspan=4 style="font-size:20px; color:antiquewhite;text-align:center">Users to be verified
                 </th>
                 <tr class="tms-center" colspan=4>
@@ -29,18 +30,18 @@ if (!$sql) {
                     <th class="tms-center" style="color:darkslategrey;width:auto">Level</th>
                     <th class="tms-center" style="color:darkslategrey;width:auto">Verify</th>
                 </tr><?php
-                                while ($result = mysqli_fetch_assoc($sql)) {
-                                    $id = $result['id']; ?>
+                        while ($result = mysqli_fetch_assoc($sql)) {
+                            $id = $result['id']; ?>
                     <tr class="tms-center">
                         <td><?php echo $result['NIN']; ?></td>
                         <td><?php echo $result['username']; ?></td>
                         <td><?php
-                                        if ($result['level'] == 1) echo 'Manager';
-                                        else if ($result['level'] == 2) echo 'Cashier';
-                                        else if ($result['level'] == 3) echo 'Trainer';
-                                        else if ($result['level'] == 4) echo 'Clientele';
-                                        else echo 'Unknown level';
-                                        ?></td>
+                            if ($result['level'] == 1) echo 'Manager';
+                            else if ($result['level'] == 2) echo 'Cashier';
+                            else if ($result['level'] == 3) echo 'Trainer';
+                            else if ($result['level'] == 4) echo 'Clientele';
+                            else echo 'Unknown level';
+                            ?></td>
                         <td>
                             <input id="ver" type="checkbox" name="id" onclick="verify(<?php echo $id; ?>)">
                         </td>

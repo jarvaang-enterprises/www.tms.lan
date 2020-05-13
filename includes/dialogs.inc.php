@@ -1,6 +1,36 @@
 <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/dialogs.inc.css">
 <link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/style.css">
+<style>
+	.ty-ajax-overlay {
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		z-index: 10000;
+		display: none;
+	}
 
+	.ty-ajax-loading-box {
+		position: fixed;
+		top: 50%;
+		right: 50%;
+		left: 50%;
+		z-index: 100001;
+		display: none;
+		overflow: visible;
+		margin-top: -26px;
+		margin-left: -26px;
+		padding: 0px;
+		min-height: 52px;
+		width: 52px;
+		background: url('https://shopping.live:423/resources/design/themes/graceful/media/images/icons/ajax_loadereaef.gif?1493401512') no-repeat 10px 10px #0d0d0d;
+		opacity: 0.8;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}
+</style>
 <div class="tms-modal" id="id01" style="cursor:pointer; 
 		<?php
 		session_start();
@@ -141,45 +171,43 @@
 	</div>
 </div>
 <div class="tms-modal" id="id03" style="cursor:pointer">
-	<?php
-	if (isset($_COOKIE['info'])) { ?>
-		display:block;<?php
-					} ?>">
-		<div class="tms-modal-content animate tms-card-4" style="max-width:600px; cursor:auto;">
-			<form id="#msform" class="img_upload" method="post" autocomplete="off" enctype="multipart/form-data" onsubmit="uploadData(this)">
-				<div class="tms-center"><br>
-					<h2>Upload Image</h2>
-					<small>The image for upload must be less than 5MB in size!</small>
-					<?php
-					if (isset($_COOKIE['info'])) {
-						echo '<br><br><span class="alert alert-danger">' . $_COOKIE['info'] . '</span>';
-					} ?>
-					<span onclick="document.getElementById('id03').style.display='none'" class="tms-button tms-hover-text-grey tms-container tms-display-topright tms-xxlarge" title="Close Modal">x</span>
-				</div>
-				<div class="tms-container">
-					<div class="tms-section">
-						<div class="alert alert-danger tms-center disabled error"></div>
-						<label for="img_upload_area"><b>Image upload box below:&nbsp;</b></label>
-						<div class="tms-border tms-margin-bottom form-control" style='width:440px; height:250px; padding: 0px !important'>
-							<input type="file" accept="image/*" name="file" id="file" onchange="showMyImage(this)">
-							<div class="upload-area" id="uploadfile">
-								<h1>Drag and Drop image here<br />Or<br />Click to select file</h1>
-							</div>
+	<div class="tms-modal-content animate tms-card-4" style="max-width:600px; cursor:auto;">
+		<form id="#msform" class="img_upload" method="post" autocomplete="off" enctype="multipart/form-data" onsubmit="uploadData(this)">
+			<div class="tms-center"><br>
+				<h2>Upload Image</h2>
+				<small>The image for upload must be less than 5MB in size!</small>
+				<?php
+				if (isset($_COOKIE['info'])) {
+					echo '<br><br><span class="alert alert-danger">' . $_COOKIE['info'] . '</span>';
+				} ?>
+				<span onclick="document.getElementById('id03').style.display='none'" class="tms-button tms-hover-text-grey tms-container tms-display-topright tms-xxlarge" title="Close Modal">x</span>
+			</div>
+			<div class="tms-container">
+				<div class="tms-section">
+					<div class="alert alert-danger tms-center disabled error"></div>
+					<label for="img_upload_area"><b>Image upload box below:&nbsp;</b></label>
+					<div class="tms-border tms-margin-bottom form-control" style='width:100%; height:max-content; padding: 0px !important'>
+						<input type="file" accept="image/*" name="file" id="file" onchange="showMyImage(this)">
+						<div class="upload-area" id="uploadfile">
+							<h1>Drag and Drop image here<br />Or<br />Click to select file</h1>
 						</div>
-
-						<button class="tms-button tms-block tms-green tms-section tms-padding" type="submit" id="up2server" onclick="clear()" style="font-size:15px">
-							<span class="before enabled">Upload Image</span>
-							<span class="uploading disabled"><iframe src="../includes/loader.html" frameborder="0" width="18px" height="18px"></iframe> &nbsp;&nbsp; Uploading image</span>
-						</button>
-						<button class="tms-button tms-block tms-green tms-section tms-padding tms-red" type="reset" onclick="clear()" id="action2clear" style="display:none" title="Reset and Change image">Reset</button>
 					</div>
+
+					<button class="tms-button tms-block tms-green tms-section tms-padding" type="submit" id="up2server" onclick="clear()" style="font-size:15px; display: flex; justify-content: center">
+						<span class="before enabled">Upload Image</span>
+						<span class="uploading disabled" style="height: 22px"><iframe src="../includes/loader.html" frameborder="0" width="18px" height="18px" style></iframe> &nbsp;&nbsp; Uploading image</span>
+					</button>
+					<button class="tms-button tms-block tms-green tms-section tms-padding tms-red" type="reset" onclick="clear()" id="action2clear" style="display:none" title="Reset and Change image">Reset</button>
 				</div>
-				<div class="tms-container tms-border-top tms-padding-16 tms-light-grey" style="background-color:#f1f1f1">
-					<button id="cancel" type="button" class="tms-btn tms-red" onclick="document.getElementById('id03').style.display='none'">Cancel</button>
-				</div>
-			</form>
-		</div>
+			</div>
+			<div class="tms-container tms-border-top tms-padding-16 tms-light-grey" style="background-color:#f1f1f1">
+				<button id="cancel" type="button" class="tms-btn tms-red" onclick="document.getElementById('id03').style.display='none'">Cancel</button>
+			</div>
+		</form>
+	</div>
 </div>
+<div id="ajax_overlay" class="ty-ajax-overlay"></div>
+<div id="ajax_loading_box" class="ty-ajax-loading-box"></div>
 <script>
 	window.id = "<?php echo $_SESSION['id']; ?>"
 	$form = $('#msform');
@@ -240,7 +268,6 @@
 				ajaxData.append('files', file)
 			});
 			ajaxData.append('user_id', window.id);
-			console.log(droppedFiles)
 			$.ajax({
 				url: "/includes/cli/image_upload.php",
 				type: 'post',
@@ -259,7 +286,6 @@
 				success: (data) => {
 					$('.img_upload').addClass(data.success == true ? 'is-success' : 'is-error');
 					if (!data.success) {
-						log(data)
 						$('.error').text(data.error)
 						$('.error').removeClass('disabled')
 						$('.error').addClass('enabled')

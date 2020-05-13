@@ -20,9 +20,10 @@
 <body>
     <?php
     if(isset($_GET['cont']) && $_GET['cont'] !== null){
-        echo '<script>window.cont="'.$_GET['cont'].'"</script>';
+        echo '<script>window.cont="'.$_GET['cont'].'".concat(location.hash)</script>';
     }
     ?>
+    
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-md-offset-4 text-center">

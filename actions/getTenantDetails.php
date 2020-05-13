@@ -288,7 +288,7 @@
                     <span>Enter Search Criteria: </span>
                 </div>
             </div>
-            <div class="field-wrapper" style="display:none">
+            <div class="field-wrapper" hidden="hidden" style="display:none">
                 <input type="text" name="ver" id="ver" class="form-control input-lg" value="Zm9ydGhlbG92ZW9mdG1zKGMpcGxlYXNlZG9ub3R1c2VzdHlsaW5nc2Vsc2V3aGVyZQ==" aria-hidden="hidden">
                 <div class="field-placeholder">
                     <span>Enter Search Criteria: </span>
