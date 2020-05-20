@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/User/user.dart';
 
+import 'viewDetails.dart';
+
 class Administration extends StatefulWidget {
-  final NetworkStateSingleton ns;
   final js;
   final dynamic jk;
 
-  const Administration({Key key, this.ns, this.js, this.jk}) : super(key: key);
+  const Administration({Key key, this.js, this.jk}) : super(key: key);
 
   @override
   AdministrationState createState() => AdministrationState(js: js);
@@ -20,8 +24,9 @@ class AdministrationState extends State<Administration> {
   AdministrationState({this.js});
 
   void initState() {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     super.initState();
-    widget.ns.checkConnection();
+    ns.checkConnection();
   }
 
   Column bodyProgress() {
@@ -41,6 +46,7 @@ class AdministrationState extends State<Administration> {
 
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     return FutureBuilder<User>(
       future: widget.js,
       builder: (context, snapshot) {
@@ -94,7 +100,7 @@ class AdministrationState extends State<Administration> {
                     )
                   )
                 ) : 
-                _buildSuggestions(),
+                _buildSuggestions(snapshot),
               );
             }
         }
@@ -103,8 +109,8 @@ class AdministrationState extends State<Administration> {
   }
 
   // var _suggestions = ['0','1','2','3','4','5','6','7','8','9'];
-  dynamic _buildSuggestions() {
-    var _suggestions = widget.jk;
+  dynamic _buildSuggestions(var snap) {
+    var _suggestions = json.decode(widget.jk);
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
@@ -112,14 +118,13 @@ class AdministrationState extends State<Administration> {
         final index = i ~/ 2;
         if (index >= _suggestions.length) {
         } else {
-          return _buildRow(_suggestions['ten_${index + 1}']);
+          return _buildRow(_suggestions['ten_${index + 1}'], snap);
         }
-        // else return null;
       },
     );
   }
 
-  Widget _buildRow(var pair) {
+  Widget _buildRow(var pair, var snap) {
     return ListTile(
       isThreeLine: true,
       subtitle: Text("NIN:${pair['id']}\nTenancy Status: active"),
@@ -134,8 +139,8 @@ class AdministrationState extends State<Administration> {
         pair['user'],
       ),
       trailing: IconButton(
-        icon: Icon(Icons.move_to_inbox),
-        onPressed: () => print(pair),
+        icon: Icon(Icons.info),
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ViewDetails(js: snap, ten: pair))),
       ),
     );
   }

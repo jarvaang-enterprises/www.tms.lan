@@ -245,6 +245,10 @@
 			$('#uploadfile').append('<div id="thumbnail_1" class="thumbnail"></div>')
 			$('#thumbnail_1').append('<img id="img2up" src="" width="45%">')
 			$("#thumbnail_1").append('<span class="size"></span>')
+			if (window.dp_set == true) {
+				var img = document.getElementById("addten_img")
+				img.files = droppedFiles
+			}
 			var img = document.getElementById("file")
 			img.files = droppedFiles
 			addThumbnail(filer, dat)
@@ -268,42 +272,52 @@
 				ajaxData.append('files', file)
 			});
 			ajaxData.append('user_id', window.id);
-			$.ajax({
-				url: "/includes/cli/image_upload.php",
-				type: 'post',
-				data: ajaxData,
-				dataType: 'json',
-				cache: false,
-				contentType: false,
-				processData: false,
-				complete: () => {
-					$('.before').removeClass('disabled')
-					$('.before').addClass('enabled')
-					$('.uploading').removeClass('enabled')
-					$('.uploading').addClass('disabled')
-					$('.img_upload').removeClass('is-uploading');
-				},
-				success: (data) => {
-					$('.img_upload').addClass(data.success == true ? 'is-success' : 'is-error');
-					if (!data.success) {
-						$('.error').text(data.error)
-						$('.error').removeClass('disabled')
-						$('.error').addClass('enabled')
-					} else {
-						LD()
-						document.getElementById('id03').style.display = 'none';
+			if (window.dp_set != true)
+				$.ajax({
+					url: "/includes/cli/image_upload.php",
+					type: 'post',
+					data: ajaxData,
+					dataType: 'json',
+					cache: false,
+					contentType: false,
+					processData: false,
+					complete: () => {
+						$('.before').removeClass('disabled')
+						$('.before').addClass('enabled')
+						$('.uploading').removeClass('enabled')
+						$('.uploading').addClass('disabled')
+						$('.img_upload').removeClass('is-uploading');
+					},
+					success: (data) => {
+						$('.img_upload').addClass(data.success == true ? 'is-success' : 'is-error');
+						if (!data.success) {
+							$('.error').text(data.error)
+							$('.error').removeClass('disabled')
+							$('.error').addClass('enabled')
+						} else {
+							LD()
+							document.getElementById('id03').style.display = 'none';
+						}
+					},
+					error: (e) => {
+						$('.img_upload').addClass('is-error')
+						$('.before').removeClass('disabled')
+						$('.before').addClass('enabled')
+						$('.uploading').removeClass('enabled')
+						$('.uploading').addClass('disabled')
+						log(e.responseText)
+						alert("Oops something has gone wrong!")
 					}
-				},
-				error: (e) => {
-					$('.img_upload').addClass('is-error')
-					$('.before').removeClass('disabled')
-					$('.before').addClass('enabled')
-					$('.uploading').removeClass('enabled')
-					$('.uploading').addClass('disabled')
-					log(e.responseText)
-					alert("Oops something has gone wrong!")
-				}
-			});
+				})
+			else {
+				window.dp_set = file
+				$('.before').removeClass('disabled')
+				$('.before').addClass('enabled')
+				$('.uploading').removeClass('enabled')
+				$('.uploading').addClass('disabled')
+				$('.img_upload').removeClass('is-uploading');
+				$('#cancel').click()
+			}
 		});
 		$('#uploadfile').on('click', _ => {
 			$('#file').click()
@@ -319,12 +333,32 @@
 		showMyImage = (fileInput) => {
 			var files = fileInput.files
 			droppedFiles = files
+			if (window.dp_set == true) {
+				var img = document.getElementById("addten_img")
+				img.files = droppedFiles
+			}
 			createThumbDiv()
 			for (var i = 0; i < files.length; i++) {
 				filer = files[i];
 				var imageType = /image.*/;
 				if (!filer.type.match(imageType)) {
 					continue;
+				}
+				if (window.dp_set === true) {
+					var img = $('.dashb-ten-img.empty').find('img')[0]
+					img.file = filer;
+					var reader = new FileReader();
+					reader.onload = ((aImg) => {
+						return function(e) {
+							aImg.src = e.target.result;
+						};
+					})(img);
+					reader.readAsDataURL(filer);
+					$('.upload_btn').text('Change')
+						.css({
+							color: 'grey',
+							backgroundColor: 'white'
+						})
 				}
 				var img = document.getElementById("thumbnil");
 				img.file = filer;
@@ -337,6 +371,7 @@
 				reader.readAsDataURL(filer);
 				var size = document.getElementById('size')
 				size.innerHTML = convertSize(filer['size'])
+
 			}
 			$('#action2clear').css({
 				display: 'block'
@@ -344,26 +379,44 @@
 		}
 
 		addThumbnail = (files, data) => {
-			var len = $('#uploadfile div.thumbnail').length
-			var num = Number(len)
-			num = num + 1
-			var name = data.name
-			var size = convertSize(data.size)
-			var reader = new FileReader()
-			var img = document.getElementById("img2up")
-			img.file = files
-			var reader = new FileReader();
-			reader.onload = ((aImg) => {
-				return (a) => {
-					aImg.src = a.target.result
-				}
-			})(img)
-			reader.readAsDataURL(files)
-			var size = document.getElementsByClassName('size')[0]
-			size.innerHTML = convertSize(files['size'])
-			$('#action2clear').css({
-				display: 'block'
-			})
+			if (window.dp_set == true) {
+				var len = $('.dashb-ten-img.empty').find('img').length
+				var num = Number(len)
+				num = num + 1
+				var name = data.name
+				var size = convertSize(data.size)
+				var reader = new FileReader()
+				var img = $('.dashb-ten-img.empty').find('img')[0]
+				img.file = files
+				var reader = new FileReader();
+				reader.onload = ((aImg) => {
+					return (a) => {
+						aImg.src = a.target.result
+					}
+				})(img)
+				reader.readAsDataURL(files)
+			} else {
+				var len = $('#uploadfile div.thumbnail').length
+				var num = Number(len)
+				num = num + 1
+				var name = data.name
+				var size = convertSize(data.size)
+				var reader = new FileReader()
+				var img = document.getElementById("img2up")
+				img.file = files
+				var reader = new FileReader();
+				reader.onload = ((aImg) => {
+					return (a) => {
+						aImg.src = a.target.result
+					}
+				})(img)
+				reader.readAsDataURL(files)
+				var size = document.getElementsByClassName('size')[0]
+				size.innerHTML = convertSize(files['size'])
+				$('#action2clear').css({
+					display: 'block'
+				})
+			}
 		}
 
 		convertSize = (size) => {

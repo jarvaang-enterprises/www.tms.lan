@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Flutter",
-            "request": "launch",
+            "request": "attach",
             "type": "dart"
         }
     ]

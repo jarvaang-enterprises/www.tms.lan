@@ -3,12 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tms_app/main.dart';
 
-import '../NetworkState.dart';
-
 class SplashScreen extends StatefulWidget {
-  final NetworkStateSingleton ns;
-
-  const SplashScreen({Key key, this.ns}) : super(key: key);
   @override
   State<StatefulWidget> createState() => SplashScreenState();
 }
@@ -29,7 +24,7 @@ class SplashScreenState extends State<SplashScreen> {
 
   onDoneLoading() async{
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => MyHomePage(ns: widget.ns))
+      MaterialPageRoute(builder: (context) => MyHomePage())
     );
   }
 

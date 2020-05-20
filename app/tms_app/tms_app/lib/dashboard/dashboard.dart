@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/User/user.dart';
 import 'package:tms_app/login/login.dart';
@@ -12,10 +13,9 @@ import '../choice.dart';
 
 class Dashboard extends StatefulWidget {
   final js;
-  final NetworkStateSingleton ns;
   final FirebaseAuth auth;
   final GoogleSignIn googleSignIn;
-  Dashboard({Key key, this.js, this.ns, this.auth, this.googleSignIn}) : super(key: key);
+  Dashboard({Key key, this.js, this.auth, this.googleSignIn}) : super(key: key);
   @override
   DashBoardState createState() => new DashBoardState();
 }
@@ -25,6 +25,7 @@ class DashBoardState extends State<Dashboard> {
   var source;
   var nin;
   void _select(Choice choice, {s}) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     setState(() {
       _value = choice;
     });
@@ -34,12 +35,10 @@ class DashBoardState extends State<Dashboard> {
 	 Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => MyHomePage(
-                        ns: widget.ns,
-                      )));
+                  builder: (context) => MyHomePage()));
        } else if( source == 'Google' ){ 
 	 _googleSignOut() ;
-       }else print(widget.ns.hasConnection);
+       }else print(ns.hasConnection);
     }
   }
 
@@ -48,9 +47,7 @@ class DashBoardState extends State<Dashboard> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => MyHomePage(
-                  ns: widget.ns,
-                )));
+            builder: (context) => MyHomePage()));
   }
   
   void signOutUsingGoogle() async{
@@ -64,6 +61,7 @@ class DashBoardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     return FutureBuilder<User>(
       future: widget.js,
       builder: (context, snapshot) {

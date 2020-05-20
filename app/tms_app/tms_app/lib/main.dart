@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
+// import 'change';
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -14,189 +17,25 @@ import 'adminPage/adminPage.dart';
 import 'dashboard/dashboard.dart';
 import 'splash/splashScreen.dart';
 
-
-// class PushMessagingExample extends StatefulWidget {
-//   @override
-//   _PushMessagingExampleState createState() => _PushMessagingExampleState();
-// }
-
-// class _PushMessagingExampleState extends State<PushMessagingExample> {
-//   String _homeScreenText = "Waiting for token ...";
-//   int _bottomNavBarSelectedIndex = 0;
-//   int _numNotifications = 0;
-//   bool _newNotification = false;
-//   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
-//   void initState() {
-//     super.initState();
-//     _firebaseMessaging.configure(
-//       onMessage: (Map<String, dynamic> message) async {
-//         print("onMessage: $message");
-//         setState(() {
-//           _newNotification = true;
-//           _numNotifications++;
-//         });
-//       },
-//       onLaunch: (Map<String, dynamic> message) async {
-//         print("onLaunch: $message");
-//         _navigateToItemDetail(message);
-//       },
-//       onResume: (Map<String, dynamic> message) async {
-//         print("onResume: $message");
-//         _navigateToItemDetail(message);
-//       },
-//     );
-
-//     //iOS only
-//     _firebaseMessaging.requestNotificationPermissions(
-//       const IosNotificationSettings(sound: true, badge: true, alert: true)
-//     );
-//     _firebaseMessaging.onIosSettingsRegistered
-//     .listen((IosNotificationSettings settings) {
-//       print("Setting registered: $settings");
-//     });
-
-//     _firebaseMessaging.getToken().then((String token) {
-//       assert(token != null);
-//       setState(() {
-//         _homeScreenText = "Push Messaging token: \n\n $token";
-//       });
-//       print(_homeScreenText);
-//     });
-//   }
-
-//   void _navigateToItemDetail(Map<String, dynamic> message) {
-//     final MessageBean item = _itemForMessage(message);
-//     Navigator.popUntil(context, (Route<dynamic> route) => route is PageRoute);
-//     if(!item.route.isCurrent) {
-//       Navigator.push(context, item.route);
-//     }
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Push Demo'),
-//         ),bottomNavigationBar: BottomNavigationBar(
-//           items: [
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.home),
-//               title: Text('Home'),
-//             ),
-//             BottomNavigationBarItem(
-//               icon: _newNotification
-//                   ? Stack(
-//                 children: <Widget>[
-//                   Icon(Icons.notifications),
-//                   Positioned(
-//                     right: 0,
-//                     child: Container(
-//                       padding: EdgeInsets.all(1),
-//                       decoration: BoxDecoration(
-//                         color: Colors.red,
-//                         borderRadius: BorderRadius.circular(15),
-//                       ),
-//                       constraints: BoxConstraints(
-//                         minWidth: 13,
-//                         minHeight: 13,
-//                       ),
-//                       child: Text(
-//                         _numNotifications.toString(),
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 8,
-//                         ),
-//                         textAlign: TextAlign.center,
-//                       ),
-//                     ),
-//                   )
-//                 ],
-//               )
-//                   : Icon(Icons.notifications),
-//               title: Text('Notifications'),
-//             ),
-//           ],
-//           currentIndex: _bottomNavBarSelectedIndex,
-//           selectedItemColor: Colors.green,
-//           onTap: _onItemTapped,
-//         ),
-//         body: Material(
-//           child:
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Center(
-//               child: Text(_homeScreenText,style: TextStyle(fontSize: 19),),
-//             ),
-//           ),
-
-//         ));
-//   }
-// }
-
-// final Map<String, MessageBean> _items = <String, MessageBean>{};
-// MessageBean _itemForMessage(Map<String, dynamic> message) {
-//   final dynamic data = message['data'] ?? message;
-//   final String itemId = data['id'];
-//   final MessageBean item = _items.putIfAbsent(
-//     itemId, () => MessageBean(itemId: itemId))
-//     ..status = data['status'];
-//     return item;
-// }
-
-// class DetailsPage extends StatefulWidget {
-//   DetailsPage(this.itemId);
-//   final String itemId;
-//   @override
-//   _DetailsPageState createState() => _DetailsPageState();
-// }
-
-// class _DetailsPageState extends State<DetailsPage> {
-//   MessageBean _item;
-//   StreamSubscription<MessageBean> _subscription;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _item = _items[widget.itemId];
-//     _subscription = _item.onChanged.listen((MessageBean item) {
-//       if(!mounted) {
-//         _subscription.cancel();
-//       } else {
-//         setState(() {
-//           _item = item;
-//         });
-//       }
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Item ${_item.itemId}"),
-//       ),
-//       body: Material(
-//         child: Center(
-//           child: Text("Item status: ${_item.status}"),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   NetworkStateSingleton networkState = NetworkStateSingleton.getInstance();
   networkState.initialize();
-  runApp(MyApp(ns: networkState));
+  // runApp(MyApp(ns: networkState));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => networkState, 
+      child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
-  final NetworkStateSingleton ns;
-  const MyApp({Key key, this.ns}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+  var ns = Provider.of<NetworkStateSingleton>(context);
     return MaterialApp(
         title: 'Tenant Management System',
         debugShowCheckedModeBanner: false,
@@ -204,16 +43,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          body: SplashScreen(ns: ns),
+          body: SplashScreen(),
           // body: MyHomePage(ns: ns),
         ));
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final NetworkStateSingleton ns;
-
-  MyHomePage({Key key, this.ns}) : super(key: key);
   @override
   MyHomePageState createState() => MyHomePageState();
 }
@@ -242,6 +78,7 @@ class MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
+
   void signUpWithGoogle() async {
     FirebaseUser user;
     Map<String, dynamic> udata;
@@ -276,16 +113,15 @@ class MyHomePageState extends State<MyHomePage> {
             builder: (context) => det['status'] == 0
                 ? AdminDashboard(
                     js: _googleLogin(udata),
-                    ns: widget.ns,
                   )
                 : Dashboard(
                     js: _googleLogin(udata),
-                    ns: widget.ns,
                   )));
   }
 
   void initState() {
-    widget.ns.checkConnection();
+    var ns = Provider.of<NetworkStateSingleton>(context);
+    ns.checkConnection();
     tr = _handleStart();
     _handleStart().then((d) {
       gtext =
@@ -296,9 +132,11 @@ class MyHomePageState extends State<MyHomePage> {
     });
     super.initState();
   }
+
   Future<User> _googleLogin(var user) async {
     return User.fromJson(user);
   }
+
   Future<User> _handleStart() async {
     FirebaseUser _user;
     Map<String, dynamic> udata;
@@ -340,12 +178,13 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     Widget _widgetGoogleSignIn() {
       return OutlineButton(
         clipBehavior: Clip.hardEdge,
         splashColor: Colors.grey,
         onPressed: () {
-          widget.ns.checkConnection();
+          ns.checkConnection();
           setState(() {
             isLoading = true;
           });
@@ -359,23 +198,21 @@ class MyHomePageState extends State<MyHomePage> {
                               builder: (context) => det['status'] == 0
                                   ? AdminDashboard(
                                       js: tr,
-                                      ns: widget.ns,
                                       auth: _auth,
-                                      googleSignIn: googleSignIn
-                                    )
+                                      googleSignIn: googleSignIn)
                                   : Dashboard(
                                       js: tr,
-                                      ns: widget.ns,
                                       auth: _auth,
-                                      googleSignIn: googleSignIn
-                                    )));
+                                      googleSignIn: googleSignIn)));
                 })
-              : widget.ns.hasConnection ?
-              signUpWithGoogle(): 
-              setState((){
-                isLoading = false;
-                msg = 'No Internet Connection';
-              });
+              : ns.hasConnection
+                  ? signUpWithGoogle()
+                  : setState(() {
+                      isLoading = false;
+                      print(ns.hasConnection);
+                      ns.checkConnection();
+                      msg = 'No Internet Connection';
+                    });
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         highlightElevation: 0,
@@ -408,7 +245,7 @@ class MyHomePageState extends State<MyHomePage> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => LoginScreen(ns: widget.ns)));
+                  builder: (context) => LoginScreen()));
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         highlightElevation: 0,
@@ -474,81 +311,76 @@ class MyHomePageState extends State<MyHomePage> {
     }
 
     return isLoading
-          ? Scaffold(
-                  backgroundColor: Colors.white,
-                  body: Container(
-                    width: double.infinity,
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        bodyProgress(),
-                      ], 
-                    )
-                  )
-                )
-          : new Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new TmsStackedIcons(),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: new Text(
-                      "Tenant",
-                      style: new TextStyle(
-                          fontSize: 30.0, color: Colors.orangeAccent),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: new Text(
-                    " Management",
-                    style:
-                        new TextStyle(fontSize: 30.0, color: Colors.redAccent),
-                  ),
-                )
-              ],
-            ),
-            new Row(
+        ? Scaffold(
+            backgroundColor: Colors.white,
+            body: Container(
+                width: double.infinity,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    bodyProgress(),
+                  ],
+                )))
+        : new Scaffold(
+            body: Center(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0),
-                      child: new Text(
-                        "System",
-                        style: new TextStyle(
-                            fontSize: 30.0, color: Colors.blueAccent),
-                      ))
-                ]),
-            Text(
-              msg,
-              style: TextStyle(color: Colors.red)
+                  new TmsStackedIcons(),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: new Text(
+                            "Tenant",
+                            style: new TextStyle(
+                                fontSize: 30.0, color: Colors.orangeAccent),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: new Text(
+                          " Management",
+                          style: new TextStyle(
+                              fontSize: 30.0, color: Colors.redAccent),
+                        ),
+                      )
+                    ],
+                  ),
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.only(bottom: 30.0),
+                            child: new Text(
+                              "System",
+                              style: new TextStyle(
+                                  fontSize: 30.0, color: Colors.blueAccent),
+                            ))
+                      ]),
+                  Text(msg, style: TextStyle(color: Colors.red)),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _widgetEmailSignIn(),
+                    ],
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _widgetGoogleSignIn(),
+                    ],
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _widgetFacebookSignIn(),
+                    ],
+                  )
+                ],
+              ),
             ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _widgetEmailSignIn(),
-              ],
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _widgetGoogleSignIn(),
-              ],
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _widgetFacebookSignIn(),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

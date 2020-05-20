@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:tms_app/User/user.dart';
 import 'package:tms_app/login/login.dart';
 import 'package:recase/recase.dart';
@@ -14,44 +16,40 @@ import '../NetworkState.dart';
 import 'adminDashboard.dart';
 
 class AdminDashboard extends StatefulWidget {
-  final js;
-  final NetworkStateSingleton ns;
-  final det;
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
-
-  AdminDashboard(
-      {Key key, this.js, this.det, this.ns, this.auth, this.googleSignIn})
+  AdminDashboard({Key key, this.js, this.det, this.auth, this.googleSignIn})
       : super(key: key);
+
+  final FirebaseAuth auth;
+  final det;
+  final GoogleSignIn googleSignIn;
+  final js;
+
   @override
   DashBoardState createState() => new DashBoardState(js);
 }
 
 class DashBoardState extends State<AdminDashboard> {
-  final Future<User> js;
-  bool cMade = false;
-  var jsonTen;
   DashBoardState(this.js);
+
+  bool cMade = false;
+  final Future<User> js;
+  var jsonTen;
+  var jt;
 
   @override
   void initState() {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     setState(() {
       cMade = buttons.changesMade;
     });
-    widget.ns.checkConnection();
-    print(jsonTen);
-    if (jsonTen != null) {}
+    ns.checkConnection();
     super.initState();
   }
 
   void _googleSignOut() {
     signOutUsingGoogle();
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MyHomePage(
-                  ns: widget.ns,
-                )));
+        context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
   void signOutUsingGoogle() async {
@@ -65,17 +63,20 @@ class DashBoardState extends State<AdminDashboard> {
     return buttons.changesMade;
   }
 
-  void getTenantDetail() async {
-    final response = await http
-        .get('http://192.168.61.1/actions/app/get_tenants.php?app_secret');
+  dynamic getTenantDetail() {
+    final response =
+        http.get('http://192.168.43.8/actions/app/get_tenants.php?app_secret');
     setState(() {
-      jsonTen = json.decode(response.body);
+      jsonTen = response;
     });
-    // return json.decode(response.body);
+    jt = response;
+    // response.then((value) => jt = value.body);
+    return jt;
   }
 
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     return Scaffold(
         backgroundColor: Colors.blueGrey,
         body: Center(
@@ -144,15 +145,16 @@ class DashBoardState extends State<AdminDashboard> {
                           child: OutlineButton(
                             onPressed: () {
                               getTenantDetail();
-                              print(jsonTen);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Administration(
-                                            ns: widget.ns,
-                                            js: js,
-                                            jk: jsonTen,
-                                          )));
+                              jt.then((res) => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Administration(
+                                                  js: js,
+                                                  jk: res.body,
+                                                )))
+                                  });
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -231,14 +233,13 @@ class DashBoardState extends State<AdminDashboard> {
                                 onPressed: () {
                                   if (snapshot.data.source == 'SQL') {
                                     http.get(
-                                        'http://192.168.61.1/actions/app/logout.php?nin=' +
+                                        'https://192.168.43.8/actions/app/logout.php?nin=' +
                                             snapshot.data.userId);
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MyHomePage(
-                                                  ns: widget.ns,
-                                                )));
+                                            builder: (context) =>
+                                                MyHomePage()));
                                   } else if (snapshot.data.source == 'Google') {
                                     _googleSignOut();
                                   } else if (snapshot.data.source ==

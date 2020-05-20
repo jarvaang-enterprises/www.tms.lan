@@ -423,7 +423,7 @@
                             <span class="clearfix"></span>
                             <div class="tms-logo"></div>
                             <div class="field-wrapper">
-                                <input type="text" name="nin" id="nin" class="form-control input-lg" required>
+                                <input type="text" name="nin" id="nin" class="form-control input-lg" maxlength="14" required>
                                 <div class="field-placeholder">
                                     <span>Enter your Client NIN</span>
                                 </div>
@@ -435,7 +435,7 @@
                                 </div>
                             </div>
                             <div class="field-wrapper">
-                                <input type="text" name="user" id="lName" class="form-control input-lg" required>
+                                <input type="text" name="lName" id="lName" class="form-control input-lg" required>
                                 <div class="field-placeholder">
                                     <span>Enter your Client Last Name</span>
                                 </div>
@@ -492,16 +492,16 @@
                                 </div>
                             </div>
                             <div class="field-wrapper">
-                                <input type="text" name="cont" id="cont" class="form-control input-lg" required>
+                                <input type="text" name="prev_add" id="prev_add" class="form-control input-lg" required>
                                 <div class="field-placeholder">
                                     <span>Enter Client Previous Add.</span>
                                 </div>
                             </div>
-                            <div class="field-wrapper">
-                                <input type="text" name="cont" id="cont" class="form-control input-lg" required>
-                                <div class="field-placeholder">
-                                    <span>Enter Client Date Entered</span>
-                                </div>
+                            <div class="input-group date" id="dtp" style="width: 250px">
+                                <input type="text" name="datePd" class="form-control" autocomplete="date" required="required">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
                             </div>
                             <div class="error_msg 2" id="error_msg"></div>
                             <input type="button" class="btn btn-block btn-info next action-button" name="next" value="Proceed">
@@ -512,6 +512,7 @@
                             </span>
                             <span class="clearfix"></span>
                             <div class="dashb-ten-img empty">
+                                <input type="file" name="addten_img" id="addten_img" hidden="hidden" style="display: none">
                                 <img src="/images/img_avatar2.png" alt="Tests image" height="120px" width="130px" <?php if (mysqli_num_rows($img) > 0) echo 'style="display:none;"'; ?>>
                                 <div class="upload_btn" style="z-index:9999;height:120px;width:130px;margin-top: -110px;margin-left: -16px;border-radius: 40%;padding: 50px 0px;">
                                     <span class="text_btn">Upload Image</span>
@@ -546,17 +547,37 @@
                 $(this).closest(".field-wrapper").removeClass("hasValue");
             }
         });
+        $('.upload_btn').on('click', _ => {
+            window.dp_set = true
+            $('#id03').show()
+        })
     });
 </script>
 <script src="//cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js"></script>
 <script src="//cdn.tms-dist.lan:433/styles/js/bootstrap.min.js"></script>
+</script>
 <script>
     $.getScript('//cdn.tms-dist.lan:433/styles/js/jquery.easing.min.js', () => {
         $.getScript('//cdn.tms-dist.lan:433/styles/js/jquery.easing.min.js')
         $.getScript('//cdn.tms-dist.lan:433/styles/font-awesome/js/all.js')
         $.getScript('//cdn.tms-dist.lan:433/styles/js/development/client.min.js')
     })
+    $.getScript("https://cdn.tms-dist.lan:433/styles/js/moment.min.js", () => {
+        $.getScript('https://cdn.tms-dist.lan:433/styles/bdtp/js/bootstrap-datetimepicker.min.js', () => {
+            dtp = () => {
+                if (typeof moment == 'undefined') {
+                    setTimeout(dtp, 1000)
+                } else {
+                    $('#dtp').datetimepicker({
+                        viewMode: 'years',
+                    })
+                }
+            }
+            dtp()
+        })
+    })
 </script>
+<link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/bdtp/css/bootstrap-datetimepicker.min.css">
 <?php
                     // TODO Required Fields to add user
                     //TODO Accounts username, pass, level, confirm, authkey DONE

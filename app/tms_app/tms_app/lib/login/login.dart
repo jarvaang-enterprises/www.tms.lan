@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/adminPage/adminPage.dart';
 import '../User/user.dart';
@@ -15,9 +16,6 @@ import 'package:tms_app/dashboard/dashboard.dart';
 // import 'google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
-  final NetworkStateSingleton ns;
-
-  const LoginScreen({Key key, this.ns}) : super(key: key);
   @override
   State<StatefulWidget> createState() => LoginScreenState();
 }
@@ -25,6 +23,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.orange,
     ));
@@ -73,7 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 ]),
-            new TmsLoginForm(ns: widget.ns),
+            new TmsLoginForm(),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -101,9 +100,6 @@ class LoginScreenState extends State<LoginScreen> {
 }
 
 class TmsLoginForm extends StatefulWidget {
-  final NetworkStateSingleton ns;
-
-  const TmsLoginForm({Key key, this.ns}) : super(key: key);
   @override
   _TmsLoginFormState createState() => _TmsLoginFormState();
 }
@@ -156,6 +152,7 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<NetworkStateSingleton>(context);
     FocusScope.of(context).requestFocus(email);
     return new Container(
       width: double.infinity,
@@ -309,7 +306,7 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   _authData(String passwd, String user) {
-    var url = 'http://192.168.61.1/actions/app/login.php';
+    var url = 'https://192.168.43.8/actions/app/login.php';
     // var url = 'http://10.10.3.164/actions/app/login.php';
     setState(() {
       isLoading = true;
@@ -329,9 +326,9 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
           Navigator.pushReplacement(
               context,
               det['rights'] == '4'
-                  ? MaterialPageRoute(builder: (context) => Dashboard(js: res, ns: widget.ns))
+                  ? MaterialPageRoute(builder: (context) => Dashboard(js: res))
                   : MaterialPageRoute(
-                      builder: (context) => AdminDashboard(js: res, ns: widget.ns)));
+                      builder: (context) => AdminDashboard(js: res)));
         } else {
           _exists = false;
         }
