@@ -1,30 +1,37 @@
 <?php
 
 require_once('../includes/db.inc.php');
-function getTenImg($id){
+function getTenImg($id)
+{
     global $con;
-    $init = 'select * from tenant_images where ten_img_id = "'.$id.'"';
+    $init = 'select * from tenant_images where ten_img_id = "' . $id . '"';
     $init = mysqli_query($con, $init);
-    if(!$init) die('Error: '.mysqli_error($con));
+    if (!$init) die('Error: ' . mysqli_error($con));
     $init_data = mysqli_fetch_assoc($init);
-    if(mysqli_num_rows($init) > 0)
-        return $init_data['ten_img_location'].$init_data['ten_img_name'];
+    if (mysqli_num_rows($init) > 0)
+        return $init_data['ten_img_location'] . $init_data['ten_img_name'];
     return '';
 }
-function getHouseDetails($id){
+function getHouseDetails($id)
+{
     global $con;
     $details = array();
-    $init = 'select * from house_info where house_id = "'.$id.'"';
+    $init = 'select * from house_info where house_id = "' . $id . '"';
     $init = mysqli_query($con, $init);
-    if(!$init) die('Error: '.mysqli_error($con));
+    if (!$init) die('Error: ' . mysqli_error($con));
     $init_data = mysqli_fetch_assoc($init);
-    $details['hNo'] = $init_data['house_number'];
-    $details['hLoc'] = $init_data['house_location'];
-    $details['hDesc'] = $init_data['Description'];
-    $details['hApm'] = $init_data['amt_per_mth'];
-    return $details;
+    if ($init_data != null) {
+        $details['hNo'] = $init_data['house_number'];
+        $details['hLoc'] = $init_data['house_location'];
+        $details['hDesc'] = $init_data['Description'];
+        $details['hApm'] = $init_data['amt_per_mth'];
+        return $details;
+    } else {
+        return null;
+    }
 }
-function getServiceInfo($id){
+function getServiceInfo($id)
+{
     global $con;
     $details = array();
     $init = 'select * from Services where service_id = "' . $id . '"';
@@ -36,13 +43,15 @@ function getServiceInfo($id){
     $details['yaka'] = $init_data['Umeme_no'] == null ? 'Shared' : $init_data['Umeme_no'];
     return $details;
 }
-function getDetails($id = 0){
+function getDetails($id = 0)
+{
     global $con;
     $details = array();
     $init = 'select * from tenant_details where ten_nin = "' . $id . '"';
     $init = mysqli_query($con, $init);
     if (!$init) die('Error: ' . mysqli_error($con));
     $init_data = mysqli_fetch_assoc($init);
+    $details['tc'] = $init_data['ten_contact'];
     if (count($cont = explode(',', $init_data['ten_contact'])) > 1) {
         $details['contact_1'] = $cont[0];
         $details['contact_2'] = $cont[1];
@@ -60,13 +69,14 @@ function getDetails($id = 0){
     $details['services'] = getServiceInfo($hid);
     return $details;
 }
-function getPayInfo($id){
+function getPayInfo($id)
+{
     global $con;
     $details = array();
     $init = 'select * from pay_info where ten_nin = "' . $id . '"';
     $init = mysqli_query($con, $init);
     if (!$init) die('Error: ' . mysqli_error($con));
-    if(mysqli_num_rows($init) > 0){
+    if (mysqli_num_rows($init) > 0) {
         $init_data = mysqli_fetch_assoc($init);
         $details['cm'] = $init_data['current_month'];
         $details['mlp'] = $init_data['month_last_paid'];
@@ -77,14 +87,15 @@ function getPayInfo($id){
     }
     return $details;
 }
-function getRentDetails($id){
+function getRentDetails($id)
+{
     global $con;
     $details = array();
     $init = 'select * from defaulters_rent where ten_nin = "' . $id . '"';
     $init = mysqli_query($con, $init);
     if (!$init) die('Error: ' . mysqli_error($con));
     $init_data = mysqli_fetch_assoc($init);
-    if(mysqli_num_rows($init) > 0){
+    if (mysqli_num_rows($init) > 0) {
         $details['d_id'] = $init_data['defaulters_id'] == null ? 0 : $init_data['defaulters_id'];
         $details['defaulted_amt'] = $init_data['amt_defaulted'] == null ? 0 : $init_data['amt_defaulted'];
         $details['month'] = $init_data['for_mth'] == null ? 'OK' : $init_data['for_mth'];
@@ -92,11 +103,11 @@ function getRentDetails($id){
         $init = mysqli_query($con, $init);
         if (!$init) die('Error: ' . mysqli_error($con));
         $count = 0;
-        while(($init_data = mysqli_fetch_assoc($init)) !== null){
-            $details['payments']['payment_'.++$count]['rNo'] = $init_data['receiptNo'];
-            $details['payments']['payment_'.$count]['amt_pd'] = $init_data['amt_pd'];
-            $details['payments']['payment_'.$count]['date_pd'] = $init_data['date_pd'];
-            $details['payments']['payment_'.$count]['processedBy'] = $init_data['processedBy'];
+        while (($init_data = mysqli_fetch_assoc($init)) !== null) {
+            $details['payments']['payment_' . ++$count]['rNo'] = $init_data['receiptNo'];
+            $details['payments']['payment_' . $count]['amt_pd'] = $init_data['amt_pd'];
+            $details['payments']['payment_' . $count]['date_pd'] = $init_data['date_pd'];
+            $details['payments']['payment_' . $count]['processedBy'] = $init_data['processedBy'];
         }
         $init = 'select * from rent_credit where ten_nin = "' . $id . '"';
         $init = mysqli_query($con, $init);

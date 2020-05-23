@@ -40,7 +40,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
 <body>
     <div id="header"></div>
     <div id="dialog"></div>
-    <div class="container">
+    <div class="container" style="min-height: 40rem">
         <div class="container topbar" style="padding: 0px 15px !important;">
             <nav class="navbar navbar-inverse navbar-sticky bg-light" style="min-height:10px !important;width:100%;border-radius:5px 5px 0 0;margin-bottom:0px;">
                 <div class="container-fluid" style="height:30px !important">
@@ -85,6 +85,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
         </div>
         <div id="LTContent" class="container" style="padding: 0px 15px !important;"></div>
     </div>
+    <div id="footer"></div>
     <script>
         LTL();
         loadprerequisites();
@@ -98,7 +99,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false) {
                 e.dataset['target'] == 'rentarr' ?
                 rentarrears() :
                 e.dataset['target'] == 'complaint' ?
-                compnts():
+                compnts() :
                 null
         }
         compnts = () => {

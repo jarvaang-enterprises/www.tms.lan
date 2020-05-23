@@ -526,6 +526,7 @@
                             </div>
                             <span class="error_msg 3" id="error_msg"></span>
                             <input type="submit" class="btn btn-block btn-info submit action-button" name="submit" value="Process Data" style="background-color: green;">
+                            <input type="reset" hidden class="reset_btn">
                         </fieldset>
                     </div>
                 </form>

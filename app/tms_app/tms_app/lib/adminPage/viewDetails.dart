@@ -3,23 +3,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:tms_app/states/states.dart';
 
 class ViewDetails extends StatefulWidget {
-  final js;
-  final dynamic ten;
+  final ten;
 
-  const ViewDetails({Key key, this.js, this.ten}) : super(key: key);
-
+  const ViewDetails({Key key, this.ten}) : super(key: key);
   @override
-  ViewDetailsState createState() => ViewDetailsState(js: js, ten: ten);
+  ViewDetailsState createState() => ViewDetailsState(ten: ten);
 }
 
 class ViewDetailsState extends State<ViewDetails> {
-  final js;
   final dynamic ten;
   var c = Colors.black, tenSpec, msg = "Loading required Data\nPlease wait ...";
 
-  ViewDetailsState({this.js, this.ten});
+  ViewDetailsState({this.ten});
   var isLoading = false;
 
   dynamic getTenantDetail(var nin) async {
@@ -29,6 +28,7 @@ class ViewDetailsState extends State<ViewDetails> {
           body: {'tNIN': nin});
       setState(() {
         tenSpec = json.decode(response.body);
+        print(tenSpec);
         isLoading = false;
       });
       return response;
@@ -69,8 +69,83 @@ class ViewDetailsState extends State<ViewDetails> {
     super.initState();
   }
 
+  Widget contacts() {
+    var r = {};
+    var dets = tenSpec['dets'] as Map;
+    dets.forEach((key, value) {
+      if (key.contains('contact')) {
+        r[key] = value;
+      }
+    });
+    if (r.length > 1) {
+      return Padding(
+        padding: EdgeInsets.only(left: 25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: [
+                Text(
+                  "Mobile Number: ",
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  tenSpec['dets']['contact_1'],
+                  style: TextStyle(
+                    fontSize: 12.0,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Home Number: ",
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  tenSpec['dets']['contact_2'],
+                  style: TextStyle(
+                    fontSize: 12.0,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    } else
+      return Padding(
+          padding: EdgeInsets.only(left: 25),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text(
+                        "Mobile Number: ",
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        tenSpec['dets']['contact'],
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    var ns = Provider.of<States>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -79,7 +154,7 @@ class ViewDetailsState extends State<ViewDetails> {
             padding:
                 EdgeInsets.only(top: 8.0, bottom: 8.0, left: 5.0, right: 7.0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(js.data.photoUrl),
+              backgroundImage: NetworkImage(ns.userData.photoUrl),
               radius: 20.0,
             ),
           )
@@ -98,20 +173,21 @@ class ViewDetailsState extends State<ViewDetails> {
                       Padding(
                           padding: EdgeInsets.only(bottom: 10.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(ten['photoUrl']),
+                            backgroundImage:
+                                NetworkImage(ns.tenData['photoUrl']),
                             radius: 70.0,
                           )),
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                          ten['user'],
+                          ns.tenData['user'],
                           style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                          "NIN: " + ten['id'],
+                          "NIN: " + ns.tenData['id'],
                           style: TextStyle(fontSize: 12.0),
                         ),
                       ),
@@ -126,64 +202,97 @@ class ViewDetailsState extends State<ViewDetails> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(2.0),
                                   child: Text(
                                     "Tenant Details",
                                     style: TextStyle(
-                                        fontSize: 12.0,
+                                        fontSize: 18.0,
                                         color: Colors.purpleAccent,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.italic),
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
                             ),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Mobile Number: ",
-                                      style: TextStyle(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      tenSpec['dets']['contact'],
-                                      style: TextStyle(
-                                        fontSize: 12.0,
+                            contacts(),
+                            Padding(
+                              padding: EdgeInsets.only(left: 25.0),
+                              child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Email Address: ",
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ],
+                                      Text(
+                                        tenSpec['dets']['email']
+                                                .contains('Placeholder')
+                                            ? tenSpec['dets']['email']
+                                                .split(':')[1]
+                                            : tenSpec['dets']['email'],
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                             new Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Email Address: ",
-                                      style: TextStyle(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      tenSpec['dets']['email']
-                                              .contains('Placeholder')
-                                          ? tenSpec['dets']['email']
-                                              .split(':')[1]
-                                          : tenSpec['dets']['email'],
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                      ),
-                                    )
-                                  ],
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "House Details",
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w900),
+                                  ),
                                 ),
                               ],
-                            )
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 25.0),
+                              child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  tenSpec['dets']['house'] != null
+                                      ? Row(
+                                          children: [
+                                            Text(
+                                              "House Number: ",
+                                              style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              tenSpec['dets']['house']['hNo'],
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      : Row(
+                                          children: [
+                                            Text(
+                                              'The tenant was once a tenant but left!',
+                                              style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red),
+                                            )
+                                          ],
+                                        ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       )

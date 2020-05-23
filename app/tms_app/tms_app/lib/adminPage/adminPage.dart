@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,39 +8,53 @@ import 'package:recase/recase.dart';
 import 'package:tms_app/buttons.dart';
 import 'package:tms_app/main.dart';
 import 'package:http/http.dart' as http;
-
-import '../NetworkState.dart';
+import 'package:tms_app/states/states.dart';
 import 'adminDashboard.dart';
 
 class AdminDashboard extends StatefulWidget {
-  AdminDashboard({Key key, this.js, this.det, this.auth, this.googleSignIn})
+  AdminDashboard({Key key, this.det, this.auth, this.googleSignIn})
       : super(key: key);
 
   final FirebaseAuth auth;
   final det;
   final GoogleSignIn googleSignIn;
-  final js;
 
   @override
-  DashBoardState createState() => new DashBoardState(js);
+  DashBoardState createState() => new DashBoardState();
 }
 
 class DashBoardState extends State<AdminDashboard> {
-  DashBoardState(this.js);
 
   bool cMade = false;
-  final Future<User> js;
   var jsonTen;
-  var jt;
+  var jt, isLoading = true;
 
   @override
   void initState() {
-    var ns = Provider.of<NetworkStateSingleton>(context);
     setState(() {
       cMade = buttons.changesMade;
     });
-    ns.checkConnection();
     super.initState();
+  }
+
+  Column bodyProgress() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [],
+        ),
+        Padding(
+          padding: EdgeInsets.all(100),
+          child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlueAccent, strokeWidth: 4.0),
+        ),
+        Text('Get tenant data ...'),
+      ],
+    );
   }
 
   void _googleSignOut() {
@@ -76,12 +87,13 @@ class DashBoardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<NetworkStateSingleton>(context);
+    var ns = Provider.of<States>(context);
+    ns.checkConnection();
     return Scaffold(
         backgroundColor: Colors.blueGrey,
         body: Center(
             child: FutureBuilder<User>(
-          future: js,
+          future: ns.user,
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -144,14 +156,19 @@ class DashBoardState extends State<AdminDashboard> {
                           padding: EdgeInsets.all(8.0),
                           child: OutlineButton(
                             onPressed: () {
+                              setState(() {
+                                isLoading = true;
+                              });
                               getTenantDetail();
+                              setState(() {
+                                isLoading = false;
+                              });
                               jt.then((res) => {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 Administration(
-                                                  js: js,
                                                   jk: res.body,
                                                 )))
                                   });

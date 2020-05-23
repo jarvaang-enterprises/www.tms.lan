@@ -3,28 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
-// import 'change';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-
-// import 'FCM/message_beans.dart';
+import 'package:tms_app/states/states.dart';
 import 'Icons/StackedIcons.dart';
 import 'User/user.dart';
 import 'login/login.dart';
-import 'NetworkState.dart';
 import 'adminPage/adminPage.dart';
 import 'dashboard/dashboard.dart';
 import 'splash/splashScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  NetworkStateSingleton networkState = NetworkStateSingleton.getInstance();
-  networkState.initialize();
-  // runApp(MyApp(ns: networkState));
+  States _states = States.getInstance();
   runApp(
     ChangeNotifierProvider(
-      create: (context) => networkState, 
+      create: (context) => _states, 
       child: MyApp()
     )
   );
@@ -35,7 +27,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-  var ns = Provider.of<NetworkStateSingleton>(context);
     return MaterialApp(
         title: 'Tenant Management System',
         debugShowCheckedModeBanner: false,
@@ -80,6 +71,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void signUpWithGoogle() async {
+    var ns = Provider.of<States>(context);
     FirebaseUser user;
     Map<String, dynamic> udata;
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -107,21 +99,16 @@ class MyHomePageState extends State<MyHomePage> {
         det = udata;
       });
     }
+    ns.user = _googleLogin(udata);
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => det['status'] == 0
-                ? AdminDashboard(
-                    js: _googleLogin(udata),
-                  )
-                : Dashboard(
-                    js: _googleLogin(udata),
-                  )));
+                ? AdminDashboard()
+                : Dashboard()));
   }
 
   void initState() {
-    var ns = Provider.of<NetworkStateSingleton>(context);
-    ns.checkConnection();
     tr = _handleStart();
     _handleStart().then((d) {
       gtext =
@@ -178,8 +165,10 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<NetworkStateSingleton>(context);
+    var ns = Provider.of<States>(context);
+    ns.checkConnection();
     Widget _widgetGoogleSignIn() {
+      ns.user = tr;
       return OutlineButton(
         clipBehavior: Clip.hardEdge,
         splashColor: Colors.grey,
@@ -197,11 +186,9 @@ class MyHomePageState extends State<MyHomePage> {
                           MaterialPageRoute(
                               builder: (context) => det['status'] == 0
                                   ? AdminDashboard(
-                                      js: tr,
                                       auth: _auth,
                                       googleSignIn: googleSignIn)
                                   : Dashboard(
-                                      js: tr,
                                       auth: _auth,
                                       googleSignIn: googleSignIn)));
                 })
@@ -209,7 +196,6 @@ class MyHomePageState extends State<MyHomePage> {
                   ? signUpWithGoogle()
                   : setState(() {
                       isLoading = false;
-                      print(ns.hasConnection);
                       ns.checkConnection();
                       msg = 'No Internet Connection';
                     });

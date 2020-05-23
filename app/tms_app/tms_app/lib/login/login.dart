@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/adminPage/adminPage.dart';
+import 'package:tms_app/states/states.dart';
 import '../User/user.dart';
 import 'package:tms_app/Icons/StackedIcons.dart';
 import 'package:tms_app/dashboard/dashboard.dart';
@@ -23,7 +23,6 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<NetworkStateSingleton>(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.orange,
     ));
@@ -152,7 +151,6 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<NetworkStateSingleton>(context);
     FocusScope.of(context).requestFocus(email);
     return new Container(
       width: double.infinity,
@@ -306,7 +304,8 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   _authData(String passwd, String user) {
-    var url = 'https://192.168.43.8/actions/app/login.php';
+    var ns = Provider.of<States>(context, listen: false);
+    var url = 'http://192.168.43.8/actions/app/login.php';
     // var url = 'http://10.10.3.164/actions/app/login.php';
     setState(() {
       isLoading = true;
@@ -323,12 +322,13 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
         });
       } else {
         if (_exists) {
+          ns.user = res;
           Navigator.pushReplacement(
               context,
               det['rights'] == '4'
-                  ? MaterialPageRoute(builder: (context) => Dashboard(js: res))
+                  ? MaterialPageRoute(builder: (context) => Dashboard())
                   : MaterialPageRoute(
-                      builder: (context) => AdminDashboard(js: res)));
+                      builder: (context) => AdminDashboard()));
         } else {
           _exists = false;
         }

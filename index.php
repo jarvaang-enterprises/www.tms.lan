@@ -33,7 +33,7 @@ if (isset($_COOKIE['login']) && $_COOKIE['login'] == "login" && isset($_COOKIE['
 		<div id="verify" class="content col-xs-12"></div>
 		<div id="LTContent"></div>
 	</div>
-
+	<div id="footer"></div>
 	<script>
 		loadprerequisites();
 	</script>

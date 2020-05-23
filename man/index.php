@@ -27,25 +27,26 @@
 	} else { ?>
 		<div id="header"></div>
 		<div id="dialog"></div>
-		<div class="container">
+		<div class="container" style="min-height: 40rem">
 			<div id="verify"></div>
-		<?php }
-		?>
-		<div id="LTContent"></div>
-		<div id="ten_list"></div>
-		<div id="processrent"></div>
-		<div id="tendet"></div>
-		<div id="Tenact"></div>
+			<div id="LTContent"></div>
+			<div id="ten_list"></div>
+			<div id="processrent"></div>
+			<div id="tendet"></div>
+			<div id="Tenact"></div>
 		</div>
-		<script src="//cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-		<script src="//cdn.tms-dist.lan:433/styles/js/jquery-2.1.3.min.js" crossorigin="anonymous"></script>
-		<script src="//cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
-		<script src="//cdn.tms-dist.lan:433/styles/js/ver.js"></script>
-		<script src="//cdn.tms-dist.lan:433/styles/js/main.js"></script>
-		<script src="//cdn.tms-dist.lan:433/styles/js/navigation.min.js"></script>
-		<script>
-			loadprerequisites();
-		</script>
+	<?php }
+	?>
+	<div id="footer"></div>
+	<script src="//cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+	<script src="//cdn.tms-dist.lan:433/styles/js/jquery-2.1.3.min.js" crossorigin="anonymous"></script>
+	<script src="//cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
+	<script src="//cdn.tms-dist.lan:433/styles/js/ver.js"></script>
+	<script src="//cdn.tms-dist.lan:433/styles/js/main.js"></script>
+	<script src="//cdn.tms-dist.lan:433/styles/js/navigation.min.js"></script>
+	<script>
+		loadprerequisites();
+	</script>
 </body>
 
 </html>

@@ -237,6 +237,7 @@
                             $('#ln.name').text(e._teninfo.fl)
                             $('#nin.name').text(e._teninfo.nin)
                             $('#mno.name').text(e._teninfo.cont_mobile)
+                            $('#hnum.name').text(e._teninfo.cont_home == "" ? 'No Second Number' : e._teninfo.cont_home)
                             $('#email.name').text(e._teninfo.email == null ? 'No Email' : e._teninfo.email)
                             $('#hn.name').text(e._teninfo.h_no)
                             $('#hl.name').text(e._teninfo.h_loc)
@@ -273,6 +274,76 @@
             })
         }
     })
+    $('.s-f').on('keyup', _ => {
+        var sf = _.target.value
+        var type;
+        for (let index = 2; index < 6; index++) {
+            type = $(_.target).parent().parent()[0][index].checked == true ? $(_.target).parent().parent()[0][index] : null
+            type != null ? index = 6 : index = index
+        }
+        if ($(_.target).parent().hasClass('hasValue')) {
+            var html = '<table style="width: 100%; "><tbody>';
+            if (sf != '' && (sf.length >= 2))
+                $.ajax({
+                    url: '/ghint',
+                    data: {
+                        'sp': btoa(sf),
+                        't': btoa(type.attributes['id'].nodeValue),
+                        'ver': $('#ver').val()
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: e => {
+                        if (e.err != undefined) {
+                            $('.search-hint').parent().css({
+                                display: 'block'
+                            })
+                            $('.search-hint').html('').addClass('alert alert-danger')
+                            var sh = document.createTextNode(e.err)
+                            $('.search-hint')[0].appendChild(sh)
+                        } else {
+                            $('.search-hint').parent().css({
+                                display: 'block'
+                            })
+                            if (!$('.search-hint').hasClass('alert')) $('.search-hint').addClass('alert')
+                            $('.search-hint').html('').removeClass('alert-danger').addClass('alert-info')
+                            var ti = 50;
+                            if (e.status == 200) {
+                                for (const key in e.hints) {
+                                    if (e.hints.hasOwnProperty(key)) {
+                                        const hint = e.hints[key]
+                                        html = html.concat('<tr data-input-update-id="search-field" data-input-update-data=":nth-child(2)" class="hint-data" tabindex=', ++ti, ' style="cursor: pointer; border-bottom: 1.5px solid black!important;border-top: 1.5px solid black!important;">')
+                                        html = html.concat('<td style="padding-top: 0.3rem !important; padding-bottom: 0.3rem !important;">'.concat(parseInt(key.split('_')[1]) + 1).concat('</td>'))
+                                        html = html.concat('<td style="padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; text-align: left;">'.concat(hint['names']['fName'].concat(' ').concat(hint['names']['lName'])).concat('</td>'))
+                                        html = html.concat('</tr>')
+                                    }
+                                }
+                                html = html.concat('</tbody></table>');
+                                $('.search-hint').html(html)
+                                var body = document.getElementsByTagName('body')[0]
+                                var script = document.createElement('script')
+                                $(script).text('$(".hint-data").on("click", _ => update(_))')
+                                body.appendChild(script)
+                            }
+                        }
+                    },
+                    error: e => {
+                        log(e.responseText)
+                    },
+                })
+        } else
+            $('.search-hint').parent().css({
+                display: 'none'
+            })
+    })
+    update = _ => {
+    var f = _.delegateTarget
+    var upd_field, upd_data;
+    upd_field = '#'.concat(f.dataset['inputUpdateId'])
+    upd_data = f.dataset['inputUpdateData']
+    log($(f).children(upd_data)[0].textContent)
+    $(upd_field).val($(f).children(upd_data)[0].textContent)
+}
 </script>
 
 <body id="body">
@@ -283,9 +354,16 @@
         <form action="" method="get" id="search" enctype="multipart/form-data" style="float: right; display:none">
             <span id="error_sms" style="display:none"></span>
             <div class="field-wrapper">
-                <input type="search" name="search" id="search-field" class="form-control input-lg">
+                <input type="search" name="search" id="search-field" class="s-f form-control input-lg" autocomplete='false'>
                 <div class="field-placeholder">
                     <span>Enter Search Criteria: </span>
+                </div>
+            </div>
+            <div style="width: 100%; display:none">
+                <div style="background-color: #8a2be2; top: -8px; left: 10px; padding: 2px 5px; width: max-content; position: relative; cursor: default">
+                    <span id="legend" style="background-color: transparent; padding: 3px; border-radius: 10px; color:floralwhite">Search Hints</span>
+                </div>
+                <div class="search-hint" style="margin-left: 3rem">
                 </div>
             </div>
             <div class="field-wrapper" hidden="hidden" style="display:none">
@@ -336,6 +414,10 @@
                     <div class="nm">
                         <span class="lbl">Mobile Number: </span>
                         <div class="name" id="mno" style="background-color: grey">Dummy Name</div>
+                    </div>
+                    <div class="nm">
+                        <span class="lbl">Home Number: </span>
+                        <div class="name" id="hnum" style="background-color: grey">Dummy Name</div>
                     </div>
                 </div>
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">

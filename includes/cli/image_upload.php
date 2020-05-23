@@ -3,16 +3,17 @@ require_once('../db.inc.php');
 $files = null;
 $user_id = null;
 $response = array();
-define('MB', 1048576);
 $dates = DateTime::createFromFormat('U.u', microtime(true));
 $datename = $dates->format('Y-m-d H:i:s.u');
 $date = new DateTime();
 $date = implode('', explode('-', $date->format('Y-m-d-H-i-s')));
+if (empty($_FILES))
+    $_FILES['file'] = $_POST['files'];
 if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
     $files = $_FILES['file'];
     $user_id = mysqli_real_escape_string($con, $_POST['user_id']);
-    $target_dir = "../img/";
-    $img_dir = "/includes/img/";
+    $target_dir = $ROOT."includes/img/";
+    $img_dir = $ROOT."includes/img/";
     $target_file_name = $date . '_' . basename($files['name']);
     $target_file = $target_dir . $target_file_name;
     $upOk = 1;
@@ -21,7 +22,9 @@ if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
         $response['success'] = false;
         $response['error'] = "The image size is too big to upload as profile image!";
     } else {
+        print_r($files);
         if (move_uploaded_file($files['tmp_name'], $target_file)) {
+            echo $target_dir.'<br>';
             $try = "select ten_img_id from tenant_details where ten_nin = '" . $user_id . "'";
             $try = mysqli_query($con, $try);
             $tii = mysqli_fetch_assoc($try)['ten_img_id'];
@@ -71,6 +74,7 @@ if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
                 }
             }
         } else {
+            http_response_code(500);
             $response['success'] = false;
             $response['error'] = "Check your internet connection! Then try again!";
         }
@@ -81,4 +85,3 @@ if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
 }
 sleep(2);
 echo json_encode($response);
-?>

@@ -3,6 +3,8 @@ $DB_HOST = 'localhost';
 $DB_USER = 'admin.olympia.lan';
 $DB_PASSWD = 'Computer!@#4';
 $DB_BASE = 'tenant_management_sys';
+$ROOT = '/var/www/www.tms.lan/';
+define('MB', 1048576);
 
 $con = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWD);
 if(!$con){

@@ -2,31 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tms_app/NetworkState.dart';
 import 'package:tms_app/User/user.dart';
+import 'package:tms_app/states/states.dart';
 
 import 'viewDetails.dart';
 
 class Administration extends StatefulWidget {
-  final js;
   final dynamic jk;
 
-  const Administration({Key key, this.js, this.jk}) : super(key: key);
+  const Administration({Key key, this.jk}) : super(key: key);
 
   @override
-  AdministrationState createState() => AdministrationState(js: js);
+  AdministrationState createState() => AdministrationState();
 }
 
 class AdministrationState extends State<Administration> {
-  final Future<User> js;
   bool isLoading = false;
 
-  AdministrationState({this.js});
-
   void initState() {
-    var ns = Provider.of<NetworkStateSingleton>(context);
     super.initState();
-    ns.checkConnection();
   }
 
   Column bodyProgress() {
@@ -46,10 +40,12 @@ class AdministrationState extends State<Administration> {
 
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<NetworkStateSingleton>(context);
+    var ns = Provider.of<States>(context);
+    ns.checkConnection();
     return FutureBuilder<User>(
-      future: widget.js,
+      future: ns.user,
       builder: (context, snapshot) {
+        ns.userData = snapshot.data;
         switch (snapshot.connectionState) {
           case ConnectionState.none:
             return new Text("No Connection");
@@ -125,6 +121,8 @@ class AdministrationState extends State<Administration> {
   }
 
   Widget _buildRow(var pair, var snap) {
+    var ns = Provider.of<States>(context);
+    ns.tenData = pair;
     return ListTile(
       isThreeLine: true,
       subtitle: Text("NIN:${pair['id']}\nTenancy Status: active"),
@@ -140,7 +138,10 @@ class AdministrationState extends State<Administration> {
       ),
       trailing: IconButton(
         icon: Icon(Icons.info),
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ViewDetails(js: snap, ten: pair))),
+        onPressed: () => {
+          ns.tenData = pair,
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ViewDetails(ten: pair)))
+        },
       ),
     );
   }

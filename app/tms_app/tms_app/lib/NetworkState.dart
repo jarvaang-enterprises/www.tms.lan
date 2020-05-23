@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-class NetworkStateSingleton extends ChangeNotifier{
+class NetworkStateSingleton {
   static final NetworkStateSingleton _state =
       new NetworkStateSingleton._internal();
   NetworkStateSingleton._internal();
@@ -26,7 +25,6 @@ class NetworkStateSingleton extends ChangeNotifier{
 
   void dispose() {
     connectionChangeController.close();
-    super.dispose();
   }
 
   void _connectionChange(ConnectivityResult result) {
@@ -40,26 +38,24 @@ class NetworkStateSingleton extends ChangeNotifier{
       final result = await http.get('http://www.google.com');
       // print(result);
       if (result.statusCode == 200) {
-        print(result);
         hasConnection = true;
       } else {
         print('Connection failed!');
         hasConnection = false;
       }
     } on SocketException catch (_) {
-      print(_);
+      print('Connection failed!');
       hasConnection = false;
-    } on PlatformException catch (_){
-      print(_);
+    } on PlatformException catch (_) {
+      print('Connection failed!');
       hasConnection = false;
     } catch (_) {
-      print(_);
+      print('Connection failed!');
       hasConnection = false;
     }
 
     if (previousConnection != hasConnection) {
       connectionChangeController.add(hasConnection);
-      _state.notifyListeners();
     }
     return hasConnection;
   }

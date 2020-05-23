@@ -1,5 +1,5 @@
 name: tms_app
-description: A new Flutter application.
+description: The perfect app to help you find a good place to rent.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.1.2+2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -29,9 +29,10 @@ dependencies:
   # firebase_database: "^1.0.1"
   firebase_auth:
   google_sign_in: 
-  connectivity:
+  connectivity: ^0.4.3+1
   firebase_messaging:
   shared_preferences:
+  provider: ^4.1.2
   # flutter_facebook_login:
 
 dev_dependencies:
