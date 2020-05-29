@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tms_app/main.dart';
+import 'package:provider/provider.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,16 +17,17 @@ class SplashScreenState extends State<SplashScreen> {
     loadData();
   }
 
-  
-
   Future<Timer> loadData() async {
     return new Timer(Duration(seconds: 5), onDoneLoading);
   }
 
-  onDoneLoading() async{
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => MyHomePage())
-    );
+  onDoneLoading() async {
+    final TenDataProv app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
+    ns.user.then((value) => 
+      value.username == 'Null'
+        ? Navigator.of(context).pushReplacementNamed('/home')
+        : Navigator.of(context).pushReplacementNamed('/adminPg'));
   }
 
   @override

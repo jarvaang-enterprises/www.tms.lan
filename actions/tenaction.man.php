@@ -1,13 +1,7 @@
 <?php
-
-/** TODO
- * Ten details remove house_id in tenant_details
- * Set isRented to false in rentals_info
- * Update tenant_info [date_entered, date_left, house_id]
- */
 require_once('./../includes/db.inc.php');
 $resp = array();
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $data = file_get_contents('php://input');
     parse_str($data, $_DELETE);
@@ -268,20 +262,3 @@ function datetime($date, $ts)
         return intval(explode('/', explode(' ', $date)[0])[2]);
     } else return null;
 }
-// function curlpost($url = '', $type = 'POST', $data = NULL)
-// {
-//     $ch = curl_init($url);
-//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//     if (!empty($data)) {
-//         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
-//         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-//     }
-//     $response = curl_exec($ch);
-//     var_dump($response);
-//     if (curl_error($ch)) {
-//         trigger_error('Curl Error: ' . curl_error($ch));
-//     }
-
-//     curl_close($ch);
-//     return $response;
-// }

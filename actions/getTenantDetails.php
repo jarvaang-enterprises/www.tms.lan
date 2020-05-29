@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="https://cdn.tms-dist.lan:433/styles/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.tms-dist.lan:433/styles/css/bootstrap.min.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:500,300,700,400italic,400">
 <style>
     body {
@@ -180,6 +180,19 @@
     #search-ret#row:last-child {
         margin-bottom: .6rem !important;
     }
+
+    .sr_edit-ten {
+        float: right;
+        position: relative;
+        z-index: 2;
+        right: 0;
+        margin-top: -20px;
+        padding: .75em;
+    }
+
+    .update_ten:hover {
+        background-color: rgba(173, 255, 47, 0.7) !important;
+    }
 </style>
 <script>
     // const btob = 'fortheloveoftms(c)pleasedonotusestylingselsewhere'
@@ -192,9 +205,13 @@
         $('#error_sms').removeClass('alert alert-danger').hide()
         $('#no-search').show()
         $('#search-ret').hide()
+        $('.search-hint').parent().css({
+            display: 'none'
+        })
     })
     $('#search').on('submit', (e) => {
         e.preventDefault()
+        loader(true)
         for (let index = 2; index < 6; index++) {
             type = e.target[index].checked == true ? e.target[index] : null
             type != null ? index = 6 : index = index
@@ -203,12 +220,24 @@
         if (msg != 'Continue') {
             $('#error_sms').addClass('alert alert-danger').show()
             document.getElementById('error_sms').innerText = msg
+            $('#ajax_overlay').css({
+                display: 'none'
+            })
+            $('#ajax_loading_box').css({
+                display: 'none'
+            })
             return
         } else {
             searchparams = $('#search-field').val()
             if (searchparams.trim() == '') {
                 $('#error_sms').addClass('alert alert-danger').show()
                 document.getElementById('error_sms').innerText = 'Please specify a search parameter!'
+                $('#ajax_overlay').css({
+                    display: 'none'
+                })
+                $('#ajax_loading_box').css({
+                    display: 'none'
+                })
                 return
             }
             $.ajax({
@@ -228,7 +257,19 @@
                         document.getElementsByClassName('sm')[1].style = "display: none !important;"
                         $('#no-search-text.sm').removeClass('alert-info').addClass('alert-danger')
                         $('#no-search-text.sm').html('<span class="glyphicon glyphicon-help"></span>' + e.err)
+                        $('#ajax_overlay').css({
+                            display: 'none'
+                        })
+                        $('#ajax_loading_box').css({
+                            display: 'none'
+                        })
                     } else {
+                        $('#ajax_overlay').css({
+                            display: 'none'
+                        })
+                        $('#ajax_loading_box').css({
+                            display: 'none'
+                        })
                         if (e._teninfo != null) {
                             $('#no-search').hide()
                             $('#search-ret').show()
@@ -239,12 +280,51 @@
                             $('#mno.name').text(e._teninfo.cont_mobile)
                             $('#hnum.name').text(e._teninfo.cont_home == "" ? 'No Second Number' : e._teninfo.cont_home)
                             $('#email.name').text(e._teninfo.email == null ? 'No Email' : e._teninfo.email)
-                            $('#hn.name').text(e._teninfo.h_no)
-                            $('#hl.name').text(e._teninfo.h_loc)
-                            $('#apm.name').text(e._teninfo.apm)
-                            $('#wmn.name').text(e._teninfo.water_m)
-                            $('#wcm.name').text(e._teninfo.water_c)
-                            $('#umeme.name').text(e._teninfo.yaka)
+                            if (e._teninfo.h_no != null) {
+                                $('.update_ten').css({
+                                    display: 'block'
+                                })
+                                var houseData = $('#search-ret').children(':nth-child(3)')
+                                var nSD = $('#search-ret').children(':nth-child(4)')
+                                houseData.children(':not(:first-child)').css({
+                                    display: 'block',
+                                })
+                                houseData.children('.alert').css({
+                                    display: 'none'
+                                })
+                                nSD.children(':not(:first-child)').css({
+                                    display: 'block'
+                                })
+                                nSD.children('.alert').css({
+                                    display: 'none'
+                                })
+                                $('#hn.name').text(e._teninfo.h_no)
+                                $('#hl.name').text(e._teninfo.h_loc)
+                                $('#apm.name').text(e._teninfo.apm)
+                                $('#wmn.name').text(e._teninfo.water_m)
+                                $('#wcm.name').text(e._teninfo.water_c)
+                                $('#umeme.name').text(e._teninfo.yaka)
+                            } else {
+                                $('.update_ten').css({
+                                    display: 'none'
+                                })
+                                var houseData = $('#search-ret').children(':nth-child(3)')
+                                var nSD = $('#search-ret').children(':nth-child(4)')
+                                houseData.children(':not(:first-child)').css({
+                                    display: 'none',
+                                })
+                                nSD.children(':not(:first-child)').css({
+                                    display: 'none'
+                                })
+                                var error = document.createElement('div');
+                                $(error).addClass('alert alert-info')
+                                error.appendChild(document.createTextNode('Tenant left the premises'))
+                                houseData.get(0).appendChild(error)
+                                var error1 = document.createElement('div');
+                                $(error1).addClass('alert alert-info')
+                                error1.appendChild(document.createTextNode('Tenant left the premises'))
+                                nSD.get(0).appendChild(error1)
+                            }
                             if (e._info.includes('Water Customer Number')) {
                                 $('#wcm.name').css({
                                     'color': 'red'
@@ -269,6 +349,12 @@
                     }
                 },
                 error: e => {
+                    $('#ajax_overlay').css({
+                        display: 'none'
+                    })
+                    $('#ajax_loading_box').css({
+                        display: 'none'
+                    })
                     log(e.responseText)
                 },
             })
@@ -337,13 +423,61 @@
             })
     })
     update = _ => {
-    var f = _.delegateTarget
-    var upd_field, upd_data;
-    upd_field = '#'.concat(f.dataset['inputUpdateId'])
-    upd_data = f.dataset['inputUpdateData']
-    log($(f).children(upd_data)[0].textContent)
-    $(upd_field).val($(f).children(upd_data)[0].textContent)
-}
+        var f = _.delegateTarget
+        var upd_field, upd_data;
+        upd_field = '#'.concat(f.dataset['inputUpdateId'])
+        upd_data = f.dataset['inputUpdateData']
+        log($(f).children(upd_data)[0].textContent)
+        $(upd_field).val($(f).children(upd_data)[0].textContent)
+    }
+    $('[class*="update_ten"]').on('click', function() {
+        $("#edit_ten_dialog").dialog({
+            title: 'Select the fields to be editted!',
+            closeOnEscape: true,
+            minHeight: 320,
+            minWidth: 200,
+            modal: true,
+            close: function(event, ui) {
+                loader()
+            },
+            create: function(event, ui) {
+                log(ui)
+            },
+            position: {
+                my: 'top',
+                at: 'center',
+                of: ".update_ten"
+            },
+            buttons: [{
+                text: "Edit Fields",
+                icon: "ui-icon-circle-plus",
+                click: function() {
+                    $(this).dialog("close")
+                }
+            }]
+        })
+    })
+
+    function loader(ajax = false) {
+        $('#ajax_overlay').css({
+            display: 'block'
+        })
+        $('#ajax_loading_box').css({
+            display: 'block'
+        })
+        if (!ajax)
+            setTimeout(function() {
+                $('#ajax_overlay').css({
+                    display: 'none'
+                })
+                $('#ajax_loading_box').css({
+                    display: 'none'
+                })
+            }, 3000)
+    }
+    $('.update_ten').css({
+        display: 'none'
+    })
 </script>
 
 <body id="body">
@@ -383,6 +517,9 @@
         <div style="background-color: #8a2be2; top: -12px; left: 10px; padding: 2px 5px; width: max-content; position: relative; cursor: default">
             <span id="legend" style="background-color: grey; padding: 3px; border-radius: 10px; color:floralwhite">Tenant Search Results</span>
         </div>
+        <div id="edit_ten" class="sr_edit-ten">
+            <button class="tms-button tms-search tms-section tms-block update_ten" type="submit" style="background-color: greenyellow; border-radius: 10px">Update Tenant Data</button>
+        </div>
         <div id="no-search" class="align-self-center border-1" style="width: max-content; display: inline-block; top: 50%; left: 37%; position: relative">
             <span id="no-search-text" class="alert alert-info">Please carry out a search in the right panel.</span>
             <span id="no-search-text" class="alert alert-info sm">Please carry out a search</span>
@@ -394,11 +531,11 @@
                 <div class="data">
                     <div class="nm">
                         <span class="lbl">First Name: </span>
-                        <div class="name" id="fn" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="fn" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                     <div class="nm">
                         <span class="lbl">Last Name: </span>
-                        <div class="name" id="ln" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="ln" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
             </div>
@@ -409,21 +546,21 @@
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">National ID Number: </span>
-                        <div class="name" id="nin" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="nin" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                     <div class="nm">
                         <span class="lbl">Mobile Number: </span>
-                        <div class="name" id="mno" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="mno" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                     <div class="nm">
                         <span class="lbl">Home Number: </span>
-                        <div class="name" id="hnum" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="hnum" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">Email: </span>
-                        <div class="name" id="email" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="email" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
             </div>
@@ -434,17 +571,17 @@
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">House Number: </span>
-                        <div class="name" id="hn" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="hn" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                     <div class="nm">
                         <span class="lbl">House Location: </span>
-                        <div class="name" id="hl" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="hl" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">Amount Per Month: </span>
-                        <div class="name" id="apm" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="apm" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
             </div>
@@ -455,18 +592,27 @@
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">Water Meter Number: </span>
-                        <div class="name" id="wmn" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="wmn" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                     <div class="nm">
                         <span class="lbl">Water Customer Number:</span>
-                        <div class="name" id="wcm" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="wcm" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
                 </div>
                 <div class="data other col-sm-12 col-md-12 col-lg-6" style="top: -10px; margin-left: -20px;">
                     <div class="nm">
                         <span class="lbl">Yaka: </span>
-                        <div class="name" id="umeme" style="background-color: grey">Dummy Name</div>
+                        <div class="name" id="umeme" style="background-color: grey" contenteditable="false">Dummy Name</div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="edit_ten_dialog" style="display: none">
+        <div class="dialog-body">
+            <div class="row" style="padding: 0px">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    
                 </div>
             </div>
         </div>
@@ -497,5 +643,10 @@
             });
         });
     </script>
-    <script src="https://cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $.getScript('//cdn.tms-dist.lan:433/styles/js/jquery-3.4.1.min.js', () => {
+            $.getScript('//cdn.tms-dist.lan:433/styles/jquery-ui/jquery-ui.min.js')
+            $('body').children(':last-child').after('<link rel="stylesheet" href="//cdn.tms-dist.lan:433/styles/jquery-ui/jquery-ui.min.css">')
+        })
+    </script>
 </body>

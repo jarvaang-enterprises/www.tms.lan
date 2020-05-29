@@ -7,11 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tms_app/adminPage/adminPage.dart';
-import 'package:tms_app/states/states.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
 import '../User/user.dart';
 import 'package:tms_app/Icons/StackedIcons.dart';
-import 'package:tms_app/dashboard/dashboard.dart';
 
 // import 'google_sign_in.dart';
 
@@ -113,11 +111,24 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   bool _exists = true;
   bool isLoading = false;
   final FirebaseAuth auth = FirebaseAuth.instance;
+  var _isLoggedIn = false;
 
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    final app = Provider.of<TenDataProv>(context);
+    final ns = app.states;
+    final user = ns?.getUser();
+    ns.user = user;
+    _isLoggedIn = user != null;
+    setState(() {});
+  }
 
   Future<FirebaseUser> signUpWithEmail(email, password) async {
     try {
-      FirebaseUser user = (await auth.createUserWithEmailAndPassword(email: email, password: password)).user;
+      FirebaseUser user = (await auth.createUserWithEmailAndPassword(
+              email: email, password: password))
+          .user;
       assert(user != null);
       assert(await user.getIdToken() != null);
       return user;
@@ -126,7 +137,7 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
       if (e is PlatformException) {
         if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
           print("A user with that email already exists");
-        } else if(e.code == 'ERROR_API_NOT_AVAILABLE') {
+        } else if (e.code == 'ERROR_API_NOT_AVAILABLE') {
           print("Google Play Sevices missing from Device");
         }
       }
@@ -136,17 +147,20 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
 
   Future<FirebaseUser> signInWithEmail(String email, String password) async {
     try {
-      FirebaseUser user = (await auth.signInWithEmailAndPassword(email: email, password: password)).user;
+      FirebaseUser user = (await auth.signInWithEmailAndPassword(
+              email: email, password: password))
+          .user;
       assert(user != null);
       assert(await user.getIdToken() != null);
       final FirebaseUser currentUser = await auth.currentUser();
       assert(user.uid == currentUser.uid);
       return user;
-    } catch (e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
+
   FocusNode email;
 
   @override
@@ -156,8 +170,8 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
       width: double.infinity,
       child: isLoading
           ? bodyProgress()
-          : new Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          : ListView(
+            shrinkWrap: true,
               children: <Widget>[
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -304,7 +318,8 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
   }
 
   _authData(String passwd, String user) {
-    var ns = Provider.of<States>(context, listen: false);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     var url = 'http://192.168.43.8/actions/app/login.php';
     // var url = 'http://10.10.3.164/actions/app/login.php';
     setState(() {
@@ -323,12 +338,8 @@ class _TmsLoginFormState extends State<TmsLoginForm> {
       } else {
         if (_exists) {
           ns.user = res;
-          Navigator.pushReplacement(
-              context,
-              det['rights'] == '4'
-                  ? MaterialPageRoute(builder: (context) => Dashboard())
-                  : MaterialPageRoute(
-                      builder: (context) => AdminDashboard()));
+          Navigator.pushReplacementNamed(
+              context, det['rights'] == '4' ? '/dashb' : '/adminPg');
         } else {
           _exists = false;
         }

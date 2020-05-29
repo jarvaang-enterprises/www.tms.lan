@@ -4,39 +4,98 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:tms_app/states/states.dart';
+import 'package:tms_app/widgets/LocalStorage.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
 import 'Icons/StackedIcons.dart';
 import 'User/user.dart';
+import 'adminPage/adminDashboard.dart';
 import 'login/login.dart';
 import 'adminPage/adminPage.dart';
 import 'dashboard/dashboard.dart';
 import 'splash/splashScreen.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  States _states = States.getInstance();
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => _states, 
-      child: MyApp()
-    )
-  );
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
+  static var provider = TenDataProv(null);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Tenant Management System',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          body: SplashScreen(),
-          // body: MyHomePage(ns: ns),
-        ));
+    return FutureBuilder<States>(
+        future: States.create(dataStore: LocalStorage()),
+        builder: (context, snapshot) {
+          final repository = snapshot.data;
+          provider = TenDataProv(repository);
+          return MultiProvider(
+            providers: [ChangeNotifierProvider.value(value: provider)],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: Scaffold(
+                body: SplashScreen(),
+              ),
+              onGenerateRoute: (settings) {
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return _makeRoute(
+                        context: context,
+                        routeName: settings.name,
+                        arguments: settings.arguments);
+                  },
+                  maintainState: true,
+                  fullscreenDialog: false,
+                );
+              },
+            ),
+          );
+        });
+  }
+
+  Widget _makeRoute(
+      {@required BuildContext context,
+      @required String routeName,
+      Object arguments}) {
+    final Widget child = _buildRoute(
+        context: context, routeName: routeName, arguments: arguments);
+    return child;
+  }
+
+  Widget _buildRoute(
+      {@required BuildContext context,
+      @required String routeName,
+      Object arguments}) {
+    switch (routeName) {
+      case '/home':
+        return MultiProvider(
+          providers: [ChangeNotifierProvider.value(value: provider)],
+          child: MyHomePage(),
+        );
+      case '/login':
+        return MultiProvider(
+          providers: [ChangeNotifierProvider.value(value: provider)],
+          child: LoginScreen(),
+        );
+      case '/adminPg':
+        return MultiProvider(
+          providers: [ChangeNotifierProvider.value(value: provider)],
+          child: AdminDashboard(),
+        );
+      case '/adminDashb':
+        return MultiProvider(
+          providers: [ChangeNotifierProvider.value(value: provider)],
+          child: Administration(),
+        );
+      case 'dashb':
+      return MultiProvider(
+        providers: [ChangeNotifierProvider.value(value: provider)],
+        child: Dashboard(),
+      );
+      default:
+      return Container();
+    }
   }
 }
 
@@ -46,8 +105,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
   // final FacebookLogin facebookLogin = new FacebookLogin();
   var gtext = 'Sign in with Google';
   var tr;
@@ -71,17 +128,19 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void signUpWithGoogle() async {
-    var ns = Provider.of<States>(context);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     FirebaseUser user;
     Map<String, dynamic> udata;
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAccount googleSignInAccount =
+        await ns.googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    user = (await _auth.signInWithCredential(credential)).user;
+    user = (await ns.auth.signInWithCredential(credential)).user;
     if (user != null) {
       print("Signed into GoogleAccount " + user.photoUrl);
       String username = user.displayName;
@@ -100,12 +159,7 @@ class MyHomePageState extends State<MyHomePage> {
       });
     }
     ns.user = _googleLogin(udata);
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => det['status'] == 0
-                ? AdminDashboard()
-                : Dashboard()));
+    Navigator.pushNamed(context, det['status'] == 0 ? '/adminDashb' : 'dashb');
   }
 
   void initState() {
@@ -125,9 +179,11 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Future<User> _handleStart() async {
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     FirebaseUser _user;
     Map<String, dynamic> udata;
-    _user = await _auth.currentUser();
+    _user = await ns.auth.currentUser();
     if (_user == null) {
       String user = 'Null';
       String photoUrl = 'Null';
@@ -165,7 +221,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<States>(context);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     ns.checkConnection();
     Widget _widgetGoogleSignIn() {
       ns.user = tr;
@@ -181,16 +238,8 @@ class MyHomePageState extends State<MyHomePage> {
               ? tr.then((data) {
                   data == false
                       ? signUpWithGoogle()
-                      : Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => det['status'] == 0
-                                  ? AdminDashboard(
-                                      auth: _auth,
-                                      googleSignIn: googleSignIn)
-                                  : Dashboard(
-                                      auth: _auth,
-                                      googleSignIn: googleSignIn)));
+                      : Navigator.pushNamed(
+                          context, det['status'] == 0 ? '/adminPg' : '/dashb');
                 })
               : ns.hasConnection
                   ? signUpWithGoogle()
@@ -228,10 +277,7 @@ class MyHomePageState extends State<MyHomePage> {
       return OutlineButton(
         splashColor: Colors.grey,
         onPressed: () {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginScreen()));
+          Navigator.pushNamed(context, '/login');
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         highlightElevation: 0,

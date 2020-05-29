@@ -24,7 +24,7 @@
 		padding: 0px;
 		min-height: 52px;
 		width: 52px;
-		background: url('https://shopping.live:423/resources/design/themes/graceful/media/images/icons/ajax_loadereaef.gif?1493401512') no-repeat 10px 10px #0d0d0d;
+		background: url('/images/icons/ajax_loadereaef.gif?1493401512') no-repeat 10px 10px #0d0d0d;
 		opacity: 0.8;
 		-webkit-border-radius: 5px;
 		-moz-border-radius: 5px;

@@ -1,4 +1,5 @@
-<script src="https://cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
+<script src="//cdn.tms-dist.lan:433/styles/js/bootstrap.js"></script>
+<script src="//cdn.tms-dist.lan:433/styles/font-awesome/js/all.min.js"></script>
 
 <head>
 	<?php include_once("../actions/gtag.php"); ?>
@@ -37,8 +38,14 @@
 						<li class="nav-item">
 							<a href="#addtenant" onclick="addTen()" class="nav-link" id="add_ten">New Tenant</a>
 						</li>
+						<li class="nav-item dropdown" style="padding: 0px 25px">
+							<a href="javascript:void(0)" class="nav-link" data-menu="more-navs" data-toggle="dropdown" id="more_nav"><i class="fa fa-arrow-circle-down"></i><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#remtenant" onclick="remTen()" class="nav-link" id="rem_ten">Remove Tenant</a></li>
+							</ul>
+						</li>
 						<li class="nav-item">
-							<a href="#remtenant" onclick="remTen()" class="nav-link" id="rem_ten">Remove Tenant</a>
+							<a href="#remtenant" onclick="remTen()" class="nav-link more-navs" id="rem_ten">Remove Tenant</a>
 						</li>
 					<?php
 					} else if (isset($_SESSION['client_logged_in']) && $_SESSION['client_logged_in'] == true) {
@@ -109,4 +116,43 @@
 	})
 	if (window.location.pathname == '/man/' || location.pathname == '/man')
 		tendet()
+
+	$('#more_nav').on('click', function() {
+		log(this)
+	})
 </script>
+<style>
+	[data-menu="more-navs"]:hover,
+	[data-toggle="more-navs"]:focus {
+		background-color: #2980B9;
+	}
+
+	.dropdown-content {
+		display: none !important;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	@media (max-width: 752px) {
+		.more-navs {
+			display: block !important;
+		}
+
+		#more_nav {
+			display: none !important;
+		}
+	}
+
+	@media (min-width: 753px) {
+		#more_nav {
+			display: block !important;
+		}
+
+		.more-navs {
+			display: none !important;
+		}
+	}
+</style>

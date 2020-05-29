@@ -33,6 +33,10 @@ dependencies:
   firebase_messaging:
   shared_preferences:
   provider: ^4.1.2
+  device_info:
+  path_provider:
+  image_picker:
+  path:
   # flutter_facebook_login:
 
 dev_dependencies:

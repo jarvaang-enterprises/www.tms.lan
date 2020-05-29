@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:tms_app/states/states.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
+import 'package:tms_app/widgets/sidebar.dart';
 
 class ViewDetails extends StatefulWidget {
   final ten;
@@ -28,7 +29,6 @@ class ViewDetailsState extends State<ViewDetails> {
           body: {'tNIN': nin});
       setState(() {
         tenSpec = json.decode(response.body);
-        print(tenSpec);
         isLoading = false;
       });
       return response;
@@ -143,23 +143,28 @@ class ViewDetailsState extends State<ViewDetails> {
           ));
   }
 
+  GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<States>(context);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        actions: <Widget>[
-          Padding(
-            padding:
-                EdgeInsets.only(top: 8.0, bottom: 8.0, left: 5.0, right: 7.0),
+      key: _scaffoldkey,
+      appBar: AppBar(backgroundColor: Colors.transparent, actions: [
+        Padding(
+          padding:
+              EdgeInsets.only(top: 8.0, bottom: 8.0, left: 5.0, right: 7.0),
+          child: OutlineButton(
+            borderSide: BorderSide.none,
+            onPressed: () => _scaffoldkey.currentState.openEndDrawer(),
             child: CircleAvatar(
               backgroundImage: NetworkImage(ns.userData.photoUrl),
               radius: 20.0,
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+      ]),
+      endDrawer: NavDrawer(ctxt: context),
       body: Scaffold(
           backgroundColor: Colors.white,
           body: isLoading

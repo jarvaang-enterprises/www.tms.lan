@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class User {
   final String userId;
   final int status;
@@ -5,6 +7,7 @@ class User {
   final String username;
   final String photoUrl;
   final String source;
+  final Uint8List photo;
 
   User({
     this.status,
@@ -12,7 +15,8 @@ class User {
     this.userId,
     this.username,
     this.photoUrl,
-    this.source
+    this.source,
+    this.photo
   });
   factory User.fromJson(Map<String, dynamic> json) {
     return new User(
@@ -21,7 +25,7 @@ class User {
       username: json['user'],
       photoUrl: json['photoUrl'],
       rights: json['rights'],
-      source: json['source']
+      source: json['source'],
     );
   }
 }

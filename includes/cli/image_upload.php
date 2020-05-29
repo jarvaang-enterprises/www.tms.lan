@@ -13,7 +13,7 @@ if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
     $files = $_FILES['file'];
     $user_id = mysqli_real_escape_string($con, $_POST['user_id']);
     $target_dir = $ROOT."includes/img/";
-    $img_dir = $ROOT."includes/img/";
+    $img_dir = "/includes/img/";
     $target_file_name = $date . '_' . basename($files['name']);
     $target_file = $target_dir . $target_file_name;
     $upOk = 1;
@@ -22,9 +22,7 @@ if (!empty($_FILES['file']) && !empty($_POST['user_id'])) {
         $response['success'] = false;
         $response['error'] = "The image size is too big to upload as profile image!";
     } else {
-        print_r($files);
         if (move_uploaded_file($files['tmp_name'], $target_file)) {
-            echo $target_dir.'<br>';
             $try = "select ten_img_id from tenant_details where ten_nin = '" . $user_id . "'";
             $try = mysqli_query($con, $try);
             $tii = mysqli_fetch_assoc($try)['ten_img_id'];

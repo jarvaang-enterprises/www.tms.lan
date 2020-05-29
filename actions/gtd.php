@@ -11,10 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         // die(var_dump(base64_decode($_POST['t'])));
         if (base64_decode($_POST['t']) == 'ten_name') {
             $rest['_info'] = 'Provided Tenant Name!';
-            if (explode(' ', base64_decode($_POST['sp']))) {
-                $fn = explode(' ', base64_decode($_POST['sp']))[1];
-                $ln = explode(' ', base64_decode($_POST['sp']))[0];
-            } else $_POST['sp'];
+            if (count(explode(' ', base64_decode($_POST['sp']))) > 1) {
+                $names = explode(' ', base64_decode($_POST['sp']));
+                if (count($names) == 2) {
+                    $fn = explode(' ', base64_decode($_POST['sp']))[1];
+                    $ln = explode(' ', base64_decode($_POST['sp']))[0];
+                } elseif (count($names) > 2) {
+                    $fn = $names[0] . ' ' . $names[1];
+                    $ln = $names[2];
+                }
+            } else return 0;
             $init = 'select * from NINS where fName = "' . $fn . '"';
             $init = mysqli_query($con, $init);
             if (!$init) {
@@ -26,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                     if (!$init) {
                         $rest['err'] = mysqli_error($con);
                     } else {
-                        if (mysqli_num_rows($init) >= 0) {
+                        if (mysqli_num_rows($init) >= 1) {
                             $init = 'select * from NINS where lName = "' . $fn . '"';
                             $init = mysqli_query($con, $init);
                             if (!$init) {
@@ -37,13 +43,39 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                                     $init = mysqli_query($con, $init);
                                     if (!$init) {
                                         $rest['err'] = mysqli_error($con);
-                                    } else
-                                        $rest['err'] = "Confirm Tenant Name entered in Search box";
+                                    } else {
+                                        if (mysqli_num_rows($init) == 0)
+                                            $rest['err'] = "Confirm Tenant Name entered in Search box";
+                                        else {
+                                            $data = mysqli_fetch_assoc($init);
+                                            $nin = $data['NIN'];
+                                            $tenDet = json_decode(curlpost('https://www.tms.lan/actions/getSpecTen.inc.php', 'POST', ['tNIN' => $nin]));
+
+                                            $rest['data'] = $tenDet;
+                                            $rest['_teninfo']['fn'] = $tenDet->names->fName;
+                                            $rest['_teninfo']['fl'] = $tenDet->names->lName;
+                                            $rest['_teninfo']['nin'] = $tenDet->names->nin;
+                                            $rest['_teninfo']['cont_mobile'] = $tenDet->dets->contact_1 == '' ? $tenDet->dets->contact : $tenDet->dets->contact_1;
+                                            $rest['_teninfo']['cont_home'] = $tenDet->dets->contact_2 == '' ? 'NULL' : $tenDet->dets->contact_2;
+                                            $rest['_teninfo']['email'] = explode(':', $tenDet->dets->email)[1];
+                                            if ($tenDet->dets->img != '')
+                                                $rest['_teninfo']['img'] = $tenDet->dets->img;
+                                            else
+                                                $rest['_teninfo']['img'] = '/images/img_avatar2.png';
+                                            $rest['_teninfo']['h_no'] = $tenDet->dets->house->hNo;
+                                            $rest['_teninfo']['h_loc'] = $tenDet->dets->house->hLoc;
+                                            $rest['_teninfo']['apm'] = $tenDet->dets->house->hApm;
+                                            $rest['_teninfo']['water_m'] = $tenDet->dets->services->H2O_m;
+                                            $rest['_teninfo']['water_c'] = $tenDet->dets->services->H2O_c;
+                                            $rest['_teninfo']['yaka'] = $tenDet->dets->services->yaka;
+                                        }
+                                    }
                                 } else {
                                     $data = mysqli_fetch_assoc($init);
                                     $nin = $data['NIN'];
                                     $tenDet = json_decode(curlpost('https://www.tms.lan/actions/getSpecTen.inc.php', 'POST', ['tNIN' => $nin]));
 
+                                    $rest['data'] = $tenDet;
                                     $rest['_teninfo']['fn'] = $tenDet->names->fName;
                                     $rest['_teninfo']['fl'] = $tenDet->names->lName;
                                     $rest['_teninfo']['nin'] = $tenDet->names->nin;
@@ -85,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                         }
                     }
                 } else {
-                    if (mysqli_num_rows($init) >= 0) {
-                        $init = 'select * from NINS where lName = "' . explode(' ', base64_decode($_POST['sp']))[0] . '"';
+                    if (mysqli_num_rows($init) >= 1) {
+                        $init = 'select * from NINS where lName = "' . $ln . '"';
                         $init = mysqli_query($con, $init);
                         if (!$init) {
                             $rest['err'] = mysqli_error($con);
@@ -96,8 +128,33 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                                 $init = mysqli_query($con, $init);
                                 if (!$init) {
                                     $rest['err'] = mysqli_error($con);
-                                } else
-                                    $rest['err'] = "Confirm Tenant Name entered in Search box";
+                                } else {
+                                    if (mysqli_num_rows($init) == 0)
+                                        $rest['err'] = "Confirm Tenant Name entered in Search box";
+                                    else {
+                                        $data = mysqli_fetch_assoc($init);
+                                        $nin = $data['NIN'];
+                                        $tenDet = json_decode(curlpost('https://www.tms.lan/actions/getSpecTen.inc.php', 'POST', ['tNIN' => $nin]));
+
+                                        $rest['data'] = $tenDet;
+                                        $rest['_teninfo']['fn'] = $tenDet->names->fName;
+                                        $rest['_teninfo']['fl'] = $tenDet->names->lName;
+                                        $rest['_teninfo']['nin'] = $tenDet->names->nin;
+                                        $rest['_teninfo']['cont_mobile'] = $tenDet->dets->contact_1 == '' ? $tenDet->dets->contact : $tenDet->dets->contact_1;
+                                        $rest['_teninfo']['cont_home'] = $tenDet->dets->contact_2 == '' ? 'NULL' : $tenDet->dets->contact_2;
+                                        $rest['_teninfo']['email'] = explode(':', $tenDet->dets->email)[1];
+                                        if ($tenDet->dets->img != '')
+                                            $rest['_teninfo']['img'] = $tenDet->dets->img;
+                                        else
+                                            $rest['_teninfo']['img'] = '/images/img_avatar2.png';
+                                        $rest['_teninfo']['h_no'] = $tenDet->dets->house->hNo;
+                                        $rest['_teninfo']['h_loc'] = $tenDet->dets->house->hLoc;
+                                        $rest['_teninfo']['apm'] = $tenDet->dets->house->hApm;
+                                        $rest['_teninfo']['water_m'] = $tenDet->dets->services->H2O_m;
+                                        $rest['_teninfo']['water_c'] = $tenDet->dets->services->H2O_c;
+                                        $rest['_teninfo']['yaka'] = $tenDet->dets->services->yaka;
+                                    }
+                                }
                             } else {
                                 $data = mysqli_fetch_assoc($init);
                                 $nin = $data['NIN'];
@@ -212,6 +269,14 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                 $rest['_teninfo']['yaka'] = $tenDet->dets->services->yaka;
             }
         } else if (base64_decode($_POST['t']) == 'yaka_no') {
+            $yaka = base64_decode($_POST['sp']);
+            $init = 'select * from Services where Umeme_no = "'.$yaka.'"';
+            $init = mysqli_query($con, $init);
+            if(!$init) die(mysqli_error($con));
+            if(mysqli_num_rows($init) == 0) $rest['err'] = "The provided Yaka meter number doesn't belong to our premises!";
+            else {
+                $data = mysqli_fetch_assoc($init)['service_id'];
+            }
             $rest['_info'] = 'Provided YAKA Meter Number!';
         } else if (base64_decode($_POST['t']) == 'house_num') {
             $rest['_info'] = 'Provided House Number!';

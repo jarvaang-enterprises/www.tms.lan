@@ -8,8 +8,7 @@ import 'package:recase/recase.dart';
 import 'package:tms_app/buttons.dart';
 import 'package:tms_app/main.dart';
 import 'package:http/http.dart' as http;
-import 'package:tms_app/states/states.dart';
-import 'adminDashboard.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
 
 class AdminDashboard extends StatefulWidget {
   AdminDashboard({Key key, this.det, this.auth, this.googleSignIn})
@@ -24,10 +23,10 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class DashBoardState extends State<AdminDashboard> {
-
   bool cMade = false;
   var jsonTen;
   var jt, isLoading = true;
+  GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -58,9 +57,18 @@ class DashBoardState extends State<AdminDashboard> {
   }
 
   void _googleSignOut() {
-    signOutUsingGoogle();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
+    if (ns.hasConnection) {
+      signOutUsingGoogle();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    } else
+      _scaffoldkey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('Please check your internet Connection!'),
+        ),
+      );
   }
 
   void signOutUsingGoogle() async {
@@ -85,11 +93,20 @@ class DashBoardState extends State<AdminDashboard> {
     return jt;
   }
 
+  void nav(res, BuildContext context) {
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
+    ns.jt = res.body;
+    Navigator.pushReplacementNamed(context, '/adminDashb');
+  }
+
   @override
   Widget build(BuildContext context) {
-    var ns = Provider.of<States>(context);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     ns.checkConnection();
     return Scaffold(
+        key: _scaffoldkey,
         backgroundColor: Colors.blueGrey,
         body: Center(
             child: FutureBuilder<User>(
@@ -116,10 +133,10 @@ class DashBoardState extends State<AdminDashboard> {
                 if (snapshot.hasError) {
                   // if(snapshot.error == )
                   return new Text("Error: ${snapshot.error}");
-                } else {
+                } else if (snapshot.hasData) {
+                  print(snapshot.data.status);
                   if (snapshot.data.status != 0) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.pushReplacementNamed(context,'/login');
                   }
                   String fN =
                       ReCase(snapshot.data.username.split(' ')[0]).pascalCase;
@@ -163,15 +180,7 @@ class DashBoardState extends State<AdminDashboard> {
                               setState(() {
                                 isLoading = false;
                               });
-                              jt.then((res) => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Administration(
-                                                  jk: res.body,
-                                                )))
-                                  });
+                              jt.then((res) => nav(res, context));
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -250,13 +259,10 @@ class DashBoardState extends State<AdminDashboard> {
                                 onPressed: () {
                                   if (snapshot.data.source == 'SQL') {
                                     http.get(
-                                        'https://192.168.43.8/actions/app/logout.php?nin=' +
+                                        'http://192.168.43.8/actions/app/logout.php?nin=' +
                                             snapshot.data.userId);
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyHomePage()));
+                                    Navigator.pushReplacementNamed(
+                                        context, '/home');
                                   } else if (snapshot.data.source == 'Google') {
                                     _googleSignOut();
                                   } else if (snapshot.data.source ==

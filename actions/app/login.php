@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 require_once('../../includes/db.inc.php');
     $response = array();
     $email = mysqli_real_escape_string($con, $_POST['user']);
@@ -21,7 +22,7 @@ require_once('../../includes/db.inc.php');
 	    $sql = mysqli_query($con, $online);
             $sql = 'select fName, lName from NINS where NIN = "'.$result['NIN'].'"';
             $sql = mysqli_query($con,$sql);
-	    if(result['level'] == 0){
+	    if($result['level'] == 0){
 		$id = 'select image from Manager where NIN = "'.$result['NIN'].'"';
 		    $id = mysqli_query($con,$id);
 		    $results = mysqli_fetch_assoc($sql);

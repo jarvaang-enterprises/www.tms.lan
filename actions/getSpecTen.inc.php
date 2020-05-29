@@ -65,6 +65,7 @@ function getDetails($id = 0)
     $timg = $init_data['ten_img_id'];
     $details['img'] = getTenImg($timg);
     $hid = $init_data['house_id'];
+    $details['data'] = var_export($init_data, true);
     $details['house'] = getHouseDetails($hid);
     $details['services'] = getServiceInfo($hid);
     return $details;

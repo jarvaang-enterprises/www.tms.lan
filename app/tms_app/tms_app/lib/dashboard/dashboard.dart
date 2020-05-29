@@ -8,13 +8,11 @@ import 'package:recase/recase.dart';
 import 'package:tms_app/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:tms_app/states/states.dart';
+import 'package:tms_app/widgets/TenDataProv.dart';
 
 import '../choice.dart';
 
 class Dashboard extends StatefulWidget {
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
-  Dashboard({Key key, this.auth, this.googleSignIn}) : super(key: key);
   @override
   DashBoardState createState() => new DashBoardState();
 }
@@ -28,29 +26,31 @@ class DashBoardState extends State<Dashboard> {
       _value = choice;
     });
     if (choice.title == 'Logout') {
-      if(source == 'SQL'){
-	http.get('http://192.168.43.8/actions/app/logout.php?nin='+nin);
-	 Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyHomePage()));
-       } else if( source == 'Google' ){ 
-	 _googleSignOut() ;
-       }
+      if (source == 'SQL') {
+        http.get('http://192.168.43.8/actions/app/logout.php?nin=' + nin);
+        Navigator.pushReplacementNamed(
+            context, '/home');
+      } else if (source == 'Google') {
+        _googleSignOut();
+      }
     }
   }
 
   void _googleSignOut() {
-    signOutUsingGoogle();
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MyHomePage()));
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
+    if (ns.hasConnection) {
+      signOutUsingGoogle();
+      Navigator.pushReplacementNamed(
+          context, '/home');
+    }
   }
-  
-  void signOutUsingGoogle() async{
-    await widget.auth.signOut().then((_){
-      widget.googleSignIn.signOut();
+
+  void signOutUsingGoogle() async {
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
+    await ns.auth.signOut().then((_) {
+      ns.googleSignIn.signOut();
       print("Signed out successfully");
     });
   }
@@ -59,7 +59,8 @@ class DashBoardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-  var ns = Provider.of<States>(context);
+    var app = Provider.of<TenDataProv>(context, listen: false);
+    var ns = app.states;
     return FutureBuilder<User>(
       future: ns.user,
       builder: (context, snapshot) {
@@ -85,10 +86,9 @@ class DashBoardState extends State<Dashboard> {
               return new Text("Error: ${snapshot.error}");
             } else {
               if (snapshot.data.status != 0) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.pushReplacementNamed(context, '/login');
               }
-	      nin = snapshot.data.userId;
+              nin = snapshot.data.userId;
               source = snapshot.data.source;
               String fN =
                   ReCase(snapshot.data.username.split(' ')[0]).pascalCase;
