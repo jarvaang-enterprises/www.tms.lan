@@ -38,15 +38,18 @@
 						<li class="nav-item">
 							<a href="#addtenant" onclick="addTen()" class="nav-link" id="add_ten">New Tenant</a>
 						</li>
-						<li class="nav-item dropdown" style="padding: 0px 25px">
-							<a href="javascript:void(0)" class="nav-link" data-menu="more-navs" data-toggle="dropdown" id="more_nav"><i class="fa fa-arrow-circle-down"></i><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#remtenant" onclick="remTen()" class="nav-link" id="rem_ten">Remove Tenant</a></li>
+						<li class="dropdown" role="presentation" style="padding: 0px 25px">
+							<a href="#more" class="dropdown-toggle" data-menu="more-navs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="more_nav"><i class="fa fa-arrow-circle-down"></i><span class="caret"></span></a>
+							<ul class="dropdown-menu dropdown-content">
+								<li class="nav-item"><a href="#remtenant" onclick="remTen()" class="nav-link" id="rem_ten">Remove Tenant</a></li>
+						<span class="divider" style="background-color: black;height: 1px;width: 100%;display: block;"></span>
+								<li class="nav-item"><a href="#housedet" onclick="houseDet()" class="nav-link" id="rem_ten">House Details</a></li>
 							</ul>
 						</li>
 						<li class="nav-item">
 							<a href="#remtenant" onclick="remTen()" class="nav-link more-navs" id="rem_ten">Remove Tenant</a>
 						</li>
+						<li class="nav-item"><a href="#housedet" onclick="houseDet()" class="nav-link more-navs" id="rem_ten">House Details</a></li>
 					<?php
 					} else if (isset($_SESSION['client_logged_in']) && $_SESSION['client_logged_in'] == true) {
 					?>
@@ -116,10 +119,6 @@
 	})
 	if (window.location.pathname == '/man/' || location.pathname == '/man')
 		tendet()
-
-	$('#more_nav').on('click', function() {
-		log(this)
-	})
 </script>
 <style>
 	[data-menu="more-navs"]:hover,

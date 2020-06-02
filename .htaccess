@@ -5,6 +5,7 @@ RewriteRule ^/?tenspec(/.*)?$ /actions/getSpecTen.inc.php$1 [L]
 RewriteRule ^/?tenact(/.*)?$ /actions/tenaction.man.php$1 [L]
 RewriteRule ^/?act/checkNin(/.*)?$ /actions/checkNin.php$1 [L]
 RewriteRule ^/?addten(/.*)?$ /actions/addTenant.php$1 [L]
+RewriteRule ^/?api/update(/.*)?$ /actions/updateData.php$1 [L]
 RewriteRule ^/?imgupload(/.*)?$ /includes/cli/image_upload.php$1 [L]
 ErrorDocument 400 /error/bad-request.html
 ErrorDocument 401 /error/unauthorised.html

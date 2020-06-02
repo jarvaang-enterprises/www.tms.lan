@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             }
         } else if (base64_decode($_POST['t']) == 'cust_no') {
             $rest['_info'] = 'Provided Water Customer Number!';
-            $init = 'select * from services where water_cust_no = "' . base64_decode($_POST['sp']) . '"';
+            $init = 'select * from Services where water_cust_no = "' . base64_decode($_POST['sp']) . '"';
             $init = mysqli_query($con, $init);
             if (!$init) die(mysqli_error($con));
             if (mysqli_num_rows($init) == 0) {

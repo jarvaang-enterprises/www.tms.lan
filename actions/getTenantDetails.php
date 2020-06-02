@@ -195,6 +195,7 @@
     }
 </style>
 <script>
+    window.passStrike = window.passStrike || 0;
     // const btob = 'fortheloveoftms(c)pleasedonotusestylingselsewhere'
     function check(e) {
         e.firstChild.checked = true
@@ -430,32 +431,168 @@
         log($(f).children(upd_data)[0].textContent)
         $(upd_field).val($(f).children(upd_data)[0].textContent)
     }
-    $('[class*="update_ten"]').on('click', function() {
-        $("#edit_ten_dialog").dialog({
-            title: 'Select the fields to be editted!',
-            closeOnEscape: true,
-            minHeight: 320,
-            minWidth: 200,
-            modal: true,
-            close: function(event, ui) {
-                loader()
-            },
-            create: function(event, ui) {
-                log(ui)
-            },
-            position: {
-                my: 'top',
-                at: 'center',
-                of: ".update_ten"
-            },
-            buttons: [{
-                text: "Edit Fields",
-                icon: "ui-icon-circle-plus",
-                click: function() {
-                    $(this).dialog("close")
+    const edit = new Object({
+        0: 'fN',
+        1: 'lN',
+        2: 'NIN',
+        3: 'mNo',
+        4: 'hNum',
+        5: 'Email'
+    })
+    var prev_values = new Object();
+    var edit_order = []
+
+    var eo = function(k) {
+        switch (k) {
+            case 0: {
+                return k + ': First Name'
+            }
+            case 1: {
+                return k + ': Last Name'
+            }
+            case 2: {
+                return k + ': National Id Number'
+            }
+            case 3: {
+                return k + ': Mobile Number'
+            }
+            case 4: {
+                return k + ': Home Number'
+            }
+            case 5: {
+                return k + ': Email'
+            }
+            case 6: {
+                return k + ': Water Meter Number'
+            }
+            case 7: {
+                return k + ': Water Customer Number'
+            }
+            case 8: {
+                return k + ': Yaka'
+            }
+            default:
+                break;
+        }
+    }
+    var pe = function(event) {
+        var edit_pwd = 'pr0ce553d17';
+        var password = prompt('Please provide the data edit password?')
+        window.passStrike += 1
+        if (password !== "" || password !== null) {
+            let data = [];
+            if (atob(password) == atob(edit_pwd)) {
+                edit_order.forEach(e_o => {
+                    data.push(parseInt(e_o.toString().split(':')[0]))
+                });
+                var ajaxData = Object()
+                for (const key in edit) {
+                    if (edit.hasOwnProperty(key)) {
+                        const field = edit[key];
+                        data.forEach(index => {
+                            if (parseInt(key) == index) {
+                                const fieldId = '#' + field;
+                                if ($(fieldId).get(0).checked) {
+                                    $(fieldId.toLowerCase()).attr('contenteditable', 'false')
+                                    for (const key in prev_values) {
+                                        if (prev_values.hasOwnProperty(key)) {
+                                            const value = prev_values[key];
+                                            if ($(('#' + edit[key]).toLowerCase()).text().toLowerCase().trim() != value.toString().toLowerCase().trim()) {
+                                                ajaxData[fieldId.toString().split('#')[1]] = $(fieldId.toLowerCase()).text().trim();
+                                                break
+                                            } else continue
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
-            }]
-        })
+                ajaxData['cNIN'] = prev_values[2];
+                ajaxData['end'] = undefined;
+                $.ajax({
+                    url: '/api/update',
+                    type: 'UPDATE',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    traditional: true,
+                    data: ajaxData,
+                    success: (_) => {
+                        log(_)
+                    },
+                    error: (_) => {
+                        log('Error')
+                    }
+                })
+                // log(data)
+                // log(edittedFields)
+                // log(prev_values)
+                $('[class*="update_ten"]').text('Update Tenant Data')
+                $('[class*="update_ten"]').attr('data-btn-action', 'update_ten')
+            } else {
+                if (window.passStrike < 4) {
+                    alert('Wrong password! Try Again;\n\t\t\tStrike: '.concat(window.passStrike).concat(' of 3'))
+                    pe(event)
+                } else {
+                    alert('Contact admin for edit Password!')
+                    window.location.href = window.location.href.replace(location.pathname, '/actions/logout.php')
+                }
+            }
+        }
+    }
+    $('[class*="update_ten"]').on('click', function() {
+        if ($(this).attr('data-btn-action') == 'update_ten')
+            $("#edit_ten_dialog").dialog({
+                title: 'Select the fields to be editted!',
+                closeOnEscape: true,
+                minHeight: 320,
+                minWidth: 200,
+                modal: true,
+                close: function(event, ui) {
+                    loader()
+                    if (edit_order.length)
+                        setTimeout(() => {
+                            $('[class*="update_ten"]').text('Process Edits')
+                            $('[class*="update_ten"]').attr('data-btn-action', 'process_update_ten')
+                        }, 2000)
+                },
+                create: function(event, ui) {
+                    for (const key in edit) {
+                        if (edit.hasOwnProperty(key)) {
+                            const fieldId = '#' + edit[key];
+                            prev_values[key] = $(fieldId.toLowerCase()).text();
+                        }
+                    }
+                },
+                position: {
+                    my: 'center center',
+                    at: 'center center',
+                    of: "#edit_ten"
+                },
+                buttons: [{
+                    text: "Edit Fields",
+                    icon: "ui-icon-circle-plus",
+                    click: function() {
+                        edit_order = []
+                        for (const key in edit) {
+                            if (edit.hasOwnProperty(key)) {
+                                const fieldId = '#' + edit[key];
+                                if ($(fieldId).get(0).checked) {
+                                    $(fieldId.toLowerCase()).attr('contenteditable', 'true')
+                                    edit_order.push(eo(parseInt(key)))
+                                }
+                            }
+                        }
+                        if (edit_order.length)
+                            confirm('Please edit in the order: \n\t' + edit_order.join(',\n\t')) ?
+                            $(this).dialog("close") : null
+                        else $(this).dialog("close")
+                    }
+                }]
+            })
+        else if ($(this).attr('data-btn-action') == 'process_update_ten') {
+            pe(this)
+        }
     })
 
     function loader(ajax = false) {
@@ -518,7 +655,7 @@
             <span id="legend" style="background-color: grey; padding: 3px; border-radius: 10px; color:floralwhite">Tenant Search Results</span>
         </div>
         <div id="edit_ten" class="sr_edit-ten">
-            <button class="tms-button tms-search tms-section tms-block update_ten" type="submit" style="background-color: greenyellow; border-radius: 10px">Update Tenant Data</button>
+            <button class="tms-button tms-search tms-section tms-block update_ten" data-btn-action="update_ten" type="submit" style="background-color: greenyellow; border-radius: 10px">Update Tenant Data</button>
         </div>
         <div id="no-search" class="align-self-center border-1" style="width: max-content; display: inline-block; top: 50%; left: 37%; position: relative">
             <span id="no-search-text" class="alert alert-info">Please carry out a search in the right panel.</span>
@@ -564,7 +701,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-img other">
+            <div class="container-img other" aria-disabled="disabled">
                 <div style="background-color: #8a2be2; top: -12px; left: -70px; padding: 2px 5px; width: max-content; position: relative; cursor: default">
                     <span id="legend" style="background-color: grey; padding: 3px; border-radius: 10px; color:floralwhite">House Details</span>
                 </div>
@@ -612,7 +749,14 @@
         <div class="dialog-body">
             <div class="row" style="padding: 0px">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    
+                    <ul style="list-style:none; display: flexbox; flex-direction: column">
+                        <li><input type="checkbox" name="edit" id="fN">&MediumSpace;First Name</li>
+                        <li><input type="checkbox" name="edit" id="lN">&MediumSpace;Last Name</li>
+                        <li><input type="checkbox" name="edit" id="NIN">&MediumSpace;NIN</li>
+                        <li><input type="checkbox" name="edit" id="mNo">&MediumSpace;Mobile Number</li>
+                        <li><input type="checkbox" name="edit" id="hNum">&MediumSpace;Home Number</li>
+                        <li><input type="checkbox" name="edit" id="Email">&MediumSpace;Email Address</li>
+                    </ul>
                 </div>
             </div>
         </div>
